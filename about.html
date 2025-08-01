@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Data Hawk - Our Mission to Secure Enterprise Data</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #16213e;
+            --accent-color: #0f4c75;
+            --highlight-color: #3282b8;
+            --text-light: #bbe1fa;
+            --text-white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --gradient-2: linear-gradient(135deg, #0f4c75 0%, #3282b8 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #0a0a0a;
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+
+        /* Navigation (same as main page) */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-white);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: '🦅';
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--highlight-color);
+        }
+
+        .cta-button {
+            background: var(--gradient-2);
+            color: var(--text-white);
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(50, 130, 184, 0.3);
+        }
+
+        /* About Hero Section */
+        .about-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5%;
+            margin-top: 80px;
+            position: relative;
+            background: radial-gradient(ellipse at top, #16213e 0%, #0a0a0a 100%);
+        }
+
+        .about-hero-content {
+            max-width: 1000px;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .about-hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            color: var(--text-white);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .about-hero h1 span {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-hero p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            padding: 6rem 5%;
+            background: var(--primary-color);
+        }
+
+        .mission-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .mission-content h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-white);
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-content p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .mission-stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+        }
+
+        .mission-stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--highlight-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .mission-stat-label {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        /* Story Section */
+        .story-section {
+            padding: 6rem 5%;
+            background: #0a0a0a;
+        }
+
+        .story-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .story-container h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-white);
+            margin-bottom: 3rem;
+        }
+
+        .story-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .story-item {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--gradient-1);
+            border-radius: 15px;
+            text-align: left;
+            position: relative;
+            border-left: 3px solid var(--highlight-color);
+            margin-left: 2rem;
+        }
+
+        .story-item::before {
+            content: '';
+            position: absolute;
+            left: -12px;
+            top: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--highlight-color);
+            border-radius: 50%;
+            transform: translateY(-50%);
+        }
+
+        .story-year {
+            font-size: 1rem;
+            color: var(--highlight-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .story-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+        }
+
+        .story-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Values Section */
+        .values-section {
+            padding: 6rem 5%;
+            background: var(--primary-color);
+        }
+
+        .values-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .values-container h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-white);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--highlight-color);
+            box-shadow: 0 15px 40px rgba(50, 130, 184, 0.2);
+        }
+
+        .value-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+        }
+
+        .value-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Leadership Section */
+        .leadership-section {
+            padding: 6rem 5%;
+            background: #0a0a0a;
+        }
+
+        .leadership-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .leadership-container h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-white);
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .leadership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .leader-card {
+            background: var(--gradient-1);
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .leader-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(50, 130, 184, 0.3);
+        }
+
+        .leader-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 0.5rem;
+        }
+
+        .leader-title {
+            font-size: 1.2rem;
+            color: var(--highlight-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .leader-bio {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .about-cta {
+            padding: 6rem 5%;
+            background: var(--gradient-2);
+            text-align: center;
+        }
+
+        .about-cta h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-white);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-cta p {
+            font-size: 1.3rem;
+            color: var(--text-white);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .white-btn {
+            background: white;
+            color: var(--primary-color);
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .white-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+        }
+
+        /* Footer (same as main page) */
+        footer {
+            padding: 4rem 5% 2rem;
+            background: var(--primary-color);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--text-white);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--highlight-color);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mission-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .values-grid,
+            .leadership-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Data Hawk</a>
+            <ul class="nav-links">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#capabilities">Capabilities</a></li>
+                <li><a href="index.html#compliance">Compliance</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="https://calendly.com/contactdatahawk/30min" class="cta-button" target="_blank">Get Started</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Hero Section -->
+    <section class="about-hero">
+        <div class="about-hero-content">
+            <h1>Securing the World's Most <span>Sensitive Data</span></h1>
+            <p>Born from the realization that enterprises need complete control over their data governance, Data Hawk empowers organizations to discover, classify, and protect sensitive information without compromising sovereignty or breaking the bank.</p>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="mission-container">
+            <div class="mission-content">
+                <h2>Our Mission</h2>
+                <p>In an era where data breaches cost millions and compliance violations threaten business continuity, we believe every organization deserves enterprise-grade data protection that they fully control.</p>
+                <p>Data Hawk was founded on a simple principle: <strong>Your data should never leave your infrastructure.</strong> We're building the future of self-hosted data governance, where security meets sovereignty.</p>
+                <p>Our reactive architecture processes petabytes at lightning speed, while our commitment to open standards ensures you're never locked into a vendor ecosystem.</p>
+            </div>
+            <div class="mission-stats">
+                <div class="mission-stat">
+                    <div class="mission-stat-number">100%</div>
+                    <div class="mission-stat-label">Self-Hosted Control</div>
+                </div>
+                <div class="mission-stat">
+                    <div class="mission-stat-number">10,000+</div>
+                    <div class="mission-stat-label">Files/Second</div>
+                </div>
+                <div class="mission-stat">
+                    <div class="mission-stat-number">$0</div>
+                    <div class="mission-stat-label">Per-Scan Fees</div>
+                </div>
+                <div class="mission-stat">
+                    <div class="mission-stat-number">100PB+</div>
+                    <div class="mission-stat-label">Processing Capacity</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="story-section">
+        <div class="story-container">
+            <h2>Our Journey</h2>
+            <div class="story-timeline">
+                <div class="story-item">
+                    <div class="story-year">2023</div>
+                    <div class="story-title">The Spark</div>
+                    <div class="story-description">After witnessing enterprises struggle with expensive, vendor-locked data governance solutions, our founders recognized a critical gap: organizations needed powerful tools they could trust and control completely.</div>
+                </div>
+                <div class="story-item">
+                    <div class="story-year">Early 2024</div>
+                    <div class="story-title">Building the Foundation</div>
+                    <div class="story-description">We assembled a team of distributed systems experts and security engineers to build a reactive architecture capable of processing data at unprecedented scale. The goal: match cloud vendor performance while maintaining complete data sovereignty.</div>
+                </div>
+                <div class="story-item">
+                    <div class="story-year">Mid 2024</div>
+                    <div class="story-title">Breakthrough Performance</div>
+                    <div class="story-description">Our C++ regex engine achieved 5-10x performance improvements over traditional solutions. Combined with GPU acceleration readiness, Data Hawk became the fastest self-hosted data governance platform available.</div>
+                </div>
+                <div class="story-item">
+                    <div class="story-year">Today</div>
+                    <div class="story-title">Empowering Enterprises</div>
+                    <div class="story-description">Data Hawk now protects sensitive data for organizations worldwide, processing petabytes daily while maintaining sub-100ms latency. Our commitment to self-hosted excellence continues to drive innovation.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values-section">
+        <div class="values-container">
+            <h2>Our Values</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🔒</div>
+                    <div class="value-title">Data Sovereignty First</div>
+                    <div class="value-description">Your data never leaves your infrastructure. We believe in absolute control and transparency in data governance.</div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">⚡</div>
+                    <div class="value-title">Performance Without Compromise</div>
+                    <div class="value-description">Enterprise-grade doesn't mean slow. We obsess over milliseconds and optimize every line of code.</div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🛠️</div>
+                    <div class="value-title">Built for Developers</div>
+                    <div class="value-description">Clean APIs, comprehensive documentation, and a architecture that developers actually enjoy working with.</div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">💡</div>
+                    <div class="value-title">Radical Transparency</div>
+                    <div class="value-description">Open about our roadmap, honest about our limitations, and committed to building in public.</div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <div class="value-title">Customer Success</div>
+                    <div class="value-description">Your success is our success. We measure ourselves by the data breaches prevented and compliance achieved.</div>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">🚀</div>
+                    <div class="value-title">Continuous Innovation</div>
+                    <div class="value-description">From reactive architectures to GPU acceleration, we're always pushing the boundaries of what's possible.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Leadership Section -->
+    <section class="leadership-section">
+        <div class="leadership-container">
+            <h2>Leadership</h2>
+            <div class="leadership-grid">
+                <div class="leader-card">
+                    <div class="leader-name">Ravi Kalla</div>
+                    <div class="leader-title">Founder & CEO</div>
+                    <div class="leader-bio">A passionate technologist with deep expertise in distributed systems and data security. Ravi founded Data Hawk to democratize enterprise-grade data governance, making it accessible and affordable for organizations of all sizes. His vision of self-hosted, high-performance data protection drives our innovation forward.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="about-cta">
+        <h2>Join Us in Revolutionizing Data Governance</h2>
+        <p>Whether you're securing your first terabyte or your hundredth petabyte, we're here to help you take control of your data destiny.</p>
+        <div class="cta-buttons">
+            <a href="https://calendly.com/contactdatahawk/30min" class="white-btn" target="_blank">Schedule a Demo</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Data Hawk</h3>
+                <p>Enterprise-grade data governance and sensitive data protection for modern organizations.</p>
+                <p style="margin-top: 1rem;">
+                    <a href="mailto:contactdatahawk@gmail.com" style="color: var(--text-light); text-decoration: none;">✉️ contactdatahawk@gmail.com</a><br>
+                    <a href="tel:585-281-9787" style="color: var(--text-light); text-decoration: none;">📞 585-281-9787</a>
+                </p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Product</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html#features">Features</a></li>
+                    <li><a href="index.html#capabilities">Capabilities</a></li>
+                    <li><a href="index.html#pricing">Pricing</a></li>
+                    <li><a href="index.html#docs">Documentation</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="#careers">Careers</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="mailto:contactdatahawk@gmail.com">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#support">Support</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <li><a href="#partners">Partners</a></li>
+                    <li><a href="#security">Security</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Data Hawk. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+</body>
+</html>
