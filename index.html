@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Hawk - Protect Sensitive Data from AI Exposure | LLM Shield</title>
     <meta name="description" content="Enterprise-grade proxy that prevents PII, credentials, and confidential data from reaching LLMs - both incoming and outgoing">
+
+    <!-- GSAP Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+
     <style>
         * {
             margin: 0;
@@ -46,6 +52,53 @@
             color: var(--text-dark);
             overflow-x: hidden;
             line-height: 1.6;
+        }
+
+        /* Animation-ready classes */
+        .line-wrapper {
+            overflow: hidden;
+            display: block;
+        }
+
+        .line-inner {
+            display: block;
+        }
+
+        /* Only hide text when animation is ready */
+        .animate-ready .line-inner {
+            transform: translateY(100%);
+        }
+
+        /* Fallback: Show text after 1 second if animation doesn't run */
+        @keyframes ensureVisible {
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .line-inner {
+            animation: ensureVisible 0.1s 1s forwards;
+        }
+
+        .fade-in {
+            opacity: 0;
+        }
+
+        .slide-up {
+            opacity: 0;
+            transform: translate3d(0, 40px, 0);
+        }
+
+        .slide-left {
+            opacity: 0;
+            transform: translate3d(-30px, 0, 0);
+        }
+
+        .slide-right {
+            opacity: 0;
+            transform: translate3d(30px, 0, 0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.95);
         }
 
         /* Navigation */
@@ -271,6 +324,102 @@
             color: var(--text-medium);
         }
 
+        /* How It Works - Workflow Animation */
+        .workflow-section {
+            padding: 4rem 5%;
+            background: var(--primary-color);
+        }
+
+        .workflow-container {
+            max-width: 1200px;
+            margin: 3rem auto 0;
+            position: relative;
+        }
+
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .workflow-arrow {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            opacity: 0;
+        }
+
+        .workflow-step {
+            flex: 1;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid var(--tertiary-color);
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow-subtle);
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .workflow-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-2);
+        }
+
+        .workflow-step-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .workflow-step-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .workflow-step-description {
+            color: var(--text-medium);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .workflow-step-number {
+            position: absolute;
+            top: -15px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
+            background: var(--gradient-2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* Animated data flow line */
+        .data-flow-line {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent 0%, var(--accent-color) 50%, transparent 100%);
+            transform: translateY(-50%) scaleX(0);
+            transform-origin: left;
+            z-index: -1;
+        }
+
         /* Protection Layers */
         .protection-layers {
             padding: 4rem 5%;
@@ -312,16 +461,22 @@
             box-shadow: var(--shadow-strong);
         }
 
+        .layer-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.75rem;
+        }
+
         .layer-icon {
             font-size: 2.5rem;
-            margin-bottom: 0.75rem;
+            flex-shrink: 0;
         }
 
         .layer-title {
             font-size: 1.4rem;
             font-weight: 600;
             color: var(--text-dark);
-            margin-bottom: 0.75rem;
         }
 
         .layer-description {
@@ -380,7 +535,7 @@
         /* Use Cases */
         .use-cases {
             padding: 4rem 5%;
-            background: var(--primary-color);
+            background: white;
         }
 
         .use-case-grid {
@@ -392,7 +547,7 @@
         }
 
         .use-case-card {
-            background: white;
+            background: var(--primary-color);
             padding: 2rem;
             border-radius: 10px;
             border: 2px solid var(--tertiary-color);
@@ -629,7 +784,7 @@
         /* Comparison Table */
         .comparison-section {
             padding: 4rem 5%;
-            background: var(--primary-color);
+            background: white;
         }
 
         .comparison-table {
@@ -818,6 +973,18 @@
             .layer-card {
                 padding: 1.25rem;
             }
+
+            .workflow-steps {
+                flex-direction: column;
+            }
+
+            .workflow-arrow {
+                transform: rotate(90deg);
+            }
+
+            .data-flow-line {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -827,6 +994,7 @@
         <div class="nav-container">
             <a href="#" class="logo">Data Hawk</a>
             <ul class="nav-links">
+                <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#protection">Protection</a></li>
                 <li><a href="#use-cases">Use Cases</a></li>
                 <li><a href="#integration">Integration</a></li>
@@ -839,11 +1007,11 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Protect Sensitive Data from <span>AI Exposure</span></h1>
-            <p>Enterprise-grade proxy that prevents PII, credentials, and confidential data from reaching LLMs — protecting both user inputs and AI outputs in real-time</p>
+            <h1 id="hero-headline">Protect Sensitive Data from <span>AI Exposure</span></h1>
+            <p id="hero-subtext" class="slide-up">Enterprise-grade proxy that prevents PII, credentials, and confidential data from reaching LLMs — protecting both user inputs and AI outputs in real-time</p>
             <div class="hero-cta">
-                <a href="https://calendly.com/contactdatahawk/30min" class="primary-btn" target="_blank">Schedule Demo →</a>
-                <a href="#protection" class="secondary-btn">See How It Works</a>
+                <a href="https://calendly.com/contactdatahawk/30min" class="primary-btn slide-up" target="_blank">Schedule Demo →</a>
+                <a href="#how-it-works" class="secondary-btn slide-up">See How It Works</a>
             </div>
         </div>
     </section>
@@ -851,35 +1019,82 @@
     <!-- Stats Section -->
     <section class="stats">
         <div class="stats-container">
-            <div class="stat-card">
+            <div class="stat-card scale-in">
                 <div class="stat-number">95%</div>
                 <div class="stat-label">Detection Accuracy</div>
             </div>
-            <div class="stat-card">
-                <div class="stat-number"><50ms</div>
+            <div class="stat-card scale-in">
+                <div class="stat-number">&lt;50ms</div>
                 <div class="stat-label">P95 Latency</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card scale-in">
                 <div class="stat-number">1,713</div>
                 <div class="stat-label">Requests/Second</div>
             </div>
-            <div class="stat-card">
+            <div class="stat-card scale-in">
                 <div class="stat-number">100%</div>
                 <div class="stat-label">Self-Hosted</div>
             </div>
         </div>
     </section>
 
+    <!-- How It Works - Workflow Animation Section -->
+    <section class="workflow-section" id="how-it-works">
+        <h2 class="section-title animate-headline">How Data Hawk Works</h2>
+        <p class="section-subtitle slide-up">Transparent protection in four simple steps</p>
+
+        <div class="workflow-container">
+            <div class="data-flow-line"></div>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="workflow-step-number">1</div>
+                    <div class="workflow-step-icon">📥</div>
+                    <h3 class="workflow-step-title">User Request</h3>
+                    <p class="workflow-step-description">User sends prompt with sensitive data (SSN, API keys, credit cards)</p>
+                </div>
+
+                <div class="workflow-arrow">→</div>
+
+                <div class="workflow-step">
+                    <div class="workflow-step-number">2</div>
+                    <div class="workflow-step-icon">🛡️</div>
+                    <h3 class="workflow-step-title">Data Hawk Filter</h3>
+                    <p class="workflow-step-description">Real-time detection & redaction using 14+ pattern types in &lt;50ms</p>
+                </div>
+
+                <div class="workflow-arrow">→</div>
+
+                <div class="workflow-step">
+                    <div class="workflow-step-number">3</div>
+                    <div class="workflow-step-icon">🤖</div>
+                    <h3 class="workflow-step-title">LLM Processing</h3>
+                    <p class="workflow-step-description">Sanitized request sent to OpenAI/Claude/etc. for processing</p>
+                </div>
+
+                <div class="workflow-arrow">→</div>
+
+                <div class="workflow-step">
+                    <div class="workflow-step-number">4</div>
+                    <div class="workflow-step-icon">✅</div>
+                    <h3 class="workflow-step-title">Protected Response</h3>
+                    <p class="workflow-step-description">Output scanned again, safe response returned to user</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Protection Layers -->
     <section class="protection-layers" id="protection">
-        <h2 class="section-title">Four-Layer Protection System</h2>
-        <p class="section-subtitle">Comprehensive security for every stage of AI interaction</p>
+        <h2 class="section-title animate-headline">Four-Layer Protection System</h2>
+        <p class="section-subtitle slide-up">Comprehensive security for every stage of AI interaction</p>
 
         <div class="layers-grid">
             <!-- Layer 1 -->
-            <div class="layer-card">
-                <div class="layer-icon">🛡️</div>
-                <h3 class="layer-title">User Input Protection</h3>
+            <div class="layer-card slide-up">
+                <div class="layer-header">
+                    <div class="layer-icon">💬</div>
+                    <h3 class="layer-title">User Input Protection</h3>
+                </div>
                 <p class="layer-description">Filters user prompts in real-time before reaching any LLM provider</p>
                 <ul class="layer-features">
                     <li>Real-time pattern detection (14+ types)</li>
@@ -889,7 +1104,7 @@
                 </ul>
                 <div class="layer-stats">
                     <div class="layer-stat">
-                        <div class="layer-stat-value"><50ms</div>
+                        <div class="layer-stat-value">&lt;50ms</div>
                         <div class="layer-stat-label">Latency</div>
                     </div>
                     <div class="layer-stat">
@@ -900,9 +1115,11 @@
             </div>
 
             <!-- Layer 2 -->
-            <div class="layer-card">
-                <div class="layer-icon">🔍</div>
-                <h3 class="layer-title">LLM Output Protection</h3>
+            <div class="layer-card slide-up">
+                <div class="layer-header">
+                    <div class="layer-icon">🤖</div>
+                    <h3 class="layer-title">LLM Output Protection</h3>
+                </div>
                 <p class="layer-description">Scans AI responses for leaked sensitive data before users see them</p>
                 <ul class="layer-features">
                     <li>Bidirectional filtering (input + output)</li>
@@ -923,9 +1140,11 @@
             </div>
 
             <!-- Layer 3 -->
-            <div class="layer-card">
-                <div class="layer-icon">📚</div>
-                <h3 class="layer-title">Training Data Protection</h3>
+            <div class="layer-card slide-up">
+                <div class="layer-header">
+                    <div class="layer-icon">📚</div>
+                    <h3 class="layer-title">Training Data Protection</h3>
+                </div>
                 <p class="layer-description">Sanitizes documents before LLM training, fine-tuning, or RAG ingestion</p>
                 <ul class="layer-features">
                     <li>Batch processing for large datasets</li>
@@ -946,9 +1165,11 @@
             </div>
 
             <!-- Layer 4 -->
-            <div class="layer-card">
-                <div class="layer-icon">💻</div>
-                <h3 class="layer-title">Developer Tool Shield</h3>
+            <div class="layer-card slide-up">
+                <div class="layer-header">
+                    <div class="layer-icon">💻</div>
+                    <h3 class="layer-title">Developer Tool Shield</h3>
+                </div>
                 <p class="layer-description">Protects code and context from IDE tools like Claude Code, Copilot, Cursor</p>
                 <ul class="layer-features">
                     <li>Zero code changes (transparent proxy)</li>
@@ -972,12 +1193,12 @@
 
     <!-- Use Cases -->
     <section class="use-cases" id="use-cases">
-        <h2 class="section-title">Real-World Protection Scenarios</h2>
-        <p class="section-subtitle">From customer support to developer tools — see Data Hawk in action</p>
+        <h2 class="section-title animate-headline">Real-World Protection Scenarios</h2>
+        <p class="section-subtitle slide-up">From customer support to developer tools — see Data Hawk in action</p>
 
         <div class="use-case-grid">
             <!-- Use Case 1 -->
-            <div class="use-case-card">
+            <div class="use-case-card slide-up">
                 <div class="use-case-header">
                     <div class="use-case-icon">🎧</div>
                     <h3 class="use-case-title">Customer Support AI</h3>
@@ -1021,7 +1242,7 @@
             </div>
 
             <!-- Use Case 2 -->
-            <div class="use-case-card">
+            <div class="use-case-card slide-up">
                 <div class="use-case-header">
                     <div class="use-case-icon">💻</div>
                     <h3 class="use-case-title">Developer AI Tools</h3>
@@ -1067,7 +1288,7 @@
             </div>
 
             <!-- Use Case 3: Claude Code Protection -->
-            <div class="use-case-card">
+            <div class="use-case-card slide-up">
                 <div class="use-case-header">
                     <div class="use-case-icon">🔌</div>
                     <h3 class="use-case-title">Claude Code / Copilot</h3>
@@ -1113,7 +1334,7 @@
             </div>
 
             <!-- Use Case 4 -->
-            <div class="use-case-card">
+            <div class="use-case-card slide-up">
                 <div class="use-case-header">
                     <div class="use-case-icon">📚</div>
                     <h3 class="use-case-title">RAG / Knowledge Base</h3>
@@ -1157,93 +1378,22 @@
                     <div class="roi-text">💰 ROI: GDPR compliance + Safe AI training</div>
                 </div>
             </div>
-
-            <!-- Use Case 5 -->
-            <div class="use-case-card">
-                <div class="use-case-header">
-                    <div class="use-case-icon">🔄</div>
-                    <h3 class="use-case-title">LLM Response Filtering</h3>
-                </div>
-
-                <div class="scenario">
-                    <div class="scenario-label danger">❌ WITHOUT Data Hawk</div>
-                    <div class="scenario-content">
-                        <div class="scenario-text">
-                            AI Response: "Based on our records, customer email is john.smith@email.com and phone is 555-123-4567"<br>
-                            → PII leaked in response
-                        </div>
-                        <div class="scenario-result danger">
-                            <div class="scenario-result-label">⚠️ Risk Exposure:</div>
-                            • LLM leaked training data<br>
-                            • Privacy violation<br>
-                            • User sees unauthorized PII
-                        </div>
-                    </div>
-                </div>
-
-                <div class="scenario">
-                    <div class="scenario-label success">✅ WITH Data Hawk</div>
-                    <div class="scenario-content success">
-                        <div class="scenario-text">
-                            AI Response filtered:<br>
-                            "Based on our records, customer email is [EMAIL_REDACTED] and phone is [PHONE_REDACTED]"<br>
-                            → Safe to display
-                        </div>
-                        <div class="scenario-result success">
-                            <div class="scenario-result-label">✓ Protected:</div>
-                            • Output filtering active<br>
-                            • Privacy maintained<br>
-                            • HIPAA §164.308 compliant
-                        </div>
-                    </div>
-                </div>
-
-                <div class="roi-highlight">
-                    <div class="roi-text">💰 Benefit: Bidirectional protection • Prevents AI hallucination leaks</div>
-                </div>
-            </div>
         </div>
     </section>
 
     <!-- Integration Options -->
     <section class="integration-section" id="integration">
-        <h2 class="section-title">Flexible Integration Options</h2>
-        <p class="section-subtitle">Deploy in minutes with zero code changes</p>
+        <h2 class="section-title animate-headline">Flexible Integration Options</h2>
+        <p class="section-subtitle slide-up">Deploy in minutes with zero code changes</p>
 
         <div class="integration-tabs">
             <div class="tab-buttons">
-                <button class="tab-button active" onclick="switchTab(0)">🔌 Transparent Proxy</button>
-                <button class="tab-button" onclick="switchTab(1)">📦 SDK Wrapper</button>
-                <button class="tab-button" onclick="switchTab(2)">🌐 API Gateway</button>
+                <button class="tab-button active" onclick="switchTab(0)">📦 SDK Wrapper</button>
+                <button class="tab-button" onclick="switchTab(1)">🌐 API Gateway</button>
+                <button class="tab-button" onclick="switchTab(2)">🔌 Transparent Proxy</button>
             </div>
 
             <div class="tab-content active" id="tab-0">
-                <h3 class="integration-title">🔌 Zero Code Changes</h3>
-                <p class="integration-description">
-                    The simplest integration — just point your LLM endpoint to Data Hawk. Works with any OpenAI-compatible SDK.
-                </p>
-                <div class="code-block">
-                    <pre><code><span class="code-comment"># Just change your environment variable</span>
-<span class="code-highlight">OPENAI_BASE_URL</span>=<span class="code-string">"https://shield.datahawk.io/v1"</span>
-<span class="code-highlight">OPENAI_API_KEY</span>=<span class="code-string">"your-openai-key"</span>
-
-<span class="code-comment"># Your existing code works unchanged</span>
-import openai
-response = openai.ChatCompletion.create(
-    model="gpt-4",
-    messages=[{"role": "user", "content": "My SSN is 123-45-6789"}]
-)
-<span class="code-comment"># Data Hawk automatically filters before sending to OpenAI</span></code></pre>
-                </div>
-                <div class="integration-features">
-                    <div class="integration-feature">Works with standard OpenAI SDK</div>
-                    <div class="integration-feature">No code modifications</div>
-                    <div class="integration-feature">Drop-in replacement</div>
-                    <div class="integration-feature">Supports all LLM providers</div>
-                </div>
-            </div>
-
-            <div class="tab-content" id="tab-1">
                 <h3 class="integration-title">📦 Native SDK Integration</h3>
                 <p class="integration-description">
                     Use our purpose-built SDKs for Python, Java, or Node.js with additional features like session tracking and custom rules.
@@ -1279,7 +1429,7 @@ response = client.chat.completions.create(
                 </div>
             </div>
 
-            <div class="tab-content" id="tab-2">
+            <div class="tab-content" id="tab-1">
                 <h3 class="integration-title">🌐 Organization-Wide Gateway</h3>
                 <p class="integration-description">
                     Deploy as an API Gateway for centralized protection across all teams and applications. Perfect for enterprise-wide enforcement.
@@ -1311,15 +1461,41 @@ location /v1/ {
                     <div class="integration-feature">Team-wide compliance</div>
                 </div>
             </div>
+
+            <div class="tab-content" id="tab-2">
+                <h3 class="integration-title">🔌 Zero Code Changes</h3>
+                <p class="integration-description">
+                    The simplest integration — just point your LLM endpoint to Data Hawk. Works with any OpenAI-compatible SDK.
+                </p>
+                <div class="code-block">
+                    <pre><code><span class="code-comment"># Just change your environment variable</span>
+<span class="code-highlight">OPENAI_BASE_URL</span>=<span class="code-string">"https://shield.datahawk.io/v1"</span>
+<span class="code-highlight">OPENAI_API_KEY</span>=<span class="code-string">"your-openai-key"</span>
+
+<span class="code-comment"># Your existing code works unchanged</span>
+import openai
+response = openai.ChatCompletion.create(
+    model="gpt-4",
+    messages=[{"role": "user", "content": "My SSN is 123-45-6789"}]
+)
+<span class="code-comment"># Data Hawk automatically filters before sending to OpenAI</span></code></pre>
+                </div>
+                <div class="integration-features">
+                    <div class="integration-feature">Works with standard OpenAI SDK</div>
+                    <div class="integration-feature">No code modifications</div>
+                    <div class="integration-feature">Drop-in replacement</div>
+                    <div class="integration-feature">Supports all LLM providers</div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Comparison Table -->
     <section class="comparison-section">
-        <h2 class="section-title">Why Choose Data Hawk?</h2>
-        <p class="section-subtitle">Built for enterprise security and performance</p>
+        <h2 class="section-title animate-headline">Why Choose Data Hawk?</h2>
+        <p class="section-subtitle slide-up">Built for enterprise security and performance</p>
 
-        <div class="comparison-table">
+        <div class="comparison-table scale-in">
             <table>
                 <thead>
                     <tr>
@@ -1346,7 +1522,7 @@ location /v1/ {
                     </tr>
                     <tr>
                         <td>Latency (P95)</td>
-                        <td><span class="check-mark">✓</span> <50ms</td>
+                        <td><span class="check-mark">✓</span> &lt;50ms</td>
                         <td><span class="warning-mark">⚠</span> 100-500ms</td>
                     </tr>
                     <tr>
@@ -1387,11 +1563,11 @@ location /v1/ {
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="cta-content">
-            <h2>Deploy LLM Shield in 30 Minutes</h2>
-            <p>Protect your organization's sensitive data from AI exposure — self-hosted, secure, and compliant</p>
+            <h2 id="cta-headline">Deploy LLM Shield in 30 Minutes</h2>
+            <p id="cta-subtext" class="slide-up">Protect your organization's sensitive data from AI exposure — self-hosted, secure, and compliant</p>
             <div class="cta-buttons">
-                <a href="https://calendly.com/contactdatahawk/30min" class="white-btn" target="_blank">Schedule Demo</a>
-                <a href="mailto:contactdatahawk@gmail.com" class="secondary-btn" style="border-color: white; color: white;">Contact Sales</a>
+                <a href="https://calendly.com/contactdatahawk/30min" class="white-btn slide-up" target="_blank">Schedule Demo</a>
+                <a href="mailto:contactdatahawk@gmail.com" class="secondary-btn slide-up" style="border-color: white; color: white;">Contact Sales</a>
             </div>
         </div>
     </section>
@@ -1440,19 +1616,293 @@ location /v1/ {
     </footer>
 
     <script>
+        // Tab switching function
         function switchTab(index) {
-            // Hide all tab contents
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
 
-            // Remove active class from all buttons
             const buttons = document.querySelectorAll('.tab-button');
             buttons.forEach(button => button.classList.remove('active'));
 
-            // Show selected tab content
             document.getElementById('tab-' + index).classList.add('active');
             buttons[index].classList.add('active');
         }
+
+        // Ensure GSAP and libraries are loaded
+        if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof SplitType === 'undefined') {
+            console.error('Animation libraries not loaded properly');
+        }
+
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Check for reduced motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!prefersReducedMotion) {
+            try {
+                // ========================================
+                // HERO SECTION ANIMATIONS
+                // ========================================
+
+                // Hero headline - line by line animation
+                const heroHeadline = new SplitType('#hero-headline', { types: 'lines' });
+
+                heroHeadline.lines.forEach(line => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'line-wrapper';
+                    line.parentNode.insertBefore(wrapper, line);
+                    wrapper.appendChild(line);
+                    line.classList.add('line-inner');
+                });
+
+                // Use setTimeout to ensure animation runs before hiding text
+                setTimeout(() => {
+                    document.querySelector('#hero-headline').classList.add('animate-ready');
+                }, 50);
+
+                const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.1 });
+
+                heroTimeline
+                    .to('#hero-headline .line-inner', {
+                        yPercent: 0,
+                        duration: 0.8,
+                        stagger: 0.1
+                    })
+                    .to('#hero-subtext', {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.6
+                    }, '-=0.5')
+                    .to('.hero-cta .slide-up', {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.5,
+                        stagger: 0.15
+                    }, '-=0.4');
+            } catch (error) {
+                console.error('Hero animation error:', error);
+                // Ensure text is visible if animation fails
+                document.querySelector('#hero-headline').classList.remove('animate-ready');
+            }
+
+            // ========================================
+            // STATS SECTION
+            // ========================================
+
+            gsap.to('.stats .scale-in', {
+                opacity: 1,
+                scale: 1,
+                duration: 0.5,
+                stagger: 0.1,
+                ease: 'back.out(1.2)',
+                scrollTrigger: {
+                    trigger: '.stats',
+                    start: 'top 80%'
+                }
+            });
+
+            // ========================================
+            // WORKFLOW ANIMATION
+            // ========================================
+
+            const workflowSteps = document.querySelectorAll('.workflow-step');
+            const workflowArrows = document.querySelectorAll('.workflow-arrow');
+            const dataFlowLine = document.querySelector('.data-flow-line');
+
+            const workflowTimeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.workflow-section',
+                    start: 'top 60%'
+                }
+            });
+
+            // Animate data flow line first
+            workflowTimeline.to(dataFlowLine, {
+                scaleX: 1,
+                duration: 1.5,
+                ease: 'power2.inOut'
+            });
+
+            // Animate steps with stagger
+            workflowSteps.forEach((step, index) => {
+                workflowTimeline.to(step, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.6,
+                    ease: 'back.out(1.3)'
+                }, index * 0.3);
+
+                // Animate arrows between steps
+                if (index < workflowArrows.length) {
+                    workflowTimeline.to(workflowArrows[index], {
+                        opacity: 1,
+                        duration: 0.3
+                    }, index * 0.3 + 0.2);
+                }
+            });
+
+            // ========================================
+            // SECTION HEADLINES WITH LINE ANIMATION
+            // ========================================
+
+            document.querySelectorAll('.animate-headline').forEach(headline => {
+                const split = new SplitType(headline, { types: 'lines' });
+
+                split.lines.forEach(line => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'line-wrapper';
+                    line.parentNode.insertBefore(wrapper, line);
+                    wrapper.appendChild(line);
+                    line.classList.add('line-inner');
+                });
+
+                // Add animate-ready class to trigger the hidden state
+                headline.classList.add('animate-ready');
+
+                gsap.to(headline.querySelectorAll('.line-inner'), {
+                    yPercent: 0,
+                    duration: 0.7,
+                    stagger: 0.08,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: headline,
+                        start: 'top 75%'
+                    }
+                });
+            });
+
+            // ========================================
+            // SLIDE UP ANIMATIONS
+            // ========================================
+
+            gsap.utils.toArray('.slide-up').forEach(element => {
+                gsap.to(element, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 80%'
+                    }
+                });
+            });
+
+            // ========================================
+            // SCALE IN ANIMATIONS
+            // ========================================
+
+            gsap.utils.toArray('.scale-in').forEach(element => {
+                gsap.to(element, {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'back.out(1.2)',
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 75%'
+                    }
+                });
+            });
+
+            // ========================================
+            // LAYER CARDS STAGGER
+            // ========================================
+
+            const layerCards = document.querySelectorAll('.layer-card');
+
+            layerCards.forEach((card, index) => {
+                gsap.to(card, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.7,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 75%'
+                    },
+                    delay: index * 0.1
+                });
+            });
+
+            // ========================================
+            // USE CASE CARDS
+            // ========================================
+
+            const useCaseCards = document.querySelectorAll('.use-case-card');
+
+            useCaseCards.forEach((card, index) => {
+                gsap.to(card, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.7,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 75%'
+                    },
+                    delay: index * 0.1
+                });
+            });
+
+            // ========================================
+            // CTA SECTION
+            // ========================================
+
+            const ctaHeadline = new SplitType('#cta-headline', { types: 'lines' });
+
+            ctaHeadline.lines.forEach(line => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'line-wrapper';
+                line.parentNode.insertBefore(wrapper, line);
+                wrapper.appendChild(line);
+                line.classList.add('line-inner');
+            });
+
+            // Add animate-ready class to trigger the hidden state
+            document.querySelector('#cta-headline').classList.add('animate-ready');
+
+            const ctaTimeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '.cta-section',
+                    start: 'top 80%'
+                }
+            });
+
+            ctaTimeline
+                .to('#cta-headline .line-inner', {
+                    yPercent: 0,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: 'power3.out'
+                })
+                .to('#cta-subtext', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6
+                }, '-=0.6')
+                .to('.cta-buttons .slide-up', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    stagger: 0.15
+                }, '-=0.4');
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
