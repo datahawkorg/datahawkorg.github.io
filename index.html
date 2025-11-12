@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Hawk - Enterprise Data Governance & Sensitive Data Protection</title>
+    <title>Data Hawk - Protect Sensitive Data from AI Exposure | LLM Shield</title>
+    <meta name="description" content="Enterprise-grade proxy that prevents PII, credentials, and confidential data from reaching LLMs - both incoming and outgoing">
     <style>
         * {
             margin: 0;
@@ -12,21 +13,39 @@
         }
 
         :root {
-            --primary-color: #1a1a2e;
-            --secondary-color: #16213e;
-            --accent-color: #0f4c75;
-            --highlight-color: #3282b8;
-            --text-light: #bbe1fa;
+            /* Corporate Steel Grey Theme - Traditional & Trustworthy */
+            --primary-color: #f8f9fa;
+            --secondary-color: #e9ecef;
+            --tertiary-color: #dee2e6;
+            --accent-color: #6c757d;
+            --highlight-color: #495057;
+            --text-dark: #212529;
+            --text-medium: #495057;
+            --text-light: #6c757d;
             --text-white: #ffffff;
-            --gradient-1: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            --gradient-2: linear-gradient(135deg, #0f4c75 0%, #3282b8 100%);
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+
+            /* Gradients */
+            --gradient-1: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --gradient-2: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            --gradient-3: linear-gradient(135deg, #ef4444 0%, #f59e0b 100%);
+            --gradient-4: linear-gradient(135deg, #495057 0%, #6c757d 100%);
+            --gradient-hero: radial-gradient(ellipse at top, rgba(108, 117, 125, 0.1) 0%, #f8f9fa 100%);
+
+            /* Shadows */
+            --shadow-subtle: 0 1px 3px rgba(33, 37, 41, 0.08);
+            --shadow-medium: 0 4px 12px rgba(33, 37, 41, 0.1);
+            --shadow-strong: 0 8px 24px rgba(33, 37, 41, 0.14);
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background-color: #0a0a0a;
-            color: var(--text-light);
+            background-color: var(--primary-color);
+            color: var(--text-dark);
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         /* Navigation */
@@ -34,11 +53,13 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(26, 26, 46, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
             padding: 1rem 5%;
             z-index: 1000;
             transition: all 0.3s ease;
+            border-bottom: 2px solid var(--tertiary-color);
+            box-shadow: var(--shadow-subtle);
         }
 
         .nav-container {
@@ -51,12 +72,13 @@
 
         .logo {
             font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--text-white);
+            font-weight: 600;
+            color: var(--text-dark);
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            letter-spacing: -0.3px;
         }
 
         .logo::before {
@@ -72,7 +94,7 @@
         }
 
         .nav-links a {
-            color: var(--text-light);
+            color: var(--text-medium);
             text-decoration: none;
             transition: color 0.3s ease;
             font-weight: 500;
@@ -84,29 +106,31 @@
 
         .cta-button {
             background: var(--gradient-2);
-            color: var(--text-white);
+            color: #ffffff !important;
             padding: 0.7rem 1.5rem;
-            border-radius: 25px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--shadow-medium);
         }
 
         .cta-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(50, 130, 184, 0.3);
+            box-shadow: var(--shadow-strong);
+            color: #ffffff !important;
         }
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
+            min-height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 0 5%;
             margin-top: 80px;
             position: relative;
-            background: radial-gradient(ellipse at top, #16213e 0%, #0a0a0a 100%);
+            background: var(--gradient-hero);
         }
 
         .hero-content {
@@ -116,11 +140,12 @@
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 7vw, 5rem);
-            font-weight: 800;
-            color: var(--text-white);
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 700;
+            color: var(--text-dark);
             margin-bottom: 1.5rem;
             line-height: 1.1;
+            letter-spacing: -0.5px;
         }
 
         .hero h1 span {
@@ -131,10 +156,10 @@
         }
 
         .hero p {
-            font-size: 1.5rem;
-            color: var(--text-light);
+            font-size: 1.4rem;
+            color: var(--text-medium);
             margin-bottom: 2rem;
-            max-width: 800px;
+            max-width: 900px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -144,13 +169,14 @@
             gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
+            margin-bottom: 3rem;
         }
 
         .primary-btn {
             background: var(--gradient-2);
-            color: var(--text-white);
+            color: white;
             padding: 1rem 2.5rem;
-            border-radius: 30px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
@@ -158,34 +184,55 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            box-shadow: var(--shadow-medium);
         }
 
         .primary-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(50, 130, 184, 0.4);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-strong);
         }
 
         .secondary-btn {
             background: transparent;
-            color: var(--text-light);
+            color: var(--text-medium);
             padding: 1rem 2.5rem;
-            border-radius: 30px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
-            border: 2px solid var(--highlight-color);
+            border: 2px solid var(--accent-color);
             transition: all 0.3s ease;
         }
 
         .secondary-btn:hover {
-            background: var(--highlight-color);
-            color: var(--text-white);
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-medium);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* Stats Section */
         .stats {
-            padding: 4rem 5%;
-            background: var(--primary-color);
+            padding: 3rem 5%;
+            background: white;
+            border-top: 1px solid var(--tertiary-color);
         }
 
         .stats-container {
@@ -199,216 +246,470 @@
 
         .stat-card {
             padding: 2rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
+            background: var(--primary-color);
+            border-radius: 10px;
+            border: 2px solid var(--tertiary-color);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-medium);
         }
 
         .stat-number {
             font-size: 3rem;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--highlight-color);
             margin-bottom: 0.5rem;
         }
 
         .stat-label {
             font-size: 1.1rem;
-            color: var(--text-light);
+            color: var(--text-medium);
         }
 
-        /* Timeline Section */
-        .features {
-            padding: 6rem 5%;
+        /* Protection Layers */
+        .protection-layers {
+            padding: 4rem 5%;
+            background: var(--primary-color);
+        }
+
+        .layers-grid {
+            max-width: 1000px;
+            margin: 2rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .layer-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid var(--tertiary-color);
+            transition: all 0.3s ease;
             position: relative;
-            background: #0a0a0a;
+            overflow: hidden;
+            box-shadow: var(--shadow-subtle);
         }
 
-        .features-title {
-            text-align: center;
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--text-white);
-            margin-bottom: 1rem;
-        }
-
-        .features-subtitle {
-            text-align: center;
-            font-size: 1.3rem;
-            color: var(--text-light);
-            margin-bottom: 4rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .timeline {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        /* Vertical Timeline Line */
-        .timeline::before {
+        .layer-card::before {
             content: '';
             position: absolute;
-            left: 50%;
             top: 0;
-            bottom: 0;
-            width: 3px;
+            left: 0;
+            right: 0;
+            height: 4px;
             background: var(--gradient-2);
-            transform: translateX(-50%);
         }
 
-        .timeline-item {
-            position: relative;
-            width: 100%;
-            padding: 2rem 0;
+        .layer-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-color);
+            box-shadow: var(--shadow-strong);
         }
 
-        .timeline-content {
-            position: relative;
-            width: 45%;
-            padding: 2rem;
-            background: var(--gradient-1);
-            border-radius: 15px;
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+        .layer-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
         }
 
-        .timeline-content:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 40px rgba(50, 130, 184, 0.3);
+        .layer-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
         }
 
-        .timeline-item:nth-child(odd) .timeline-content {
-            margin-left: auto;
-            margin-right: 55%;
-        }
-
-        .timeline-item:nth-child(even) .timeline-content {
-            margin-left: 55%;
-        }
-
-        /* Timeline Dot */
-        .timeline-dot {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            width: 25px;
-            height: 25px;
-            background: var(--highlight-color);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            box-shadow: 0 0 0 4px #0a0a0a, 0 0 0 7px var(--accent-color);
-            z-index: 1;
-        }
-
-        .feature-icon {
-            font-size: 3rem;
+        .layer-description {
+            color: var(--text-medium);
+            line-height: 1.5;
             margin-bottom: 1rem;
+            font-size: 0.95rem;
         }
 
-        .feature-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--text-white);
-            margin-bottom: 1rem;
-        }
-
-        .feature-description {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            line-height: 1.6;
-        }
-
-        .feature-list {
-            margin-top: 1rem;
+        .layer-features {
             list-style: none;
+            margin-top: 0.75rem;
         }
 
-        .feature-list li {
-            padding: 0.5rem 0;
+        .layer-features li {
+            padding: 0.35rem 0;
+            color: var(--text-medium);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .layer-features li::before {
+            content: '✓';
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .layer-stats {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--tertiary-color);
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .layer-stat {
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .layer-stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--highlight-color);
+        }
+
+        .layer-stat-label {
+            font-size: 0.85rem;
             color: var(--text-light);
+        }
+
+        /* Use Cases */
+        .use-cases {
+            padding: 4rem 5%;
+            background: var(--primary-color);
+        }
+
+        .use-case-grid {
+            max-width: 1400px;
+            margin: 2rem auto 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+        }
+
+        .use-case-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid var(--tertiary-color);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .use-case-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .use-case-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .use-case-icon {
+            font-size: 2.5rem;
+        }
+
+        .use-case-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .scenario {
+            margin-bottom: 1.5rem;
+        }
+
+        .scenario-label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
 
-        .feature-list li::before {
-            content: '✓';
-            color: var(--highlight-color);
-            font-weight: bold;
+        .scenario-label.danger {
+            color: var(--danger-color);
         }
 
-        /* Capabilities Section */
-        .capabilities {
-            padding: 6rem 5%;
+        .scenario-label.success {
+            color: var(--success-color);
+        }
+
+        .scenario-content {
+            background: var(--secondary-color);
+            padding: 1.25rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .scenario-content.success {
+            border-left-color: var(--success-color);
+        }
+
+        .scenario-text {
+            font-family: 'Courier New', monospace;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .scenario-result {
+            padding: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--text-dark);
+        }
+
+        .scenario-result-label {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .scenario-result.danger {
+            border: 1px solid rgba(239, 68, 68, 0.5);
+        }
+
+        .scenario-result.success {
+            border: 1px solid rgba(16, 185, 129, 0.5);
+        }
+
+        .roi-highlight {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 8px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .roi-text {
+            font-weight: 600;
+            color: var(--success-color);
+            font-size: 0.95rem;
+        }
+
+        /* Integration Section */
+        .integration-section {
+            padding: 4rem 5%;
             background: var(--primary-color);
         }
 
-        .capabilities-grid {
+        .integration-tabs {
             max-width: 1200px;
-            margin: 4rem auto 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
+            margin: 2rem auto 0;
         }
 
-        .capability-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2.5rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tab-button {
+            padding: 1rem 2rem;
+            background: white;
+            border: 2px solid var(--tertiary-color);
+            border-radius: 10px;
+            color: var(--text-medium);
+            font-weight: 600;
+            cursor: pointer;
             transition: all 0.3s ease;
-            border: 1px solid rgba(50, 130, 184, 0.2);
+            box-shadow: var(--shadow-subtle);
         }
 
-        .capability-card:hover {
-            transform: translateY(-5px);
+        .tab-button:hover {
+            border-color: var(--accent-color);
+            background: var(--secondary-color);
+        }
+
+        .tab-button.active {
+            background: var(--gradient-2);
             border-color: var(--highlight-color);
-            box-shadow: 0 15px 40px rgba(50, 130, 184, 0.2);
+            color: white;
         }
 
-        .capability-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 3rem;
+            border-radius: 10px;
+            border: 2px solid var(--tertiary-color);
+            box-shadow: var(--shadow-medium);
         }
 
-        .capability-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-white);
-            margin-bottom: 1rem;
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
         }
 
-        .capability-description {
-            color: var(--text-light);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .integration-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .integration-description {
+            color: var(--text-medium);
+            margin-bottom: 2rem;
             line-height: 1.6;
+        }
+
+        .code-block {
+            background: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid var(--tertiary-color);
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block pre {
+            margin: 0;
+            font-family: 'Courier New', monospace;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .code-highlight {
+            color: var(--highlight-color);
+            font-weight: 600;
+        }
+
+        .code-comment {
+            color: #9ca3af;
+            font-style: italic;
+        }
+
+        .code-string {
+            color: #34d399;
+        }
+
+        .integration-features {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .integration-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem;
+        }
+
+        .integration-feature::before {
+            content: '✓';
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Comparison Table */
+        .comparison-section {
+            padding: 4rem 5%;
+            background: var(--primary-color);
+        }
+
+        .comparison-table {
+            max-width: 1000px;
+            margin: 2rem auto 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--tertiary-color);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--tertiary-color);
+        }
+
+        .comparison-table th {
+            background: var(--secondary-color);
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .comparison-table td {
+            color: var(--text-medium);
+        }
+
+        .comparison-table tr:hover {
+            background: var(--secondary-color);
+        }
+
+        .check-mark {
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .x-mark {
+            color: var(--danger-color);
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .warning-mark {
+            color: var(--warning-color);
+            font-weight: bold;
+            font-size: 1.3rem;
         }
 
         /* CTA Section */
         .cta-section {
-            padding: 6rem 5%;
+            padding: 4rem 5%;
             background: var(--gradient-2);
             text-align: center;
         }
 
         .cta-content h2 {
-            font-size: 3rem;
-            font-weight: 800;
-            color: var(--text-white);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: white;
             margin-bottom: 1.5rem;
+            letter-spacing: -0.5px;
         }
 
         .cta-content p {
             font-size: 1.3rem;
-            color: var(--text-white);
+            color: white;
             margin-bottom: 2rem;
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
         .cta-buttons {
@@ -420,25 +721,26 @@
 
         .white-btn {
             background: white;
-            color: var(--primary-color);
+            color: var(--text-dark);
             padding: 1rem 2.5rem;
-            border-radius: 30px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
             font-size: 1.1rem;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .white-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
 
         /* Footer */
         footer {
             padding: 4rem 5% 2rem;
             background: var(--primary-color);
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 2px solid var(--tertiary-color);
         }
 
         .footer-content {
@@ -451,9 +753,10 @@
         }
 
         .footer-section h3 {
-            color: var(--text-white);
+            color: var(--text-dark);
             margin-bottom: 1rem;
             font-size: 1.3rem;
+            font-weight: 600;
         }
 
         .footer-links {
@@ -465,7 +768,7 @@
         }
 
         .footer-links a {
-            color: var(--text-light);
+            color: var(--text-medium);
             text-decoration: none;
             transition: color 0.3s ease;
         }
@@ -477,8 +780,8 @@
         .footer-bottom {
             text-align: center;
             padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-light);
+            border-top: 1px solid var(--tertiary-color);
+            color: var(--text-medium);
         }
 
         /* Responsive */
@@ -487,27 +790,33 @@
                 display: none;
             }
 
-            .timeline::before {
-                left: 30px;
-            }
-
-            .timeline-item:nth-child(odd) .timeline-content,
-            .timeline-item:nth-child(even) .timeline-content {
-                width: calc(100% - 60px);
-                margin-left: 60px;
-                margin-right: 0;
-            }
-
-            .timeline-dot {
-                left: 30px;
-            }
-
             .hero h1 {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
 
             .hero p {
                 font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .use-case-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                overflow-x: auto;
+            }
+
+            .layers-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .layer-card {
+                padding: 1.25rem;
             }
         }
     </style>
@@ -518,9 +827,9 @@
         <div class="nav-container">
             <a href="#" class="logo">Data Hawk</a>
             <ul class="nav-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#capabilities">Capabilities</a></li>
-                <li><a href="#compliance">Compliance</a></li>
+                <li><a href="#protection">Protection</a></li>
+                <li><a href="#use-cases">Use Cases</a></li>
+                <li><a href="#integration">Integration</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="https://calendly.com/contactdatahawk/30min" class="cta-button" target="_blank">Get Started</a></li>
             </ul>
@@ -530,11 +839,11 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Enterprise Data Governance <span>Redefined</span></h1>
-            <p>Discover, classify, and protect sensitive data across your entire enterprise infrastructure with AI-powered precision</p>
+            <h1>Protect Sensitive Data from <span>AI Exposure</span></h1>
+            <p>Enterprise-grade proxy that prevents PII, credentials, and confidential data from reaching LLMs — protecting both user inputs and AI outputs in real-time</p>
             <div class="hero-cta">
                 <a href="https://calendly.com/contactdatahawk/30min" class="primary-btn" target="_blank">Schedule Demo →</a>
-                <a href="#features" class="secondary-btn">Explore Features</a>
+                <a href="#protection" class="secondary-btn">See How It Works</a>
             </div>
         </div>
     </section>
@@ -543,171 +852,543 @@
     <section class="stats">
         <div class="stats-container">
             <div class="stat-card">
-                <div class="stat-number">100PB+</div>
-                <div class="stat-label">Data Processing Capacity</div>
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Detection Accuracy</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number">10,000+</div>
-                <div class="stat-label">Files/Second Throughput</div>
+                <div class="stat-number"><50ms</div>
+                <div class="stat-label">P95 Latency</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number"><100ms</div>
-                <div class="stat-label">Average Latency</div>
+                <div class="stat-number">1,713</div>
+                <div class="stat-label">Requests/Second</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number">100%</div>
-                <div class="stat-label">Self-Hosted Control</div>
+                <div class="stat-label">Self-Hosted</div>
             </div>
         </div>
     </section>
 
-    <!-- Features Timeline Section -->
-    <section class="features" id="features">
-        <h2 class="features-title">Comprehensive Data Protection Journey</h2>
-        <p class="features-subtitle">Follow the path to complete data governance and compliance</p>
-        
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <div class="feature-icon">🔍</div>
-                    <h3 class="feature-title">Discovery & Classification</h3>
-                    <p class="feature-description">Automatically discover and classify sensitive data across all your systems</p>
-                    <ul class="feature-list">
-                        <li>Multi-source data discovery</li>
-                        <li>AI-powered classification</li>
-                        <li>Real-time data mapping</li>
-                        <li>Custom classification rules</li>
-                    </ul>
+    <!-- Protection Layers -->
+    <section class="protection-layers" id="protection">
+        <h2 class="section-title">Four-Layer Protection System</h2>
+        <p class="section-subtitle">Comprehensive security for every stage of AI interaction</p>
+
+        <div class="layers-grid">
+            <!-- Layer 1 -->
+            <div class="layer-card">
+                <div class="layer-icon">🛡️</div>
+                <h3 class="layer-title">User Input Protection</h3>
+                <p class="layer-description">Filters user prompts in real-time before reaching any LLM provider</p>
+                <ul class="layer-features">
+                    <li>Real-time pattern detection (14+ types)</li>
+                    <li>SSN, credit cards, emails, API keys</li>
+                    <li>4 redaction modes: MASK, REPLACE, HASH, TOKEN</li>
+                    <li>Context-aware confidence scoring</li>
+                </ul>
+                <div class="layer-stats">
+                    <div class="layer-stat">
+                        <div class="layer-stat-value"><50ms</div>
+                        <div class="layer-stat-label">Latency</div>
+                    </div>
+                    <div class="layer-stat">
+                        <div class="layer-stat-value">95%</div>
+                        <div class="layer-stat-label">Accuracy</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <div class="feature-icon">🛡️</div>
-                    <h3 class="feature-title">Advanced Pattern Detection</h3>
-                    <p class="feature-description">High-performance regex engine delivers 5-10x faster pattern matching</p>
-                    <ul class="feature-list">
-                        <li>C++ powered regex engine</li>
-                        <li>GPU acceleration ready</li>
-                        <li>Custom pattern library</li>
-                        <li>ML-enhanced detection</li>
-                    </ul>
+            <!-- Layer 2 -->
+            <div class="layer-card">
+                <div class="layer-icon">🔍</div>
+                <h3 class="layer-title">LLM Output Protection</h3>
+                <p class="layer-description">Scans AI responses for leaked sensitive data before users see them</p>
+                <ul class="layer-features">
+                    <li>Bidirectional filtering (input + output)</li>
+                    <li>Prevents training data leakage</li>
+                    <li>Stops hallucinated PII exposure</li>
+                    <li>GDPR Article 32 & HIPAA compliant</li>
+                </ul>
+                <div class="layer-stats">
+                    <div class="layer-stat">
+                        <div class="layer-stat-value">Both</div>
+                        <div class="layer-stat-label">Directions</div>
+                    </div>
+                    <div class="layer-stat">
+                        <div class="layer-stat-value">Zero</div>
+                        <div class="layer-stat-label">Data Loss</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <div class="feature-icon">⚡</div>
-                    <h3 class="feature-title">Reactive Architecture</h3>
-                    <p class="feature-description">Built for massive scale with reactive programming principles</p>
-                    <ul class="feature-list">
-                        <li>10,000+ files/second processing</li>
-                        <li>Linear scaling to 100+ nodes</li>
-                        <li>Non-blocking I/O</li>
-                        <li>Fault-tolerant design</li>
-                    </ul>
+            <!-- Layer 3 -->
+            <div class="layer-card">
+                <div class="layer-icon">📚</div>
+                <h3 class="layer-title">Training Data Protection</h3>
+                <p class="layer-description">Sanitizes documents before LLM training, fine-tuning, or RAG ingestion</p>
+                <ul class="layer-features">
+                    <li>Batch processing for large datasets</li>
+                    <li>Multi-threaded chunk processing</li>
+                    <li>Deduplication across files</li>
+                    <li>Clean embeddings & vector databases</li>
+                </ul>
+                <div class="layer-stats">
+                    <div class="layer-stat">
+                        <div class="layer-stat-value">10K+</div>
+                        <div class="layer-stat-label">Files/sec</div>
+                    </div>
+                    <div class="layer-stat">
+                        <div class="layer-stat-value">100PB+</div>
+                        <div class="layer-stat-label">Capacity</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <div class="feature-icon">📊</div>
-                    <h3 class="feature-title">Real-time Monitoring</h3>
-                    <p class="feature-description">Comprehensive observability with enterprise-grade monitoring</p>
-                    <ul class="feature-list">
-                        <li>Grafana dashboards</li>
-                        <li>Distributed tracing</li>
-                        <li>Custom metrics & alerts</li>
-                        <li>Performance analytics</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <div class="feature-icon">🔐</div>
-                    <h3 class="feature-title">Enterprise Security</h3>
-                    <p class="feature-description">Bank-grade security with complete data sovereignty</p>
-                    <ul class="feature-list">
-                        <li>100% self-hosted solution</li>
-                        <li>End-to-end encryption</li>
-                        <li>Role-based access control</li>
-                        <li>Audit trail & compliance</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="timeline-item">
-                <div class="timeline-dot"></div>
-                <div class="timeline-content">
-                    <div class="feature-icon">📋</div>
-                    <h3 class="feature-title">Compliance Management</h3>
-                    <p class="feature-description">Stay compliant with global regulations effortlessly</p>
-                    <ul class="feature-list">
-                        <li>GDPR, HIPAA, SOC2 ready</li>
-                        <li>Automated reporting</li>
-                        <li>Policy enforcement</li>
-                        <li>Compliance workflows</li>
-                    </ul>
+            <!-- Layer 4 -->
+            <div class="layer-card">
+                <div class="layer-icon">💻</div>
+                <h3 class="layer-title">Developer Tool Shield</h3>
+                <p class="layer-description">Protects code and context from IDE tools like Claude Code, Copilot, Cursor</p>
+                <ul class="layer-features">
+                    <li>Zero code changes (transparent proxy)</li>
+                    <li>Filters API keys, DB credentials, secrets</li>
+                    <li>Works with Claude Code, GitHub Copilot</li>
+                    <li>Productivity without security trade-offs</li>
+                </ul>
+                <div class="layer-stats">
+                    <div class="layer-stat">
+                        <div class="layer-stat-value">0</div>
+                        <div class="layer-stat-label">Code Changes</div>
+                    </div>
+                    <div class="layer-stat">
+                        <div class="layer-stat-value">Any</div>
+                        <div class="layer-stat-label">IDE/LLM</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Capabilities Grid -->
-    <section class="capabilities" id="capabilities">
-        <h2 class="features-title">Platform Capabilities</h2>
-        <p class="features-subtitle">Everything you need for enterprise data governance</p>
-        
-        <div class="capabilities-grid">
-            <div class="capability-card">
-                <div class="capability-icon">🚀</div>
-                <h3 class="capability-title">Blazing Fast Performance</h3>
-                <p class="capability-description">Process petabytes of data with our reactive architecture. Achieve 10,000+ files/second throughput with sub-100ms latency.</p>
+    <!-- Use Cases -->
+    <section class="use-cases" id="use-cases">
+        <h2 class="section-title">Real-World Protection Scenarios</h2>
+        <p class="section-subtitle">From customer support to developer tools — see Data Hawk in action</p>
+
+        <div class="use-case-grid">
+            <!-- Use Case 1 -->
+            <div class="use-case-card">
+                <div class="use-case-header">
+                    <div class="use-case-icon">🎧</div>
+                    <h3 class="use-case-title">Customer Support AI</h3>
+                </div>
+
+                <div class="scenario">
+                    <div class="scenario-label danger">❌ WITHOUT Data Hawk</div>
+                    <div class="scenario-content">
+                        <div class="scenario-text">
+                            User: "My credit card 4532-1111-2222-3333 was declined"<br>
+                            → Full card number sent to OpenAI
+                        </div>
+                        <div class="scenario-result danger">
+                            <div class="scenario-result-label">⚠️ Risk Exposure:</div>
+                            • PCI-DSS Violation<br>
+                            • Potential $500K fine<br>
+                            • Card data in LLM logs
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario">
+                    <div class="scenario-label success">✅ WITH Data Hawk</div>
+                    <div class="scenario-content success">
+                        <div class="scenario-text">
+                            User: "My credit card 4532-1111-2222-3333 was declined"<br>
+                            → Redacted: "My credit card [CARD_REDACTED] was declined"
+                        </div>
+                        <div class="scenario-result success">
+                            <div class="scenario-result-label">✓ Protected:</div>
+                            • PCI-DSS Compliant<br>
+                            • Full audit trail<br>
+                            • 12ms filtering latency
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roi-highlight">
+                    <div class="roi-text">💰 ROI: Avoided $500K fine + $50K audit costs</div>
+                </div>
             </div>
-            
-            <div class="capability-card">
-                <div class="capability-icon">🏠</div>
-                <h3 class="capability-title">Complete Data Sovereignty</h3>
-                <p class="capability-description">Your data never leaves your infrastructure. Deploy on-premises, cloud, or hybrid with full control and zero vendor lock-in.</p>
+
+            <!-- Use Case 2 -->
+            <div class="use-case-card">
+                <div class="use-case-header">
+                    <div class="use-case-icon">💻</div>
+                    <h3 class="use-case-title">Developer AI Tools</h3>
+                </div>
+
+                <div class="scenario">
+                    <div class="scenario-label danger">❌ WITHOUT Data Hawk</div>
+                    <div class="scenario-content">
+                        <div class="scenario-text">
+                            # config.py<br>
+                            DATABASE_URL = "postgres://prod:S3cr3t@db.company.com"<br>
+                            → Sent to Claude API in context
+                        </div>
+                        <div class="scenario-result danger">
+                            <div class="scenario-result-label">⚠️ Risk Exposure:</div>
+                            • Production credentials exposed<br>
+                            • Potential security breach<br>
+                            • IP theft risk
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario">
+                    <div class="scenario-label success">✅ WITH Data Hawk</div>
+                    <div class="scenario-content success">
+                        <div class="scenario-text">
+                            # config.py<br>
+                            DATABASE_URL = "postgres://prod:S3cr3t@db.company.com"<br>
+                            → Redacted: DATABASE_URL = "[CONNECTION_STRING]"
+                        </div>
+                        <div class="scenario-result success">
+                            <div class="scenario-result-label">✓ Protected:</div>
+                            • Credentials filtered<br>
+                            • Developer productivity maintained<br>
+                            • Zero code changes needed
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roi-highlight">
+                    <div class="roi-text">💰 Benefit: 5,000+ devs protected • Zero productivity loss</div>
+                </div>
             </div>
-            
-            <div class="capability-card">
-                <div class="capability-icon">🔧</div>
-                <h3 class="capability-title">Easy Integration</h3>
-                <p class="capability-description">Seamlessly integrate with your existing infrastructure. Support for AWS, Azure, GCP, and on-premises deployments.</p>
+
+            <!-- Use Case 3: Claude Code Protection -->
+            <div class="use-case-card">
+                <div class="use-case-header">
+                    <div class="use-case-icon">🔌</div>
+                    <h3 class="use-case-title">Claude Code / Copilot</h3>
+                </div>
+
+                <div class="scenario">
+                    <div class="scenario-label danger">❌ WITHOUT Data Hawk</div>
+                    <div class="scenario-content">
+                        <div class="scenario-text">
+                            Using Claude Code in VS Code:<br>
+                            Code context includes API_KEY="sk-prod-abc123xyz"<br>
+                            → Entire codebase context sent to Claude API
+                        </div>
+                        <div class="scenario-result danger">
+                            <div class="scenario-result-label">⚠️ Risk Exposure:</div>
+                            • API keys in conversation logs<br>
+                            • Database credentials exposed<br>
+                            • IP in Claude's training data
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario">
+                    <div class="scenario-label success">✅ WITH Data Hawk</div>
+                    <div class="scenario-content success">
+                        <div class="scenario-text">
+                            Local proxy intercepts requests:<br>
+                            API_KEY="sk-prod-abc123xyz" → API_KEY="[REDACTED]"<br>
+                            → Filtered context sent to Claude
+                        </div>
+                        <div class="scenario-result success">
+                            <div class="scenario-result-label">✓ Protected:</div>
+                            • Transparent proxy (localhost:9443)<br>
+                            • No IDE configuration needed<br>
+                            • Works with Claude Code & Copilot
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roi-highlight">
+                    <div class="roi-text">💰 Benefit: Enterprise-wide protection • 100% adoption</div>
+                </div>
             </div>
-            
-            <div class="capability-card">
-                <div class="capability-icon">📈</div>
-                <h3 class="capability-title">Linear Scalability</h3>
-                <p class="capability-description">Scale from single node to 100+ nodes seamlessly. Our microservices architecture ensures optimal resource utilization.</p>
+
+            <!-- Use Case 4 -->
+            <div class="use-case-card">
+                <div class="use-case-header">
+                    <div class="use-case-icon">📚</div>
+                    <h3 class="use-case-title">RAG / Knowledge Base</h3>
+                </div>
+
+                <div class="scenario">
+                    <div class="scenario-label danger">❌ WITHOUT Data Hawk</div>
+                    <div class="scenario-content">
+                        <div class="scenario-text">
+                            Processing company docs for vector DB:<br>
+                            "Employee John Smith, SSN: 123-45-6789, Salary: $150K"<br>
+                            → Embedded with PII intact
+                        </div>
+                        <div class="scenario-result danger">
+                            <div class="scenario-result-label">⚠️ Risk Exposure:</div>
+                            • HR data in embeddings<br>
+                            • GDPR Article 17 violation<br>
+                            • Cannot delete from vector DB
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario">
+                    <div class="scenario-label success">✅ WITH Data Hawk</div>
+                    <div class="scenario-content success">
+                        <div class="scenario-text">
+                            Processing with batch sanitization:<br>
+                            "Employee John Smith, SSN: [REDACTED], Salary: [REDACTED]"<br>
+                            → Clean embeddings created
+                        </div>
+                        <div class="scenario-result success">
+                            <div class="scenario-result-label">✓ Protected:</div>
+                            • PII-free knowledge base<br>
+                            • GDPR compliant<br>
+                            • 10,000+ docs/sec processing
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roi-highlight">
+                    <div class="roi-text">💰 ROI: GDPR compliance + Safe AI training</div>
+                </div>
             </div>
-            
-            <div class="capability-card">
-                <div class="capability-icon">🎯</div>
-                <h3 class="capability-title">Intelligent Detection</h3>
-                <p class="capability-description">AI-powered pattern matching identifies sensitive data with precision. Custom rules and ML models for your specific needs.</p>
+
+            <!-- Use Case 5 -->
+            <div class="use-case-card">
+                <div class="use-case-header">
+                    <div class="use-case-icon">🔄</div>
+                    <h3 class="use-case-title">LLM Response Filtering</h3>
+                </div>
+
+                <div class="scenario">
+                    <div class="scenario-label danger">❌ WITHOUT Data Hawk</div>
+                    <div class="scenario-content">
+                        <div class="scenario-text">
+                            AI Response: "Based on our records, customer email is john.smith@email.com and phone is 555-123-4567"<br>
+                            → PII leaked in response
+                        </div>
+                        <div class="scenario-result danger">
+                            <div class="scenario-result-label">⚠️ Risk Exposure:</div>
+                            • LLM leaked training data<br>
+                            • Privacy violation<br>
+                            • User sees unauthorized PII
+                        </div>
+                    </div>
+                </div>
+
+                <div class="scenario">
+                    <div class="scenario-label success">✅ WITH Data Hawk</div>
+                    <div class="scenario-content success">
+                        <div class="scenario-text">
+                            AI Response filtered:<br>
+                            "Based on our records, customer email is [EMAIL_REDACTED] and phone is [PHONE_REDACTED]"<br>
+                            → Safe to display
+                        </div>
+                        <div class="scenario-result success">
+                            <div class="scenario-result-label">✓ Protected:</div>
+                            • Output filtering active<br>
+                            • Privacy maintained<br>
+                            • HIPAA §164.308 compliant
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roi-highlight">
+                    <div class="roi-text">💰 Benefit: Bidirectional protection • Prevents AI hallucination leaks</div>
+                </div>
             </div>
-            
-            <div class="capability-card">
-                <div class="capability-icon">💰</div>
-                <h3 class="capability-title">Cost Effective</h3>
-                <p class="capability-description">No per-scan fees or usage-based pricing. Predictable costs with our self-hosted model - pay only for infrastructure.</p>
+        </div>
+    </section>
+
+    <!-- Integration Options -->
+    <section class="integration-section" id="integration">
+        <h2 class="section-title">Flexible Integration Options</h2>
+        <p class="section-subtitle">Deploy in minutes with zero code changes</p>
+
+        <div class="integration-tabs">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="switchTab(0)">🔌 Transparent Proxy</button>
+                <button class="tab-button" onclick="switchTab(1)">📦 SDK Wrapper</button>
+                <button class="tab-button" onclick="switchTab(2)">🌐 API Gateway</button>
             </div>
+
+            <div class="tab-content active" id="tab-0">
+                <h3 class="integration-title">🔌 Zero Code Changes</h3>
+                <p class="integration-description">
+                    The simplest integration — just point your LLM endpoint to Data Hawk. Works with any OpenAI-compatible SDK.
+                </p>
+                <div class="code-block">
+                    <pre><code><span class="code-comment"># Just change your environment variable</span>
+<span class="code-highlight">OPENAI_BASE_URL</span>=<span class="code-string">"https://shield.datahawk.io/v1"</span>
+<span class="code-highlight">OPENAI_API_KEY</span>=<span class="code-string">"your-openai-key"</span>
+
+<span class="code-comment"># Your existing code works unchanged</span>
+import openai
+response = openai.ChatCompletion.create(
+    model="gpt-4",
+    messages=[{"role": "user", "content": "My SSN is 123-45-6789"}]
+)
+<span class="code-comment"># Data Hawk automatically filters before sending to OpenAI</span></code></pre>
+                </div>
+                <div class="integration-features">
+                    <div class="integration-feature">Works with standard OpenAI SDK</div>
+                    <div class="integration-feature">No code modifications</div>
+                    <div class="integration-feature">Drop-in replacement</div>
+                    <div class="integration-feature">Supports all LLM providers</div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-1">
+                <h3 class="integration-title">📦 Native SDK Integration</h3>
+                <p class="integration-description">
+                    Use our purpose-built SDKs for Python, Java, or Node.js with additional features like session tracking and custom rules.
+                </p>
+                <div class="code-block">
+                    <pre><code><span class="code-comment"># Install the Data Hawk SDK</span>
+pip install datahawk-shield
+
+<span class="code-comment"># Import and configure</span>
+from datahawk import ShieldedOpenAI
+
+client = ShieldedOpenAI(
+    <span class="code-highlight">shield_url</span>=<span class="code-string">"https://api.datahawk.io"</span>,
+    <span class="code-highlight">api_key</span>=<span class="code-string">"your-openai-key"</span>,
+    <span class="code-highlight">redaction_mode</span>=<span class="code-string">"MASK"</span>  <span class="code-comment"># MASK, REPLACE, HASH, TOKEN</span>
+)
+
+<span class="code-comment"># Use exactly like OpenAI client</span>
+response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[{
+        "role": "user",
+        "content": "My credit card is 4532-1111-2222-3333"
+    }]
+)
+<span class="code-comment"># Automatically redacted to: "My credit card is [CARD_REDACTED]"</span></code></pre>
+                </div>
+                <div class="integration-features">
+                    <div class="integration-feature">Python, Java, Node.js SDKs</div>
+                    <div class="integration-feature">Session correlation IDs</div>
+                    <div class="integration-feature">Custom redaction modes</div>
+                    <div class="integration-feature">Type-safe interfaces</div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="tab-2">
+                <h3 class="integration-title">🌐 Organization-Wide Gateway</h3>
+                <p class="integration-description">
+                    Deploy as an API Gateway for centralized protection across all teams and applications. Perfect for enterprise-wide enforcement.
+                </p>
+                <div class="code-block">
+                    <pre><code><span class="code-comment"># NGINX Configuration</span>
+upstream datahawk_shield {
+    server <span class="code-string">shield-1.datahawk.io:8090</span>;
+    server <span class="code-string">shield-2.datahawk.io:8090</span>;
+    server <span class="code-string">shield-3.datahawk.io:8090</span>;
+}
+
+<span class="code-comment"># Route all LLM traffic through Data Hawk</span>
+location /v1/ {
+    proxy_pass <span class="code-string">http://datahawk_shield</span>;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Correlation-ID $request_id;
+}
+
+<span class="code-comment"># Your apps continue using standard endpoints</span>
+<span class="code-comment"># https://api.yourcompany.com/v1/chat/completions</span>
+<span class="code-comment"># ↓ Automatically routed through Data Hawk Shield</span>
+<span class="code-comment"># ↓ Then forwarded to OpenAI/Claude/etc.</span></code></pre>
+                </div>
+                <div class="integration-features">
+                    <div class="integration-feature">Centralized policy control</div>
+                    <div class="integration-feature">Load balanced (3+ nodes)</div>
+                    <div class="integration-feature">Zero app changes needed</div>
+                    <div class="integration-feature">Team-wide compliance</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison-section">
+        <h2 class="section-title">Why Choose Data Hawk?</h2>
+        <p class="section-subtitle">Built for enterprise security and performance</p>
+
+        <div class="comparison-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Data Hawk</th>
+                        <th>Cloud-Based DLP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Deployment</td>
+                        <td><span class="check-mark">✓</span> 100% Self-Hosted</td>
+                        <td><span class="warning-mark">⚠</span> Cloud SaaS</td>
+                    </tr>
+                    <tr>
+                        <td>Data Sovereignty</td>
+                        <td><span class="check-mark">✓</span> Complete Control</td>
+                        <td><span class="warning-mark">⚠</span> Data leaves network</td>
+                    </tr>
+                    <tr>
+                        <td>LLM Provider Support</td>
+                        <td><span class="check-mark">✓</span> Any Provider</td>
+                        <td><span class="warning-mark">⚠</span> Limited integrations</td>
+                    </tr>
+                    <tr>
+                        <td>Latency (P95)</td>
+                        <td><span class="check-mark">✓</span> <50ms</td>
+                        <td><span class="warning-mark">⚠</span> 100-500ms</td>
+                    </tr>
+                    <tr>
+                        <td>Bidirectional Filtering</td>
+                        <td><span class="check-mark">✓</span> Input + Output</td>
+                        <td><span class="x-mark">✗</span> Input only</td>
+                    </tr>
+                    <tr>
+                        <td>Reversible Redaction</td>
+                        <td><span class="check-mark">✓</span> Tokenization</td>
+                        <td><span class="x-mark">✗</span> Permanent</td>
+                    </tr>
+                    <tr>
+                        <td>Pricing Model</td>
+                        <td><span class="check-mark">✓</span> Predictable licensing • No per-call fees</td>
+                        <td><span class="warning-mark">⚠</span> Usage-based charges</td>
+                    </tr>
+                    <tr>
+                        <td>Air-Gapped Deployment</td>
+                        <td><span class="check-mark">✓</span> Supported</td>
+                        <td><span class="x-mark">✗</span> Not possible</td>
+                    </tr>
+                    <tr>
+                        <td>Custom Patterns</td>
+                        <td><span class="check-mark">✓</span> Full control</td>
+                        <td><span class="warning-mark">⚠</span> Limited customization</td>
+                    </tr>
+                    <tr>
+                        <td>Code Changes Required</td>
+                        <td><span class="check-mark">✓</span> Zero</td>
+                        <td><span class="warning-mark">⚠</span> Varies by provider</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="cta-content">
-            <h2>Ready to Transform Your Data Governance?</h2>
-            <p>Join enterprises worldwide who trust Data Hawk to protect their sensitive data</p>
+            <h2>Deploy LLM Shield in 30 Minutes</h2>
+            <p>Protect your organization's sensitive data from AI exposure — self-hosted, secure, and compliant</p>
             <div class="cta-buttons">
                 <a href="https://calendly.com/contactdatahawk/30min" class="white-btn" target="_blank">Schedule Demo</a>
                 <a href="mailto:contactdatahawk@gmail.com" class="secondary-btn" style="border-color: white; color: white;">Contact Sales</a>
@@ -720,47 +1401,58 @@
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Data Hawk</h3>
-                <p>Enterprise-grade data governance and sensitive data protection for modern organizations.</p>
+                <p>Enterprise-grade data protection for AI and LLM applications. Prevent sensitive data exposure with real-time filtering.</p>
                 <p style="margin-top: 1rem;">
                     <a href="mailto:contactdatahawk@gmail.com" style="color: var(--text-light); text-decoration: none;">✉️ contactdatahawk@gmail.com</a><br>
                     <a href="tel:585-281-9787" style="color: var(--text-light); text-decoration: none;">📞 585-281-9787</a>
                 </p>
             </div>
-            
+
             <div class="footer-section">
                 <h3>Product</h3>
                 <ul class="footer-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#capabilities">Capabilities</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#docs">Documentation</a></li>
+                    <li><a href="#protection">LLM Shield</a></li>
+                    <li><a href="#use-cases">Use Cases</a></li>
+                    <li><a href="#integration">Integration</a></li>
                 </ul>
             </div>
-            
+
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="https://calendly.com/contactdatahawk/30min" target="_blank">Schedule Demo</a></li>
+                    <li><a href="mailto:contactdatahawk@gmail.com">Contact Support</a></li>
+                </ul>
+            </div>
+
             <div class="footer-section">
                 <h3>Company</h3>
                 <ul class="footer-links">
                     <li><a href="about.html">About Us</a></li>
-                    <li><a href="#careers">Careers</a></li>
-                    <li><a href="#blog">Blog</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>Resources</h3>
-                <ul class="footer-links">
-                    <li><a href="#support">Support</a></li>
-                    <li><a href="#community">Community</a></li>
-                    <li><a href="#partners">Partners</a></li>
-                    <li><a href="#security">Security</a></li>
+                    <li><a href="mailto:contactdatahawk@gmail.com">Contact Sales</a></li>
                 </ul>
             </div>
         </div>
-        
+
         <div class="footer-bottom">
-            <p>&copy; 2024 Data Hawk. All rights reserved. | Privacy Policy | Terms of Service</p>
+            <p>&copy; 2024 Data Hawk. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        function switchTab(index) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Show selected tab content
+            document.getElementById('tab-' + index).classList.add('active');
+            buttons[index].classList.add('active');
+        }
+    </script>
 </body>
 </html>
