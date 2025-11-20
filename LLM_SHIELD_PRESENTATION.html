@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Shield - Enterprise AI Security Platform</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/white.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Professional font - Inter (larger, more readable) */
+        .reveal {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 32px; /* Increased from 28px for better readability */
+        }
+
+        .reveal h1 {
+            color: #1a365d;
+            font-size: 2.5em; /* Larger headings */
+            font-weight: 700;
+            margin-bottom: 0.3em;
+            line-height: 1.1;
+        }
+
+        .reveal h2 {
+            color: #2c5282;
+            font-size: 2em; /* Larger h2 */
+            font-weight: 600;
+            margin-bottom: 0.3em;
+            line-height: 1.1;
+        }
+
+        .reveal h3 {
+            color: #2d3748;
+            font-size: 1.4em; /* Larger h3 */
+            font-weight: 600;
+            margin-bottom: 0.25em;
+            line-height: 1.2;
+        }
+
+        .reveal h4 {
+            color: #2d3748;
+            font-size: 1.1em; /* Slightly larger h4 */
+            font-weight: 600;
+            margin-bottom: 0.2em;
+            line-height: 1.2;
+        }
+
+        .reveal p, .reveal li {
+            font-size: 0.9em; /* Larger body text */
+            line-height: 1.35;
+            margin: 0.25em 0;
+        }
+
+        .reveal ul, .reveal ol {
+            margin: 0.5em 0;
+        }
+
+        .reveal strong {
+            color: #1a365d;
+            font-weight: 600;
+        }
+
+        /* Slide number styling */
+        .reveal .slide-number {
+            font-size: 0.7em;
+            color: #718096;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        /* Progress bar */
+        .reveal .progress {
+            height: 4px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .reveal .progress span {
+            background: #3182ce;
+        }
+
+        /* Two-column layout */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5em;
+            text-align: left;
+        }
+
+        /* Highlight boxes */
+        .highlight-box {
+            background: #edf2f7;
+            border-left: 4px solid #3182ce;
+            padding: 0.75em;
+            margin: 0.4em 0;
+            font-size: 0.95em; /* Larger text in boxes */
+        }
+
+        .warning-box {
+            background: #fff5f5;
+            border-left: 4px solid #e53e3e;
+            padding: 0.75em;
+            margin: 0.4em 0;
+            font-size: 0.95em; /* Larger text in boxes */
+        }
+
+        .success-box {
+            background: #f0fff4;
+            border-left: 4px solid #38a169;
+            padding: 0.75em;
+            margin: 0.4em 0;
+            font-size: 0.95em; /* Larger text in boxes */
+        }
+
+        /* Table styling */
+        .reveal table {
+            font-size: 0.75em; /* Increased from 0.7em */
+            border-collapse: collapse;
+            width: 100%;
+            margin: 0.4em 0;
+        }
+
+        .reveal table th {
+            background: #2c5282;
+            color: white;
+            padding: 0.6em 0.5em; /* Slightly more padding */
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .reveal table td {
+            padding: 0.5em 0.6em; /* Slightly more padding */
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        .reveal table tr:hover {
+            background: #f7fafc;
+        }
+
+        /* Contact info */
+        .contact-info {
+            font-size: 0.8em;
+            color: #4a5568;
+            margin-top: 0.8em;
+        }
+
+        /* Large numbers */
+        .big-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #e53e3e;
+            margin: 0.2em 0;
+            line-height: 1;
+        }
+
+        /* Checkmarks and crosses */
+        .checkmark {
+            color: #38a169;
+            font-weight: bold;
+        }
+
+        .crossmark {
+            color: #e53e3e;
+            font-weight: bold;
+        }
+
+        /* Small text - more readable sizes */
+        .small-text {
+            font-size: 0.85em; /* Increased from 0.8em */
+        }
+
+        .smaller-text {
+            font-size: 0.75em; /* Increased from 0.7em */
+        }
+
+        /* Text alignment */
+        .text-left {
+            text-align: left;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Spacing */
+        .mt-1 { margin-top: 0.5em; }
+        .mt-2 { margin-top: 1em; }
+        .mb-1 { margin-bottom: 0.5em; }
+        .mb-2 { margin-bottom: 1em; }
+
+        /* Three column grid */
+        .three-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1em;
+            text-align: center;
+        }
+
+        /* Two column grid for performance */
+        .two-columns-perf {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1em;
+        }
+
+        /* Compact lists - better spacing */
+        .compact-list {
+            margin: 0.4em 0;
+            padding-left: 1.3em;
+        }
+
+        .compact-list li {
+            margin: 0.25em 0;
+            line-height: 1.4; /* More readable line height */
+        }
+
+        /* Section styling */
+        .section-header {
+            background: #f7fafc;
+            padding: 0.3em 0.6em;
+            margin: 0.3em 0;
+            border-left: 3px solid #3182ce;
+            font-weight: 600;
+        }
+
+        /* Table of Contents - Left sidebar navigation */
+        #toc {
+            position: fixed;
+            left: -280px;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            background: #f7fafc;
+            padding: 20px 15px;
+            overflow-y: auto;
+            border-right: 2px solid #e2e8f0;
+            z-index: 100;
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            transition: left 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Show a small edge tab when minimized */
+        #toc::after {
+            content: '▶';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #3182ce;
+            color: white;
+            padding: 20px 8px;
+            border-radius: 0 4px 4px 0;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        #toc h3 {
+            color: #1a365d;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3182ce;
+        }
+
+        #toc ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #toc li {
+            margin: 0;
+            padding: 8px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        #toc li:hover {
+            background: #e2e8f0;
+            color: #1a365d;
+        }
+
+        #toc li.active {
+            background: #3182ce;
+            color: white;
+            font-weight: 600;
+        }
+
+        #toc li .slide-number-toc {
+            display: inline-block;
+            width: 25px;
+            color: #718096;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        #toc li.active .slide-number-toc {
+            color: #e2e8f0;
+        }
+
+        /* Adjust reveal container - no margin by default since TOC is hidden */
+        .reveal {
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* When TOC is expanded */
+        .toc-expanded #toc {
+            left: 0;
+        }
+
+        .toc-expanded #toc::after {
+            content: '◀';
+        }
+
+        .toc-expanded .reveal {
+            margin-left: 280px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Table of Contents Sidebar -->
+    <div id="toc">
+        <h3>LLM Shield Presentation</h3>
+        <ul id="toc-list">
+            <li data-slide="0"><span class="slide-number-toc">1.</span> Title</li>
+            <li data-slide="1"><span class="slide-number-toc">2.</span> AI Adoption Dilemma</li>
+            <li data-slide="2"><span class="slide-number-toc">3.</span> What's At Risk</li>
+            <li data-slide="3"><span class="slide-number-toc">4.</span> Cost of Getting This Wrong</li>
+            <li data-slide="4"><span class="slide-number-toc">5.</span> Introducing LLM Shield</li>
+            <li data-slide="5"><span class="slide-number-toc">6.</span> How It Works</li>
+            <li data-slide="6"><span class="slide-number-toc">7.</span> Comprehensive Coverage</li>
+            <li data-slide="7"><span class="slide-number-toc">8.</span> Detection Engine</li>
+            <li data-slide="8"><span class="slide-number-toc">9.</span> Enterprise Performance</li>
+            <li data-slide="9"><span class="slide-number-toc">10.</span> Real-Time Intelligence</li>
+            <li data-slide="10"><span class="slide-number-toc">11.</span> Security & Compliance</li>
+            <li data-slide="11"><span class="slide-number-toc">12.</span> Deployment Flexibility</li>
+            <li data-slide="12"><span class="slide-number-toc">13.</span> Pricing - Two Tiers</li>
+            <li data-slide="13"><span class="slide-number-toc">14.</span> ROI Analysis</li>
+            <li data-slide="14"><span class="slide-number-toc">15.</span> Why LLM Shield</li>
+            <li data-slide="15"><span class="slide-number-toc">16.</span> Enterprise Partnership</li>
+            <li data-slide="16"><span class="slide-number-toc">17.</span> Next Steps</li>
+            <li data-slide="17"><span class="slide-number-toc">18.</span> Call to Action</li>
+        </ul>
+    </div>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title -->
+            <section data-background-color="#1a365d">
+                <h1 style="color: white; margin-top: 1.5em; font-size: 3.5em;">LLM Shield</h1>
+                <p style="color: #cbd5e0; font-size: 1.2em; margin-top: 0.3em;">by DataHawk</p>
+                <h3 style="color: #cbd5e0; margin-top: 1em;">VPC-Native AI Security for Enterprise Scale</h3>
+                <p style="color: #e2e8f0; font-size: 1.1em; margin-top: 1.5em;">Protecting Your Data in the AI Era</p>
+                <div class="contact-info" style="color: #a0aec0; margin-top: 2em;">
+                    <p>contact@datahawk.io | +1 (425) 728-0734 | datahawk.io</p>
+                </div>
+            </section>
+
+            <!-- Slide 2: The AI Adoption Dilemma -->
+            <section>
+                <h2>The AI Adoption Dilemma</h2>
+                <h3 class="mb-1">Your Teams Want AI. Your Data Can't Leave.</h3>
+
+                <div class="two-columns text-left small-text">
+                    <div class="success-box">
+                        <h4>THE BUSINESS PRESSURE:</h4>
+                        <ul class="compact-list" style="list-style: none; padding-left: 0;">
+                            <li><span class="checkmark">✓</span> Developers demand AI coding tools</li>
+                            <li><span class="checkmark">✓</span> Teams want ChatGPT for productivity</li>
+                            <li><span class="checkmark">✓</span> Legal wants contract analysis</li>
+                            <li><span class="checkmark">✓</span> Analysts need data preparation</li>
+                        </ul>
+                    </div>
+
+                    <div class="warning-box">
+                        <h4>THE SECURITY REALITY:</h4>
+                        <ul class="compact-list" style="list-style: none; padding-left: 0;">
+                            <li><span class="crossmark">✗</span> Source code → OpenAI servers</li>
+                            <li><span class="crossmark">✗</span> Customer PII/PHI → Anthropic servers</li>
+                            <li><span class="crossmark">✗</span> Trade secrets → Google servers</li>
+                            <li><span class="crossmark">✗</span> Proprietary data → AI training sets</li>
+                        </ul>
+                        <p class="mt-1" style="font-size: 0.9em; font-style: italic;">CISO and Legal must sign risk acceptance forms</p>
+                    </div>
+                </div>
+
+                <div class="highlight-box mt-1 small-text">
+                    <p><strong>The Traditional Response:</strong> "Just say NO to AI tools"</p>
+                    <p><strong>The Outcome:</strong> Shadow AI proliferates. Zero visibility. Zero control.</p>
+                </div>
+            </section>
+
+            <!-- Slide 3: Data Exposure Problem -->
+            <section>
+                <h2>What's At Risk</h2>
+                <h3 class="mb-1">When Employees Use Unprotected AI Tools</h3>
+
+                <div class="two-columns text-left smaller-text">
+                    <div>
+                        <div class="section-header">CUSTOMER & PERSONAL DATA</div>
+                        <ul class="compact-list">
+                            <li>Customer PII (names, addresses, SSNs)</li>
+                            <li>Medical records (PHI/HIPAA data)</li>
+                            <li>Financial account details</li>
+                            <li>Payment card information</li>
+                        </ul>
+
+                        <div class="section-header mt-1">PROPRIETARY ASSETS</div>
+                        <ul class="compact-list">
+                            <li>Business models & algorithms</li>
+                            <li>Pricing strategies</li>
+                            <li>M&A intelligence</li>
+                            <li>Competitive analysis</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <div class="section-header">REGULATORY EXPOSURE</div>
+                        <ul class="compact-list">
+                            <li>HIPAA violations ($3M-$10M)</li>
+                            <li>GDPR Article 44 breaches</li>
+                            <li>CCPA penalties</li>
+                            <li>SOX compliance failures</li>
+                        </ul>
+
+                        <div class="section-header mt-1">OPERATIONAL SECRETS</div>
+                        <ul class="compact-list">
+                            <li>Infrastructure credentials (AWS, Azure)</li>
+                            <li>Database schemas & connection strings</li>
+                            <li>API keys & access tokens</li>
+                            <li>Internal communications</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="warning-box mt-1 small-text">
+                    <p class="text-center"><strong>One leaked proprietary model could cost competitive advantage for years.</strong></p>
+                </div>
+            </section>
+
+            <!-- Slide 4: The $4.88M Question -->
+            <section>
+                <h2>The Cost of Getting This Wrong</h2>
+
+                <div class="big-number text-center">$4.88M*</div>
+                <p class="text-center" style="font-size: 0.9em;">Average Data Breach Cost</p>
+                <p class="text-right" style="font-size: 0.65em; color: #718096; margin-top: -0.5em;">*IBM 2024</p>
+
+                <div class="two-columns text-left small-text mt-1">
+                    <div>
+                        <ul class="compact-list">
+                            <li><strong>Healthcare Breach:</strong> $10.93M (highest sector)</li>
+                            <li><strong>HIPAA Violations:</strong> $3M-$10M settlements</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <ul class="compact-list">
+                            <li><strong>FTC Disgorgement:</strong> Delete entire AI models</li>
+                            <li><strong>Rebuilding Costs:</strong> Years of remediation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box mt-1 small-text">
+                    <h4>For Enterprise Scale (10,000-40,000+ employees):</h4>
+                    <p>A single AI-related data exposure could trigger:</p>
+                    <ul class="compact-list">
+                        <li>→ Multi-million dollar regulatory fines</li>
+                        <li>→ Loss of customer trust and competitive position</li>
+                        <li>→ Years of remediation and audit costs</li>
+                        <li>→ Reputational damage in trust-dependent industries</li>
+                    </ul>
+                </div>
+
+                <p class="text-center mt-1 small-text"><strong>"How do we enable AI WITHOUT creating our next breach?"</strong></p>
+            </section>
+
+            <!-- Slide 5: Introducing LLM Shield -->
+            <section>
+                <h2>Introducing LLM Shield</h2>
+                <h3 class="mb-1">VPC-Native AI Security at Enterprise Scale</h3>
+
+                <div class="success-box mb-1 small-text">
+                    <h4>THE SOLUTION:</h4>
+                    <ul class="compact-list">
+                        <li><span class="checkmark">✓</span> Deploys INSIDE your VPC → Data never leaves your infrastructure</li>
+                        <li><span class="checkmark">✓</span> Filters sensitive data BEFORE it reaches AI providers</li>
+                        <li><span class="checkmark">✓</span> Works across ALL AI interaction channels</li>
+                    </ul>
+                </div>
+
+                <h4 class="mb-1 small-text">THREE CORE DIFFERENTIATORS:</h4>
+
+                <div class="three-columns smaller-text">
+                    <div class="highlight-box">
+                        <h4>1. VPC-NATIVE</h4>
+                        <ul class="compact-list text-left">
+                            <li>Data sovereignty guaranteed</li>
+                            <li>Meets GDPR Article 44</li>
+                            <li>Air-gap capable</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>2. ZERO CODE CHANGES</h4>
+                        <ul class="compact-list text-left">
+                            <li>Network-level protection</li>
+                            <li>Automatic for all AI traffic</li>
+                            <li>Deploy in weeks</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>3. ENTERPRISE SCALE</h4>
+                        <ul class="compact-list text-left">
+                            <li>148M requests/day capacity</li>
+                            <li>50,000 concurrent users</li>
+                            <li>99.9% uptime SLA</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="text-center mt-1" style="font-size: 1.1em; font-style: italic; color: #2c5282;">
+                    <strong>"Your data. Your network. Your control."</strong>
+                </p>
+            </section>
+
+            <!-- Slide 6: How It Works -->
+            <section>
+                <h2>How It Works</h2>
+                <h3 class="mb-1">Real-Time Protection at the Network Boundary</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Employee Interaction</th>
+                            <th>LLM Shield (In Your VPC)</th>
+                            <th>AI Provider</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Developer writes code<br/><code style="font-size: 0.9em;">"AWS key: AKIA..."</code></td>
+                            <td>Scans for credentials<br/>Detects: <strong>AWS_ACCESS_KEY</strong><br/>Action: REDACT + AUDIT</td>
+                            <td>Filtered request<br/><code style="font-size: 0.9em;">"AWS key: [REDACTED]"</code></td>
+                        </tr>
+                        <tr>
+                            <td>Analyst asks question<br/><code style="font-size: 0.9em;">"Customer SSN 123-45-6789"</code></td>
+                            <td>Scans for PII/PHI<br/>Detects: <strong>SSN_PATTERN</strong><br/>Action: MASK + AUDIT</td>
+                            <td>Filtered request<br/><code style="font-size: 0.9em;">"Customer SSN [REDACTED]"</code></td>
+                        </tr>
+                        <tr>
+                            <td>Legal reviews document<br/><code style="font-size: 0.9em;">"Confidential deal terms"</code></td>
+                            <td>Scans for trade secrets<br/>Custom pattern detected<br/>Action: BLOCK + ALERT</td>
+                            <td>Request blocked<br/><code style="font-size: 0.9em;">"Content filtered"</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="success-box mt-1 small-text">
+                    <p class="text-center"><strong>ALL DETECTIONS → Real-time audit dashboard with WHO, WHAT, WHEN, WHERE</strong></p>
+                </div>
+            </section>
+
+            <!-- Slide 7: Comprehensive Coverage -->
+            <section>
+                <h2>Comprehensive Coverage</h2>
+                <h3 class="mb-1">Protection Across Every AI Channel</h3>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Interception Patterns</th>
+                            <th>How LLM Shield Protects</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Network-Level Traffic</strong><br/>(ChatGPT, Claude, Gemini)</td>
+                            <td>Intercepts ALL AI communications at network boundary<br/><span class="checkmark">✓</span> Zero application changes required</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Developer Environments</strong><br/>(GitHub Copilot, Cursor, coding tools)</td>
+                            <td>Secures AI coding assistants and development tools<br/><span class="checkmark">✓</span> Prevents credential and source code leaks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Direct Application Calls</strong><br/>(Custom AI integrations, APIs)</td>
+                            <td>Filters API requests from software to AI providers<br/><span class="checkmark">✓</span> Protects automated workflows</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Employee Chat Tools</strong><br/>(Internal AI assistant)</td>
+                            <td>Provides secure alternative to public AI interfaces<br/><span class="checkmark">✓</span> Controlled access with complete audit trail</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Training Data Preparation</strong><br/>(Batch data sanitization)</td>
+                            <td>Cleanses datasets before feeding to AI models<br/><span class="checkmark">✓</span> Historical data sanitized before processing</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Knowledge Bases</strong> (Roadmap)<br/>(RAG systems, vector databases)</td>
+                            <td>Sanitizes data before embedding in vector DBs<br/><span class="checkmark">✓</span> Prevents sensitive data in long-term storage</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Slide 8: Detection Engine -->
+            <section>
+                <h2>Detection Engine</h2>
+                <h3 class="mb-1">Deterministic Pattern Detection + ML Confidence Scoring</h3>
+
+                <div class="two-columns text-left smaller-text">
+                    <div>
+                        <div class="success-box">
+                            <h4>PROTECTED SENSITIVE DATA:</h4>
+                            <div class="section-header">Financial</div>
+                            <ul class="compact-list">
+                                <li>✓ Credit card numbers</li>
+                                <li>✓ Bank account numbers</li>
+                                <li>✓ IBAN / SWIFT codes</li>
+                                <li>✓ Trading account numbers</li>
+                            </ul>
+                            <div class="section-header">PII</div>
+                            <ul class="compact-list">
+                                <li>✓ Social Security Numbers</li>
+                                <li>✓ Email addresses</li>
+                                <li>✓ Phone numbers, DOB</li>
+                                <li>✓ Physical addresses</li>
+                            </ul>
+                            <div class="section-header">Infrastructure</div>
+                            <ul class="compact-list">
+                                <li>✓ AWS credentials</li>
+                                <li>✓ IP addresses</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="highlight-box">
+                            <h4>ADDITIONAL COVERAGE:</h4>
+                            <div class="section-header">Healthcare</div>
+                            <ul class="compact-list">
+                                <li>✓ Medical Record Numbers</li>
+                                <li>✓ Prescription numbers</li>
+                            </ul>
+                            <div class="section-header">Legal</div>
+                            <ul class="compact-list">
+                                <li>✓ Matter IDs</li>
+                                <li>✓ Case numbers</li>
+                            </ul>
+                            <div class="section-header">Government</div>
+                            <ul class="compact-list">
+                                <li>✓ Passport numbers</li>
+                                <li>✓ Driver's licenses</li>
+                                <li>✓ Tax IDs</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="success-box mt-1 smaller-text">
+                    <p><strong>38+ PATTERNS + CUSTOM PATTERNS VIA CONFIGURATION</strong></p>
+                    <ul class="compact-list">
+                        <li><strong>Detection Method:</strong> Hybrid (deterministic regex + ML confidence scoring)</li>
+                        <li><strong>Context-Aware:</strong> 20-character window reduces false positives</li>
+                        <li><strong>Custom Rules:</strong> Add organization-specific patterns</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Slide 9: Enterprise Performance -->
+            <section>
+                <h2>Enterprise Performance</h2>
+                <h3 class="mb-1">Battle-Tested for Fortune 50 Scale</h3>
+
+                <div class="two-columns-perf">
+                    <div class="highlight-box text-center small-text">
+                        <h4>THROUGHPUT</h4>
+                        <div class="big-number" style="font-size: 2em;">148M</div>
+                        <p>requests/day capacity</p>
+                        <p class="smaller-text">(1,713 req/sec sustained)</p>
+                    </div>
+
+                    <div class="highlight-box text-center small-text">
+                        <h4>LATENCY</h4>
+                        <div class="big-number" style="font-size: 2em; color: #38a169;">&lt;40ms</div>
+                        <p>P95 latency</p>
+                        <p class="smaller-text">(Employees don't notice protection)</p>
+                    </div>
+
+                    <div class="highlight-box text-center small-text">
+                        <h4>CONCURRENCY</h4>
+                        <div class="big-number" style="font-size: 2em;">50,000</div>
+                        <p>concurrent users supported</p>
+                        <p class="smaller-text">(No performance degradation)</p>
+                    </div>
+
+                    <div class="highlight-box text-center small-text">
+                        <h4>RELIABILITY</h4>
+                        <div class="big-number" style="font-size: 2em;">99.9%</div>
+                        <p>uptime SLA</p>
+                        <p class="smaller-text">(8.76 hours/year max downtime)</p>
+                    </div>
+                </div>
+
+                <div class="success-box mt-1 smaller-text">
+                    <h4>REAL-WORLD CONTEXT (10,000 employees):</h4>
+                    <p>Assume 100 AI interactions per employee per day = <strong>1M requests/day</strong><br/>
+                    <strong>LLM Shield capacity: 148M requests/day (148X headroom for growth)</strong></p>
+                </div>
+
+                <div class="highlight-box mt-1 smaller-text">
+                    <p><strong>OPERATIONAL IMPACT:</strong> Sub-40ms overhead = 2-8% of total AI response time = <strong>Transparent protection with ZERO productivity loss</strong></p>
+                </div>
+            </section>
+
+            <!-- Slide 10: Real-Time Intelligence -->
+            <section>
+                <h2>Real-Time Intelligence Dashboard</h2>
+                <h3 class="mb-1">Live Visibility & Control</h3>
+
+                <div class="two-columns text-left smaller-text">
+                    <div>
+                        <div class="highlight-box">
+                            <h4>REAL-TIME VIOLATION FEED:</h4>
+                            <ul class="compact-list">
+                                <li><strong>WHO</strong> triggered violation</li>
+                                <li><strong>WHAT</strong> was detected (SSN, CC, AWS key)</li>
+                                <li><strong>WHEN</strong> it occurred (millisecond precision)</li>
+                                <li><strong>WHERE</strong> (source system, AI provider)</li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box mt-1">
+                            <h4>PATTERN ANALYSIS:</h4>
+                            <ul class="compact-list">
+                                <li>Identify high-risk users/departments</li>
+                                <li>Detect emerging risks before breaches</li>
+                                <li>Focus intervention (not blanket bans)</li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box mt-1">
+                            <h4>CONFIGURABLE RESPONSES:</h4>
+                            <ol class="compact-list">
+                                <li><strong>MASK</strong> - Replace with asterisks</li>
+                                <li><strong>REDACT</strong> - Remove entirely</li>
+                                <li><strong>BLOCK</strong> - Reject entire request</li>
+                                <li><strong>LOG_ONLY</strong> - Monitor new patterns</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="success-box">
+                            <h4>COMPLIANCE AUDIT EXPORTS:</h4>
+                            <ul class="compact-list">
+                                <li><strong>CSV</strong> for spreadsheet analysis</li>
+                                <li><strong>PDF</strong> for board presentations</li>
+                                <li><strong>JSON</strong> for SIEM integration</li>
+                            </ul>
+                        </div>
+
+                        <div class="success-box mt-1">
+                            <h4>RETENTION POLICIES:</h4>
+                            <ul class="compact-list">
+                                <li>Configurable (30 days - 7 years)</li>
+                                <li>GDPR-compliant deletion</li>
+                                <li>Automated purging</li>
+                            </ul>
+                        </div>
+
+                        <div class="success-box mt-1">
+                            <h4>USER RISK SCORING:</h4>
+                            <ul class="compact-list">
+                                <li>Violation frequency tracking</li>
+                                <li>Automated remediation policies</li>
+                                <li>Targeted security training</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-center mt-1 small-text" style="font-style: italic;">
+                    <strong>"From detection to action in milliseconds. From logs to compliance reports in seconds."</strong>
+                </p>
+            </section>
+
+            <!-- Slide 11: Security & Compliance -->
+            <section data-visibility="hidden">
+                <h2>Security & Compliance</h2>
+                <h3 class="mb-1">Built for Regulated Industries</h3>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; text-align: left;" class="smaller-text">
+                    <div class="highlight-box">
+                        <h4>GDPR (EU Data Protection):</h4>
+                        <ul class="compact-list">
+                            <li><span class="checkmark">✓</span> Article 44: Data residency in EU</li>
+                            <li><span class="checkmark">✓</span> Complete audit trail</li>
+                            <li><span class="checkmark">✓</span> Right to delete (PII purging)</li>
+                            <li><span class="checkmark">✓</span> No cross-border transfers</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>HIPAA (Healthcare):</h4>
+                        <ul class="compact-list">
+                            <li><span class="checkmark">✓</span> PHI protection</li>
+                            <li><span class="checkmark">✓</span> Access controls (RBAC)</li>
+                            <li><span class="checkmark">✓</span> Audit logging</li>
+                            <li><span class="checkmark">✓</span> Breach prevention at source</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>CCPA (California Privacy):</h4>
+                        <ul class="compact-list">
+                            <li><span class="checkmark">✓</span> Data residency in California</li>
+                            <li><span class="checkmark">✓</span> Consumer rights (exportable audit)</li>
+                            <li><span class="checkmark">✓</span> Personal info processing log</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>SOC 2 / ISO 27001:</h4>
+                        <ul class="compact-list">
+                            <li><span class="checkmark">✓</span> JWT authentication</li>
+                            <li><span class="checkmark">✓</span> TLS 1.3 encryption</li>
+                            <li><span class="checkmark">✓</span> Complete access logging</li>
+                            <li><span class="checkmark">✓</span> Vulnerability management</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="success-box mt-1 smaller-text">
+                    <h4>PLATFORM SECURITY:</h4>
+                    <p>JWT tokens (15-min access + 7-day refresh) • RBAC with 32 granular permissions • BCrypt password hashing • Account lockout (5 failed attempts) • Penetration testing • Regular security patching</p>
+                </div>
+
+                <div class="warning-box mt-1 small-text">
+                    <p><strong>VPC-NATIVE BENEFIT:</strong> NO third-party data processing risk. Your data stays in YOUR infrastructure → Simplifies compliance posture</p>
+                </div>
+            </section>
+
+            <!-- Slide 12: Deployment Flexibility -->
+            <section>
+                <h2>Deployment Flexibility</h2>
+                <h3 class="mb-1">Deploy WHERE Your Data Lives</h3>
+
+                <div class="two-columns text-left smaller-text">
+                    <div>
+                        <div class="highlight-box">
+                            <h4>CLOUD DEPLOYMENTS:</h4>
+                            <ul class="compact-list">
+                                <li><span class="checkmark">✓</span> AWS VPC (any region)</li>
+                                <li><span class="checkmark">✓</span> Azure VNet (any region)</li>
+                                <li><span class="checkmark">✓</span> Google Cloud VPC (any region)</li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box mt-1">
+                            <h4>ON-PREMISE / HYBRID:</h4>
+                            <ul class="compact-list">
+                                <li><span class="checkmark">✓</span> Docker Compose</li>
+                                <li><span class="checkmark">✓</span> Kubernetes clusters</li>
+                                <li><span class="checkmark">✓</span> Air-gapped environments</li>
+                                <li><span class="checkmark">✓</span> Multi-cloud coordination</li>
+                            </ul>
+                        </div>
+
+                        <div class="success-box mt-1">
+                            <h4>GLOBAL DEPLOYMENTS:</h4>
+                            <ul class="compact-list">
+                                <li>→ North America: AWS US-East, US-West</li>
+                                <li>→ Europe: AWS EU-Frankfurt (GDPR)</li>
+                                <li>→ Asia-Pacific: AWS Singapore, Tokyo</li>
+                                <li>→ Hybrid: On-premise + cloud</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="highlight-box">
+                            <h4>DEPLOYMENT TIMELINE:</h4>
+
+                            <p><strong>Weeks 1-2: Integration & Configuration</strong></p>
+                            <ul class="compact-list">
+                                <li>Network-level protection deployed</li>
+                                <li>Enterprise authentication/authorization integration</li>
+                                <li>Administrative dashboard configured</li>
+                                <li>Industry-specific custom patterns</li>
+                            </ul>
+
+                            <p class="mt-1"><strong>Weeks 3-4: Pilot Phase</strong></p>
+                            <ul class="compact-list">
+                                <li>Deploy to pilot user group (100-500 users)</li>
+                                <li>Real-time violation monitoring and tuning</li>
+                                <li>False positive reduction</li>
+                                <li>Operational runbook validation</li>
+                            </ul>
+
+                            <p class="mt-1"><strong>Weeks 5-8: Phased Enterprise Rollout</strong></p>
+                            <ul class="compact-list">
+                                <li>Phase 1: Department-level rollout</li>
+                                <li>Phase 2: Division-level expansion</li>
+                                <li>Phase 3: Full enterprise coverage</li>
+                                <li>Continuous monitoring and optimization</li>
+                            </ul>
+
+                            <p class="mt-1"><strong>Total time: 6-8 weeks</strong><br/>
+                            <span style="color: #718096;">(vs. 6-12 months to build internal solution)</span></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 13: Pricing -->
+            <section>
+                <h2>Pricing - Two Transparent Tiers</h2>
+                <h3 class="mb-1">Predictable, Fixed-Cost Licensing</h3>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em;">
+                    <div class="highlight-box small-text">
+                        <h3>TIER 1: 10K User License</h3>
+                        <div class="big-number" style="font-size: 2em; color: #2c5282;">$480K/year</div>
+                        <p><strong>Up to 10,000 users</strong></p>
+                        <ul class="compact-list text-left">
+                            <li>All features included</li>
+                            <li>Standard support</li>
+                            <li>24/7 technical assistance</li>
+                        </ul>
+                        <p class="mt-1"><strong>Best for:</strong><br/>
+                        Mid-size enterprises (5K-10K employees)<br/>
+                        Predictable headcount</p>
+                        <p class="mt-1"><strong>ROI: 10% of average breach cost</strong></p>
+                    </div>
+
+                    <div class="success-box small-text">
+                        <h3>TIER 2: Enterprise Site License</h3>
+                        <div class="big-number" style="font-size: 2em; color: #38a169;">$1M/year</div>
+                        <p><strong>UNLIMITED users</strong></p>
+                        <ul class="compact-list text-left">
+                            <li>All features included</li>
+                            <li>Dedicated support + CSM</li>
+                            <li>Priority feature development</li>
+                            <li>Quarterly business reviews</li>
+                        </ul>
+                        <p class="mt-1"><strong>Best for:</strong><br/>
+                        Large enterprises (20K+ employees)<br/>
+                        Unpredictable growth</p>
+                        <p class="mt-1"><strong>ROI: 20% of average breach cost</strong></p>
+                    </div>
+                </div>
+
+                <div class="highlight-box mt-1 smaller-text">
+                    <p><strong>Cost-effective at 21,000+ users:</strong> Tier 2 becomes more economical for large organizations</p>
+                </div>
+            </section>
+
+            <!-- Slide 14: ROI Analysis -->
+            <section>
+                <h2>ROI Analysis</h2>
+                <h3 class="mb-1">The $4.88M Prevention</h3>
+
+                <div class="two-columns text-left smaller-text">
+                    <div>
+                        <div class="warning-box">
+                            <h4>COST OF ONE DATA BREACH:</h4>
+                            <ul class="compact-list">
+                                <li>Average breach: <strong>$4.88M</strong> (IBM 2024)</li>
+                                <li>Healthcare breach: <strong>$10.93M</strong></li>
+                                <li>HIPAA violations: <strong>$3M-$10M</strong></li>
+                                <li>FTC disgorgement: <strong>Total model loss</strong></li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box mt-1">
+                            <h4>LLM SHIELD INVESTMENT:</h4>
+                            <div class="big-number" style="font-size: 2em; color: #2c5282;">$1M/year</div>
+                            <p><strong>Tier 2 Enterprise Site License</strong></p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="success-box">
+                            <h4>BREAK-EVEN ANALYSIS:</h4>
+                            <ul class="compact-list">
+                                <li>One prevented <strong>$4.88M breach = 5 years</strong></li>
+                                <li>One prevented <strong>$10.93M breach = 11 years</strong></li>
+                            </ul>
+
+                            <h4 class="mt-1">3-YEAR ROI CALCULATION:</h4>
+                            <ul class="compact-list">
+                                <li>Probability of AI breach: <strong>15-25%</strong> (3 years)</li>
+                                <li>Expected cost without protection: <strong>$976K</strong></li>
+                                <li>LLM Shield 3-year cost: <strong>$3M</strong></li>
+                                <li>Expected breach prevention: <strong>$4.88M</strong></li>
+                            </ul>
+
+                            <p class="mt-1"><strong>Net 3-year ROI: $1.88M positive (+63%)</strong><br/>
+                            <span style="font-size: 0.9em;">(Assuming only ONE prevented breach)</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box mt-1 smaller-text">
+                    <h4>ADDITIONAL BENEFITS:</h4>
+                    <p>Competitive advantage • Compliance posture • Operational efficiency • Customer trust • Talent retention • Innovation velocity</p>
+                </div>
+
+                <p class="text-center mt-1 small-text">
+                    <strong>THE QUESTION ISN'T "CAN WE AFFORD IT?"<br/>
+                    IT'S "CAN WE AFFORD NOT TO?"</strong>
+                </p>
+            </section>
+
+            <!-- Slide 15: Competitive Positioning -->
+            <section>
+                <h2>Why LLM Shield vs. Alternatives</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>LLM Shield</th>
+                            <th>SaaS DLP Tools</th>
+                            <th>Developer Tools</th>
+                            <th>Build Yourself</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Data Sovereignty</strong></td>
+                            <td><span class="checkmark">✅ VPC-native</span><br/>Never leaves network</td>
+                            <td><span class="crossmark">❌ Requires</span><br/>sending to their cloud</td>
+                            <td>⚠️ Depends on deployment</td>
+                            <td><span class="checkmark">✅ If done right</span><br/>(6-12 months)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Coverage</strong></td>
+                            <td><span class="checkmark">✅ ALL channels</span><br/>Network + Dev + Apps</td>
+                            <td>⚠️ Documents/email<br/>Not real-time AI</td>
+                            <td><span class="crossmark">❌ API only</span><br/>Misses employees</td>
+                            <td>⚠️ Limited scope<br/>Initial version</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Code Changes</strong></td>
+                            <td><span class="checkmark">✅ ZERO</span><br/>Network-level</td>
+                            <td>⚠️ Integration needed</td>
+                            <td><span class="crossmark">❌ Code integration</span><br/>All apps</td>
+                            <td><span class="crossmark">❌ Extensive dev</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Time to Protection</strong></td>
+                            <td><span class="checkmark">✅ 3-4 weeks</span></td>
+                            <td>⚠️ 6-12 weeks</td>
+                            <td>⚠️ 8-16 weeks</td>
+                            <td><span class="crossmark">❌ 6-12 months</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ongoing Cost</strong></td>
+                            <td><span class="checkmark">✅ Fixed $1M</span><br/>Predictable</td>
+                            <td><span class="crossmark">❌ Variable</span><br/>Per-user fees</td>
+                            <td><span class="crossmark">❌ Per-API-call</span><br/>Unpredictable</td>
+                            <td><span class="crossmark">❌ Perpetual</span><br/>maintenance</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box mt-1 small-text">
+                    <p class="text-center"><strong>THE VERDICT:</strong> Only solution with VPC-native + comprehensive coverage + zero code changes + enterprise scale + fixed costs</p>
+                </div>
+            </section>
+
+            <!-- Slide 16: Enterprise Partnership -->
+            <section>
+                <h2>Built for Enterprise Scale</h2>
+
+                <div class="two-columns text-left smaller-text">
+                    <div class="highlight-box">
+                        <h4>DESIGN PARTNER PROGRAM:</h4>
+                        <p>Co-developed with enterprise partners across:</p>
+                        <ul class="compact-list">
+                            <li><strong>Healthcare:</strong> HIPAA compliance, PHI protection patterns</li>
+                            <li><strong>Financial Services:</strong> SOX compliance, PCI-DSS requirements</li>
+                            <li><strong>Insurance:</strong> Claims data, underwriting workflows</li>
+                            <li><strong>Technology:</strong> Source code protection, credential detection</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <h4>STRATEGIC ADVISORY BOARD:</h4>
+                        <p>Join leading enterprises shaping LLM Shield's roadmap:</p>
+                        <ul class="compact-list">
+                            <li><strong>Priority access</strong> to new features and capabilities</li>
+                            <li><strong>Custom pattern development</strong> for your industry</li>
+                            <li><strong>Quarterly roadmap reviews</strong> with product team</li>
+                            <li><strong>Direct engineering access</strong> for technical guidance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box mt-1 small-text">
+                    <h4>WHAT ENTERPRISES NEED FROM AI SECURITY:</h4>
+                    <div class="two-columns text-left">
+                        <ul class="compact-list">
+                            <li>✓ Confidence to enable AI tools organization-wide</li>
+                            <li>✓ No compliance violations (HIPAA, GDPR, CCPA, SOX)</li>
+                            <li>✓ VPC-native deployment (data never leaves network)</li>
+                        </ul>
+                        <ul class="compact-list">
+                            <li>✓ Complete audit trail for regulatory reviews</li>
+                            <li>✓ Zero productivity impact on employees</li>
+                            <li>✓ Proven performance at enterprise scale</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="text-center mt-1 small-text" style="font-style: italic; color: #2c5282;">
+                    <strong>LLM Shield delivers all six requirements out of the box.</strong>
+                </p>
+            </section>
+
+            <!-- Slide 17: Next Steps -->
+            <section>
+                <h2>Next Steps</h2>
+                <h3 class="mb-1">Your Path to Protected AI Adoption</h3>
+
+                <div class="smaller-text text-left">
+                    <div class="highlight-box mb-1">
+                        <h4>STEP 1: 30-MINUTE DEMONSTRATION (This Week)</h4>
+                        <ul class="compact-list">
+                            <li>✓ See LLM Shield in action • Submit sample data patterns • Review audit dashboard • Q&A with product team</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box mb-1">
+                        <h4>STEP 2: TECHNICAL DEEP-DIVE (Week 2)</h4>
+                        <ul class="compact-list">
+                            <li>✓ 2-hour session with architects • Review integration with YOUR infrastructure • Discuss compliance (GDPR, HIPAA, CCPA, SOX) • Custom ROI calculation</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box mb-1">
+                        <h4>STEP 3: PROOF OF CONCEPT (Weeks 3-4)</h4>
+                        <ul class="compact-list">
+                            <li>✓ Deploy in your environment (non-production) • Test with YOUR data patterns • Validate performance at YOUR scale • Prove it works before you buy</li>
+                        </ul>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em;">
+                        <div class="success-box">
+                            <h4>STEP 4: DECISION (Week 5)</h4>
+                            <ul class="compact-list">
+                                <li>✓ Present POC results</li>
+                                <li>✓ Review pricing and terms</li>
+                                <li>✓ Contract negotiation</li>
+                            </ul>
+                        </div>
+
+                        <div class="success-box">
+                            <h4>STEP 5: DEPLOYMENT (Weeks 6-13)</h4>
+                            <ul class="compact-list">
+                                <li>✓ Weeks 1-2: Integration & Configuration</li>
+                                <li>✓ Weeks 3-4: Pilot (100-500 users)</li>
+                                <li>✓ Weeks 5-8: Phased enterprise rollout</li>
+                                <li>✓ Ongoing: Dedicated CSM, 24/7 support</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box mt-1 text-center small-text">
+                    <p><strong>TIMELINE: 4-6 weeks from first demo to contract, then 6-8 weeks to full production coverage</strong></p>
+                </div>
+            </section>
+
+            <!-- Slide 18: Call to Action -->
+            <section data-background-color="#1a365d">
+                <h2 style="color: white; margin-top: 1em;">Protect Your Data.<br/>Enable AI Innovation.<br/>Sleep at Night.</h2>
+
+                <p style="color: #e2e8f0; font-size: 1.2em; margin: 1.5em 0;">
+                    Your next data breach is being typed into ChatGPT right now.
+                </p>
+
+                <p style="color: white; font-size: 1.5em; margin: 1.5em 0; font-weight: 700;">
+                    LLM Shield stops it before it happens.
+                </p>
+
+                <div style="border: 3px solid white; padding: 1.5em; margin: 1.5em 0;">
+                    <h3 style="color: white; margin-bottom: 0.8em;">SCHEDULE YOUR 30-MINUTE DEMONSTRATION:</h3>
+                    <p style="color: #e2e8f0; font-size: 1em; margin: 0.4em 0;">
+                        📧 contact@datahawk.io
+                    </p>
+                    <p style="color: #e2e8f0; font-size: 1em; margin: 0.4em 0;">
+                        📞 +1 (425) 728-0734
+                    </p>
+                    <p style="color: #e2e8f0; font-size: 1em; margin: 0.4em 0;">
+                        🌐 datahawk.io
+                    </p>
+                </div>
+
+                <p style="color: #cbd5e0; font-size: 1.1em; font-style: italic; margin-top: 1.5em;">
+                    "Your data. Your network. Your control."
+                </p>
+
+                <p style="color: #a0aec0; margin-top: 1.5em;">
+                    LLM Shield by DataHawk
+                </p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t', // Show current slide / total slides
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            width: 1920,
+            height: 1080,
+            margin: 0.04,
+            minScale: 0.2,
+            maxScale: 2.0,
+            controls: true,
+            progress: true, // Shows progress bar at bottom
+            center: true,
+            touch: true,
+            loop: false,
+            rtl: false,
+            navigationMode: 'default',
+            shuffle: false,
+            fragments: true,
+            fragmentInURL: true,
+            embedded: false,
+            help: true,
+            pause: true,
+            showNotes: false,
+            autoPlayMedia: null,
+            preloadIframes: null,
+            autoAnimate: true,
+            autoAnimateMatcher: null,
+            autoAnimateEasing: 'ease',
+            autoAnimateDuration: 1.0,
+            autoAnimateUnmatched: true,
+            keyboard: true,
+            overview: true, // Press ESC to see all slides
+            disableLayout: false,
+            touch: true
+        });
+
+        // TOC Navigation functionality
+        Reveal.on('ready', event => {
+            // Initialize active state on first slide
+            updateActiveTocItem(0);
+        });
+
+        Reveal.on('slidechanged', event => {
+            // Update active slide in TOC when slide changes
+            const activeSlide = event.indexh;
+            updateActiveTocItem(activeSlide);
+        });
+
+        function updateActiveTocItem(slideIndex) {
+            // Remove active class from all TOC items
+            document.querySelectorAll('#toc-list li').forEach(li => {
+                li.classList.remove('active');
+            });
+
+            // Add active class to current slide's TOC item
+            const activeTocItem = document.querySelector(`#toc-list li[data-slide="${slideIndex}"]`);
+            if (activeTocItem) {
+                activeTocItem.classList.add('active');
+                // Scroll TOC to keep active item visible
+                activeTocItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Toggle TOC visibility when clicking on the sidebar
+        const toc = document.getElementById('toc');
+        toc.addEventListener('click', (e) => {
+            // Toggle expanded state
+            document.body.classList.toggle('toc-expanded');
+
+            // If clicking on a list item, navigate to that slide
+            const listItem = e.target.closest('li[data-slide]');
+            if (listItem) {
+                const slideIndex = parseInt(listItem.getAttribute('data-slide'));
+                Reveal.slide(slideIndex);
+            }
+        });
+    </script>
+</body>
+</html>

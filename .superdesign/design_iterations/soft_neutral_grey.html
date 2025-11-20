@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soft Neutral Grey - Data Hawk Theme Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Soft Neutral Grey Theme - Warm & Approachable */
+            --primary-color: #fafaf9;
+            --secondary-color: #f5f5f4;
+            --tertiary-color: #e7e5e4;
+            --accent-color: #78716c;
+            --highlight-color: #57534e;
+            --text-dark: #292524;
+            --text-medium: #57534e;
+            --text-light: #78716c;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+
+            --gradient-1: linear-gradient(135deg, #fafaf9 0%, #f5f5f4 100%);
+            --gradient-2: linear-gradient(135deg, #78716c 0%, #57534e 100%);
+            --gradient-hero: radial-gradient(ellipse at top, rgba(120, 113, 108, 0.1) 0%, #fafaf9 100%);
+
+            --shadow-subtle: 0 2px 6px rgba(41, 37, 36, 0.05);
+            --shadow-medium: 0 4px 14px rgba(41, 37, 36, 0.08);
+            --shadow-strong: 0 8px 28px rgba(41, 37, 36, 0.12);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--primary-color);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            border-bottom: 1px solid var(--tertiary-color);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .logo::before {
+            content: '🦅 ';
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5%;
+            background: var(--gradient-hero);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-medium);
+            margin-bottom: 2rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .primary-btn {
+            background: var(--gradient-2);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 24px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .stats {
+            padding: 4rem 5%;
+            background: white;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            background: var(--primary-color);
+            border-radius: 16px;
+            border: 1px solid var(--tertiary-color);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--highlight-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+        }
+
+        .feature-section {
+            padding: 6rem 5%;
+            background: var(--primary-color);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--text-medium);
+            margin-bottom: 4rem;
+        }
+
+        .feature-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--tertiary-color);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: var(--shadow-strong);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        .theme-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 2px solid var(--accent-color);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .theme-name {
+            font-weight: 700;
+            color: var(--highlight-color);
+            font-size: 1.1rem;
+        }
+
+        .theme-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Data Hawk</div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Protect Sensitive Data from <span>AI Exposure</span></h1>
+            <p>Enterprise-grade proxy that prevents PII, credentials, and confidential data from reaching LLMs — protecting both user inputs and AI outputs in real-time</p>
+            <a href="#" class="primary-btn">Schedule Demo →</a>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Detection Accuracy</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">&lt;50ms</div>
+                <div class="stat-label">P95 Latency</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1,713</div>
+                <div class="stat-label">Requests/Second</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Self-Hosted</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="feature-section">
+        <h2 class="section-title">Four-Layer Protection System</h2>
+        <p class="section-subtitle">Comprehensive security for every stage of AI interaction</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">User Input Protection</h3>
+                <p class="feature-description">Filters user prompts in real-time before reaching any LLM provider. Real-time pattern detection for 14+ sensitive data types.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3 class="feature-title">LLM Output Protection</h3>
+                <p class="feature-description">Scans AI responses for leaked sensitive data before users see them. Bidirectional filtering prevents training data leakage.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3 class="feature-title">Training Data Protection</h3>
+                <p class="feature-description">Sanitizes documents before LLM training, fine-tuning, or RAG ingestion. Batch processing for large datasets.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
+                <h3 class="feature-title">Developer Tool Shield</h3>
+                <p class="feature-description">Protects code and context from IDE tools like Claude Code, Copilot, Cursor. Zero code changes required.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="theme-info">
+        <div class="theme-name">Soft Neutral Grey</div>
+        <div class="theme-desc">Warm & Approachable</div>
+    </div>
+</body>
+</html>

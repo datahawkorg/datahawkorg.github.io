@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Hawk - Theme Preview Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+            color: #212529;
+            padding: 3rem 2rem;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #495057, #6c757d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #6c757d;
+            margin-bottom: 3rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .theme-card {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid #dee2e6;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .theme-card:hover {
+            transform: translateY(-5px);
+            border-color: #6c757d;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .theme-preview {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-preview iframe {
+            width: 100%;
+            height: 1000px;
+            border: none;
+            transform: scale(0.3);
+            transform-origin: 0 0;
+            pointer-events: none;
+        }
+
+        .theme-info {
+            padding: 1.5rem;
+        }
+
+        .theme-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #212529;
+            margin-bottom: 0.5rem;
+        }
+
+        .theme-desc {
+            color: #6c757d;
+            margin-bottom: 1rem;
+        }
+
+        .color-palette {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .color-swatch {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            border: 2px solid #dee2e6;
+        }
+
+        .theme-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            padding: 0.25rem 0.75rem;
+            background: rgba(108, 117, 125, 0.1);
+            border: 1px solid rgba(108, 117, 125, 0.3);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #495057;
+        }
+
+        .view-btn {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            background: linear-gradient(135deg, #495057, #6c757d);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .view-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(73, 80, 87, 0.3);
+        }
+
+        .instructions {
+            background: #ffffff;
+            border: 2px solid #dee2e6;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 3rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .instructions h2 {
+            color: #212529;
+            margin-bottom: 1rem;
+        }
+
+        .instructions ol {
+            margin-left: 1.5rem;
+            color: #6c757d;
+            line-height: 1.8;
+        }
+
+        .instructions li {
+            margin-bottom: 0.5rem;
+        }
+
+        code {
+            background: #f8f9fa;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #495057;
+            border: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦅 Data Hawk Theme Gallery</h1>
+        <p class="subtitle">Choose your perfect professional light grey theme</p>
+
+        <div class="grid">
+            <!-- Modern Minimal Grey -->
+            <div class="theme-card" onclick="window.open('design_iterations/modern_minimal_grey.html', '_blank')">
+                <div class="theme-preview">
+                    <iframe src="design_iterations/modern_minimal_grey.html"></iframe>
+                </div>
+                <div class="theme-info">
+                    <div class="theme-name">Modern Minimal Grey</div>
+                    <div class="theme-desc">Clean & Contemporary</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #ffffff;"></div>
+                        <div class="color-swatch" style="background: #f8f9fa;"></div>
+                        <div class="color-swatch" style="background: #495057;"></div>
+                        <div class="color-swatch" style="background: #6c757d;"></div>
+                    </div>
+                    <div class="theme-tags">
+                        <span class="tag">Minimal</span>
+                        <span class="tag">Clean</span>
+                        <span class="tag">Modern</span>
+                    </div>
+                    <a href="design_iterations/modern_minimal_grey.html" target="_blank" class="view-btn" onclick="event.stopPropagation()">
+                        View Full Preview →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Professional Slate Grey -->
+            <div class="theme-card" onclick="window.open('design_iterations/professional_slate_grey.html', '_blank')">
+                <div class="theme-preview">
+                    <iframe src="design_iterations/professional_slate_grey.html"></iframe>
+                </div>
+                <div class="theme-info">
+                    <div class="theme-name">Professional Slate Grey</div>
+                    <div class="theme-desc">Sophisticated & Business-Like</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #f1f5f9;"></div>
+                        <div class="color-swatch" style="background: #e2e8f0;"></div>
+                        <div class="color-swatch" style="background: #64748b;"></div>
+                        <div class="color-swatch" style="background: #475569;"></div>
+                    </div>
+                    <div class="theme-tags">
+                        <span class="tag">Sophisticated</span>
+                        <span class="tag">Professional</span>
+                        <span class="tag">Business</span>
+                    </div>
+                    <a href="design_iterations/professional_slate_grey.html" target="_blank" class="view-btn" onclick="event.stopPropagation()">
+                        View Full Preview →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Soft Neutral Grey -->
+            <div class="theme-card" onclick="window.open('design_iterations/soft_neutral_grey.html', '_blank')">
+                <div class="theme-preview">
+                    <iframe src="design_iterations/soft_neutral_grey.html"></iframe>
+                </div>
+                <div class="theme-info">
+                    <div class="theme-name">Soft Neutral Grey</div>
+                    <div class="theme-desc">Warm & Approachable</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #fafaf9;"></div>
+                        <div class="color-swatch" style="background: #f5f5f4;"></div>
+                        <div class="color-swatch" style="background: #78716c;"></div>
+                        <div class="color-swatch" style="background: #57534e;"></div>
+                    </div>
+                    <div class="theme-tags">
+                        <span class="tag">Warm</span>
+                        <span class="tag">Approachable</span>
+                        <span class="tag">Friendly</span>
+                    </div>
+                    <a href="design_iterations/soft_neutral_grey.html" target="_blank" class="view-btn" onclick="event.stopPropagation()">
+                        View Full Preview →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Corporate Steel Grey -->
+            <div class="theme-card" onclick="window.open('design_iterations/corporate_steel_grey.html', '_blank')">
+                <div class="theme-preview">
+                    <iframe src="design_iterations/corporate_steel_grey.html"></iframe>
+                </div>
+                <div class="theme-info">
+                    <div class="theme-name">Corporate Steel Grey</div>
+                    <div class="theme-desc">Traditional & Trustworthy</div>
+                    <div class="color-palette">
+                        <div class="color-swatch" style="background: #f8f9fa;"></div>
+                        <div class="color-swatch" style="background: #e9ecef;"></div>
+                        <div class="color-swatch" style="background: #6c757d;"></div>
+                        <div class="color-swatch" style="background: #495057;"></div>
+                    </div>
+                    <div class="theme-tags">
+                        <span class="tag">Corporate</span>
+                        <span class="tag">Trustworthy</span>
+                        <span class="tag">Traditional</span>
+                    </div>
+                    <a href="design_iterations/corporate_steel_grey.html" target="_blank" class="view-btn" onclick="event.stopPropagation()">
+                        View Full Preview →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>📋 How to Choose & Apply</h2>
+            <ol>
+                <li>Click any card to view the full preview in a new tab</li>
+                <li>Once you've chosen your favorite theme, let me know which one you prefer</li>
+                <li>I'll apply the complete theme to your main <code>index.html</code> file</li>
+                <li>All templates include the full LLM Shield content with animated diagrams, use cases, and integration options</li>
+            </ol>
+        </div>
+    </div>
+</body>
+</html>

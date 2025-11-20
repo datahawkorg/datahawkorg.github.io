@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Landing Page - Scroll Animations</title>
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="landing_theme.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Additional custom styles */
+        .line-wrapper {
+            overflow: hidden;
+            display: block;
+        }
+
+        .line-inner {
+            display: block;
+            transform: translateY(100%);
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header styling */
+        .header {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid var(--border);
+        }
+
+        /* Hero gradient background */
+        .hero-gradient {
+            background: linear-gradient(135deg, #F8F8FF 0%, #FFFFFF 100%);
+        }
+
+        /* Feature card custom styles */
+        .feature-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Stats counter styling */
+        .stat-number {
+            font-family: var(--font-sans);
+            font-weight: var(--font-extrabold);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Testimonial card */
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(40, 58, 247, 0.05), rgba(124, 58, 237, 0.05));
+            border-left: 4px solid var(--primary);
+        }
+
+        /* CTA section gradient */
+        .cta-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        /* Parallax container */
+        .parallax-container {
+            overflow: hidden;
+        }
+
+        /* Logo grid */
+        .logo-item {
+            filter: grayscale(100%);
+            opacity: 0.6;
+            transition: all 0.3s ease;
+        }
+
+        .logo-item:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto">
+            <nav class="flex items-center justify-between py-4">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                        <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+                    </div>
+                    <span class="text-2xl font-bold">ModernTech</span>
+                </div>
+
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="text-sm font-medium hover:text-blue-600 transition">Features</a>
+                    <a href="#solutions" class="text-sm font-medium hover:text-blue-600 transition">Solutions</a>
+                    <a href="#pricing" class="text-sm font-medium hover:text-blue-600 transition">Pricing</a>
+                    <a href="#testimonials" class="text-sm font-medium hover:text-blue-600 transition">Testimonials</a>
+                </div>
+
+                <div class="flex items-center space-x-4">
+                    <button class="btn btn-secondary hidden md:inline-flex">Sign In</button>
+                    <button class="btn btn-primary">Get Started</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-gradient section-lg pt-32">
+        <div class="container mx-auto">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 id="hero-headline" class="mb-6">
+                    Transform Your Business<br>
+                    With Modern Technology
+                </h1>
+
+                <p id="hero-subtext" class="slide-up text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+                    Empower your team with cutting-edge tools and intelligent automation.
+                    Scale faster, work smarter, and achieve more with our enterprise platform.
+                </p>
+
+                <div id="hero-cta" class="flex flex-wrap items-center justify-center gap-4 mb-16">
+                    <button class="btn btn-primary btn-lg slide-up">
+                        Start Free Trial
+                        <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                    </button>
+                    <button class="btn btn-secondary btn-lg slide-up">
+                        Watch Demo
+                        <i data-lucide="play-circle" class="w-5 h-5 ml-2"></i>
+                    </button>
+                </div>
+
+                <div id="hero-image" class="parallax-container scale-in">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&h=700&fit=crop"
+                         alt="Dashboard Preview"
+                         class="rounded-2xl shadow-2xl w-full"
+                         style="will-change: transform;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trusted By Section -->
+    <section class="section bg-white">
+        <div class="container mx-auto">
+            <p class="text-center text-sm font-semibold text-gray-500 uppercase tracking-wide mb-8 fade-in">
+                Trusted by leading companies worldwide
+            </p>
+            <div id="logo-grid" class="grid grid-cols-2 md:grid-cols-5 gap-8 items-center justify-items-center">
+                <div class="logo-item scale-in">
+                    <img src="https://placehold.co/120x40/e5e7eb/64748b?text=Company+1" alt="Company 1" class="h-10">
+                </div>
+                <div class="logo-item scale-in">
+                    <img src="https://placehold.co/120x40/e5e7eb/64748b?text=Company+2" alt="Company 2" class="h-10">
+                </div>
+                <div class="logo-item scale-in">
+                    <img src="https://placehold.co/120x40/e5e7eb/64748b?text=Company+3" alt="Company 3" class="h-10">
+                </div>
+                <div class="logo-item scale-in">
+                    <img src="https://placehold.co/120x40/e5e7eb/64748b?text=Company+4" alt="Company 4" class="h-10">
+                </div>
+                <div class="logo-item scale-in">
+                    <img src="https://placehold.co/120x40/e5e7eb/64748b?text=Company+5" alt="Company 5" class="h-10">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section bg-gray-50">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="animate-headline mb-4">Powerful Features for Modern Teams</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto slide-up">
+                    Everything you need to build, deploy, and scale your applications with confidence.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature Card 1 -->
+                <div class="feature-card card slide-up">
+                    <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6 feature-icon">
+                        <i data-lucide="rocket" class="w-7 h-7 text-blue-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Lightning Fast</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Experience blazing-fast performance with our optimized infrastructure and global CDN distribution.
+                    </p>
+                </div>
+
+                <!-- Feature Card 2 -->
+                <div class="feature-card card slide-up">
+                    <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mb-6 feature-icon">
+                        <i data-lucide="shield-check" class="w-7 h-7 text-purple-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Enterprise Security</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Bank-level encryption, SOC 2 compliance, and advanced security features to protect your data.
+                    </p>
+                </div>
+
+                <!-- Feature Card 3 -->
+                <div class="feature-card card slide-up">
+                    <div class="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-6 feature-icon">
+                        <i data-lucide="users" class="w-7 h-7 text-green-600"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Team Collaboration</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Built-in tools for seamless collaboration, real-time updates, and efficient project management.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section 1: Left Content + Right Image -->
+    <section class="section bg-white">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="content-left">
+                    <h2 class="animate-headline mb-6">
+                        Automate Your Workflow<br>
+                        Save Hours Every Week
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6 slide-left">
+                        Our intelligent automation platform eliminates repetitive tasks, allowing your team
+                        to focus on what matters most. Streamline processes, reduce errors, and boost productivity
+                        by up to 10x.
+                    </p>
+                    <ul class="space-y-4 mb-8 slide-left">
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Automated task scheduling and execution</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Smart notifications and alerts</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="check-circle" class="w-6 h-6 text-green-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Integration with 1000+ tools</span>
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary slide-left">
+                        Learn More
+                        <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                    </button>
+                </div>
+
+                <div class="parallax-container slide-right">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop"
+                         alt="Automation Dashboard"
+                         class="rounded-2xl shadow-xl w-full"
+                         style="will-change: transform;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Content Section 2: Left Image + Right Content -->
+    <section class="section bg-gray-50">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="parallax-container slide-left order-2 md:order-1">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop"
+                         alt="Analytics Dashboard"
+                         class="rounded-2xl shadow-xl w-full"
+                         style="will-change: transform;">
+                </div>
+
+                <div class="content-right order-1 md:order-2">
+                    <h2 class="animate-headline mb-6">
+                        Data-Driven Insights<br>
+                        Make Smarter Decisions
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-6 slide-right">
+                        Harness the power of advanced analytics and AI-driven insights. Our platform provides
+                        real-time visibility into your business metrics, helping you make informed decisions faster.
+                    </p>
+                    <ul class="space-y-4 mb-8 slide-right">
+                        <li class="flex items-start">
+                            <i data-lucide="trending-up" class="w-6 h-6 text-blue-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Real-time analytics and reporting</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="bar-chart" class="w-6 h-6 text-blue-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">Customizable dashboards</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i data-lucide="brain" class="w-6 h-6 text-blue-500 mr-3 mt-1"></i>
+                            <span class="text-gray-700">AI-powered predictions</span>
+                        </li>
+                    </ul>
+                    <button class="btn btn-primary slide-right">
+                        Explore Analytics
+                        <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section id="pricing" class="section bg-white">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="animate-headline mb-4">Trusted by Teams Worldwide</h2>
+                <p class="text-xl text-gray-600 slide-up">Join thousands of companies already using our platform</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="text-center scale-in">
+                    <div class="stat-number text-6xl mb-2" data-target="500">0</div>
+                    <p class="text-xl font-semibold text-gray-700 mb-2">Enterprise Customers</p>
+                    <p class="text-gray-500">Leading companies trust us</p>
+                </div>
+
+                <div class="text-center scale-in">
+                    <div class="stat-number text-6xl mb-2" data-target="99.9">0</div>
+                    <p class="text-xl font-semibold text-gray-700 mb-2">Uptime SLA</p>
+                    <p class="text-gray-500">Always available when you need it</p>
+                </div>
+
+                <div class="text-center scale-in">
+                    <div class="stat-number text-6xl mb-2" data-target="24">0</div>
+                    <p class="text-xl font-semibold text-gray-700 mb-2">24/7 Support</p>
+                    <p class="text-gray-500">Expert help around the clock</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section bg-gray-50">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="animate-headline mb-4">What Our Customers Say</h2>
+                <p class="text-xl text-gray-600 slide-up">Real stories from real users</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="testimonial-card p-8 rounded-2xl slide-up">
+                    <div class="flex items-center mb-6">
+                        <i data-lucide="quote" class="w-10 h-10 text-blue-600"></i>
+                    </div>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        "This platform has completely transformed how we work. The automation features
+                        alone have saved us over 20 hours per week. Absolutely game-changing!"
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full mr-4"></div>
+                        <div>
+                            <p class="font-semibold">Sarah Chen</p>
+                            <p class="text-sm text-gray-500">VP of Engineering, TechCorp</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card p-8 rounded-2xl slide-up">
+                    <div class="flex items-center mb-6">
+                        <i data-lucide="quote" class="w-10 h-10 text-purple-600"></i>
+                    </div>
+                    <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                        "The analytics capabilities are incredible. We now have real-time visibility
+                        into all our metrics and can make data-driven decisions faster than ever."
+                    </p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gradient-to-br from-green-400 to-blue-400 rounded-full mr-4"></div>
+                        <div>
+                            <p class="font-semibold">Michael Rodriguez</p>
+                            <p class="text-sm text-gray-500">CTO, DataFlow Inc</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+    <section class="section-lg cta-gradient text-white">
+        <div class="container mx-auto text-center">
+            <h2 id="cta-headline" class="text-white mb-6">
+                Ready to Transform Your Business?
+            </h2>
+            <p id="cta-subtext" class="text-xl text-white/90 mb-12 max-w-2xl mx-auto slide-up">
+                Join thousands of companies already using our platform to scale faster and work smarter.
+            </p>
+            <div id="cta-buttons" class="flex flex-wrap items-center justify-center gap-4">
+                <button class="btn btn-lg slide-up bg-white text-blue-600 hover:bg-gray-100">
+                    Start Free Trial
+                    <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                </button>
+                <button class="btn btn-lg slide-up border-2 border-white text-white hover:bg-white/10">
+                    Contact Sales
+                    <i data-lucide="phone" class="w-5 h-5 ml-2"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-16">
+        <div class="container mx-auto">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                            <i data-lucide="zap" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <span class="text-xl font-bold text-white">ModernTech</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-6">
+                        Empowering businesses with modern technology solutions.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white transition">
+                            <i data-lucide="github" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Product</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-white transition">Features</a></li>
+                        <li><a href="#" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="#" class="hover:text-white transition">Security</a></li>
+                        <li><a href="#" class="hover:text-white transition">Roadmap</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Company</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-white transition">About</a></li>
+                        <li><a href="#" class="hover:text-white transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-white transition">Careers</a></li>
+                        <li><a href="#" class="hover:text-white transition">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="hover:text-white transition">Documentation</a></li>
+                        <li><a href="#" class="hover:text-white transition">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition">Community</a></li>
+                        <li><a href="#" class="hover:text-white transition">API Reference</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
+                <p>&copy; 2024 ModernTech. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                    <a href="#" class="hover:text-white transition">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP Animation Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Register GSAP plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Check for reduced motion preference
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!prefersReducedMotion) {
+            // ========================================
+            // HERO SECTION ANIMATIONS
+            // ========================================
+
+            // Hero headline - line by line animation
+            const heroHeadline = new SplitType('#hero-headline', { types: 'lines' });
+
+            // Wrap lines for animation
+            heroHeadline.lines.forEach(line => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'line-wrapper';
+                line.parentNode.insertBefore(wrapper, line);
+                wrapper.appendChild(line);
+                line.classList.add('line-inner');
+            });
+
+            // Hero timeline
+            const heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+            heroTimeline
+                .to('#hero-headline .line-inner', {
+                    yPercent: 0,
+                    duration: 0.8,
+                    stagger: 0.1
+                })
+                .to('#hero-subtext', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6
+                }, '-=0.5')
+                .to('#hero-cta .slide-up', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    stagger: 0.15
+                }, '-=0.4')
+                .to('#hero-image', {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 1,
+                    ease: 'power2.out'
+                }, '-=0.5');
+
+            // Hero image parallax
+            gsap.to('#hero-image img', {
+                yPercent: -20,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#hero-image',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1
+                }
+            });
+
+            // ========================================
+            // LOGO SECTION ANIMATIONS
+            // ========================================
+
+            gsap.to('#logo-grid .scale-in', {
+                opacity: 1,
+                scale: 1,
+                duration: 0.5,
+                stagger: 0.08,
+                ease: 'back.out(1.2)',
+                scrollTrigger: {
+                    trigger: '#logo-grid',
+                    start: 'top 80%'
+                }
+            });
+
+            // ========================================
+            // FEATURE CARDS ANIMATIONS
+            // ========================================
+
+            const featureCards = document.querySelectorAll('.feature-card');
+
+            featureCards.forEach((card, index) => {
+                const icon = card.querySelector('.feature-icon');
+
+                const cardTimeline = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 70%'
+                    }
+                });
+
+                cardTimeline
+                    .to(card, {
+                        y: 0,
+                        opacity: 1,
+                        duration: 0.7,
+                        ease: 'power3.out'
+                    })
+                    .to(icon, {
+                        scale: 1,
+                        rotation: 0,
+                        duration: 0.5,
+                        ease: 'back.out(1.5)'
+                    }, '-=0.5');
+            });
+
+            // ========================================
+            // CONTENT SECTIONS WITH LINE ANIMATIONS
+            // ========================================
+
+            // Animate all headlines with class "animate-headline"
+            document.querySelectorAll('.animate-headline').forEach(headline => {
+                const split = new SplitType(headline, { types: 'lines' });
+
+                split.lines.forEach(line => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'line-wrapper';
+                    line.parentNode.insertBefore(wrapper, line);
+                    wrapper.appendChild(line);
+                    line.classList.add('line-inner');
+                });
+
+                gsap.to(headline.querySelectorAll('.line-inner'), {
+                    yPercent: 0,
+                    duration: 0.7,
+                    stagger: 0.08,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: headline,
+                        start: 'top 75%'
+                    }
+                });
+            });
+
+            // Slide left animations
+            gsap.utils.toArray('.slide-left').forEach(element => {
+                gsap.to(element, {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 75%'
+                    }
+                });
+            });
+
+            // Slide right animations
+            gsap.utils.toArray('.slide-right').forEach(element => {
+                gsap.to(element, {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 75%'
+                    }
+                });
+            });
+
+            // Slide up animations
+            gsap.utils.toArray('.slide-up').forEach(element => {
+                gsap.to(element, {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 80%'
+                    }
+                });
+            });
+
+            // Scale in animations
+            gsap.utils.toArray('.scale-in').forEach(element => {
+                gsap.to(element, {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 0.6,
+                    ease: 'back.out(1.2)',
+                    scrollTrigger: {
+                        trigger: element,
+                        start: 'top 75%'
+                    }
+                });
+            });
+
+            // Parallax images in content sections
+            gsap.utils.toArray('.parallax-container img').forEach(img => {
+                gsap.to(img, {
+                    yPercent: -15,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: img.closest('.parallax-container'),
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1
+                    }
+                });
+            });
+
+            // ========================================
+            // STATS COUNTER ANIMATIONS
+            // ========================================
+
+            document.querySelectorAll('.stat-number').forEach(stat => {
+                const target = parseFloat(stat.dataset.target);
+                const isDecimal = target % 1 !== 0;
+
+                gsap.to(stat, {
+                    textContent: target,
+                    duration: 2,
+                    ease: 'power2.inOut',
+                    snap: { textContent: isDecimal ? 0.1 : 1 },
+                    scrollTrigger: {
+                        trigger: stat,
+                        start: 'top 75%'
+                    },
+                    onUpdate: function() {
+                        const value = parseFloat(this.targets()[0].textContent);
+                        if (target === 500) {
+                            this.targets()[0].textContent = Math.round(value) + '+';
+                        } else if (target === 99.9) {
+                            this.targets()[0].textContent = value.toFixed(1) + '%';
+                        } else if (target === 24) {
+                            this.targets()[0].textContent = Math.round(value) + '/7';
+                        }
+                    }
+                });
+            });
+
+            // ========================================
+            // CTA SECTION ANIMATIONS
+            // ========================================
+
+            // CTA headline line animation
+            const ctaHeadline = new SplitType('#cta-headline', { types: 'lines' });
+
+            ctaHeadline.lines.forEach(line => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'line-wrapper';
+                line.parentNode.insertBefore(wrapper, line);
+                wrapper.appendChild(line);
+                line.classList.add('line-inner');
+            });
+
+            const ctaTimeline = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#cta-headline',
+                    start: 'top 80%'
+                }
+            });
+
+            ctaTimeline
+                .to('#cta-headline .line-inner', {
+                    yPercent: 0,
+                    duration: 0.8,
+                    stagger: 0.1,
+                    ease: 'power3.out'
+                })
+                .to('#cta-subtext', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.6
+                }, '-=0.6')
+                .to('#cta-buttons .slide-up', {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.5,
+                    stagger: 0.15
+                }, '-=0.4');
+        }
+
+        // ========================================
+        // HOVER MICRO-INTERACTIONS (always enabled)
+        // ========================================
+
+        // Button hover effects
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', () => {
+                gsap.to(btn, {
+                    scale: 1.02,
+                    duration: 0.2,
+                    ease: 'power2.out'
+                });
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, {
+                    scale: 1,
+                    duration: 0.2,
+                    ease: 'power2.out'
+                });
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Shield Blue - Data Hawk Theme Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Security Shield Blue Theme - Like Cloudflare, Auth0 */
+            --primary-color: #0c1821;
+            --secondary-color: #1b2838;
+            --tertiary-color: #2d3e50;
+            --accent-color: #06b6d4;
+            --highlight-color: #22d3ee;
+            --text-light: #cffafe;
+            --text-medium: #a5f3fc;
+            --text-white: #ffffff;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+
+            --gradient-1: linear-gradient(135deg, #0c1821 0%, #1b2838 100%);
+            --gradient-2: linear-gradient(135deg, #06b6d4 0%, #22d3ee 100%);
+            --gradient-hero: radial-gradient(ellipse at top, rgba(6, 182, 212, 0.15) 0%, #0a0a0a 100%);
+
+            --glow-cyan: 0 0 30px rgba(6, 182, 212, 0.5);
+            --glow-cyan-strong: 0 0 50px rgba(6, 182, 212, 0.7);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #0a0a0a;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        nav {
+            background: rgba(12, 24, 33, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 5%;
+            border-bottom: 1px solid rgba(6, 182, 212, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--text-white);
+        }
+
+        .logo::before {
+            content: '🦅 ';
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5%;
+            background: var(--gradient-hero);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 800;
+            color: var(--text-white);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 20px rgba(6, 182, 212, 0.6));
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .primary-btn {
+            background: var(--gradient-2);
+            color: #0a0a0a;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow-cyan-strong);
+        }
+
+        .stats {
+            padding: 4rem 5%;
+            background: var(--primary-color);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--highlight-color);
+            transform: translateY(-5px);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--highlight-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .feature-section {
+            padding: 6rem 5%;
+            background: #0a0a0a;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(6, 182, 212, 0.4);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 4rem;
+        }
+
+        .feature-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--gradient-1);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-color);
+            box-shadow: var(--glow-cyan-strong);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .theme-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--gradient-1);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            border: 2px solid var(--accent-color);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .theme-name {
+            font-weight: 700;
+            color: var(--highlight-color);
+            font-size: 1.1rem;
+        }
+
+        .theme-desc {
+            font-size: 0.9rem;
+            color: var(--text-medium);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Data Hawk</div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Protect Sensitive Data from <span>AI Exposure</span></h1>
+            <p>Enterprise-grade proxy that prevents PII, credentials, and confidential data from reaching LLMs — protecting both user inputs and AI outputs in real-time</p>
+            <a href="#" class="primary-btn">Schedule Demo →</a>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Detection Accuracy</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">&lt;50ms</div>
+                <div class="stat-label">P95 Latency</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">1,713</div>
+                <div class="stat-label">Requests/Second</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Self-Hosted</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="feature-section">
+        <h2 class="section-title">Four-Layer Protection System</h2>
+        <p class="section-subtitle">Comprehensive security for every stage of AI interaction</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">User Input Protection</h3>
+                <p class="feature-description">Filters user prompts in real-time before reaching any LLM provider. Real-time pattern detection for 14+ sensitive data types.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3 class="feature-title">LLM Output Protection</h3>
+                <p class="feature-description">Scans AI responses for leaked sensitive data before users see them. Bidirectional filtering prevents training data leakage.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3 class="feature-title">Training Data Protection</h3>
+                <p class="feature-description">Sanitizes documents before LLM training, fine-tuning, or RAG ingestion. Batch processing for large datasets.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">💻</div>
+                <h3 class="feature-title">Developer Tool Shield</h3>
+                <p class="feature-description">Protects code and context from IDE tools like Claude Code, Copilot, Cursor. Zero code changes required.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="theme-info">
+        <div class="theme-name">Security Shield Blue</div>
+        <div class="theme-desc">Like Cloudflare, Auth0</div>
+    </div>
+</body>
+</html>

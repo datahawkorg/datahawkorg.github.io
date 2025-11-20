@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neumorphic Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #e0e5ec;
+        }
+
+        .calculator {
+            background: #e0e5ec;
+            border-radius: 40px;
+            padding: 40px;
+            box-shadow: 
+                20px 20px 60px #bec3c9,
+                -20px -20px 60px #ffffff;
+            width: 420px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (min-width: 768px) {
+            .calculator {
+                width: 750px;
+            }
+        }
+
+        .brand {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 
+                1px 1px 2px #ffffff,
+                -1px -1px 2px #bec3c9;
+        }
+
+        .display {
+            background: #e0e5ec;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 
+                inset 8px 8px 16px #bec3c9,
+                inset -8px -8px 16px #ffffff;
+        }
+
+        .display-text {
+            font-size: 2.8rem;
+            color: #4a5568;
+            text-align: right;
+            font-weight: 600;
+            letter-spacing: 1px;
+            min-height: 60px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (min-width: 768px) {
+            .buttons {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        .scientific-panel {
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (min-width: 768px) {
+            .scientific-panel {
+                display: grid;
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sci-btn {
+            background: #e0e5ec;
+            border: none;
+            border-radius: 15px;
+            padding: 18px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #8b5cf6;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 
+                4px 4px 12px #bec3c9,
+                -4px -4px 12px #ffffff;
+        }
+
+        .sci-btn:hover {
+            box-shadow: 
+                5px 5px 15px #bec3c9,
+                -5px -5px 15px #ffffff;
+        }
+
+        .sci-btn:active {
+            box-shadow: 
+                inset 3px 3px 8px #bec3c9,
+                inset -3px -3px 8px #ffffff;
+        }
+
+        .btn {
+            background: #e0e5ec;
+            border: none;
+            border-radius: 20px;
+            padding: 0;
+            height: 70px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 
+                5px 5px 15px #bec3c9,
+                -5px -5px 15px #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:hover {
+            box-shadow: 
+                6px 6px 18px #bec3c9,
+                -6px -6px 18px #ffffff;
+        }
+
+        .btn:active {
+            box-shadow: 
+                inset 5px 5px 15px #bec3c9,
+                inset -5px -5px 15px #ffffff;
+        }
+
+        .btn.operator {
+            color: #3b82f6;
+            font-size: 1.5rem;
+        }
+
+        .btn.equals {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            grid-column: span 2;
+            color: white;
+            font-size: 1.6rem;
+            box-shadow: 
+                5px 5px 15px #bec3c9,
+                -5px -5px 15px #ffffff,
+                inset 0 0 0 transparent,
+                inset 0 0 0 transparent;
+        }
+
+        .btn.equals:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        }
+
+        .btn.equals:active {
+            box-shadow: 
+                inset 2px 2px 5px rgba(0,0,0,0.2),
+                inset -2px -2px 5px rgba(255,255,255,0.1);
+        }
+
+        .btn.clear {
+            color: #ef4444;
+            font-size: 1.3rem;
+        }
+
+        .btn.zero {
+            grid-column: span 2;
+        }
+
+        @media (min-width: 768px) {
+            .btn.equals {
+                grid-column: span 1;
+            }
+            
+            .btn.zero {
+                grid-column: span 1;
+            }
+
+            .btn.extra {
+                display: flex;
+            }
+        }
+
+        .btn.extra {
+            display: none;
+            background: #e0e5ec;
+            color: #10b981;
+            font-weight: 600;
+        }
+
+        .btn.number {
+            color: #1f2937;
+            font-weight: 700;
+        }
+
+        .memory-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .memory-btn {
+            background: #e0e5ec;
+            border: none;
+            border-radius: 15px;
+            padding: 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 
+                3px 3px 8px #bec3c9,
+                -3px -3px 8px #ffffff;
+        }
+
+        .memory-btn:active {
+            box-shadow: 
+                inset 2px 2px 5px #bec3c9,
+                inset -2px -2px 5px #ffffff;
+        }
+
+        @media (max-width: 480px) {
+            .calculator {
+                width: 95vw;
+                padding: 25px;
+            }
+
+            .btn {
+                height: 60px;
+                font-size: 1.1rem;
+            }
+
+            .display-text {
+                font-size: 2.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="brand">Neumorphic <span id="modeIndicator"></span></div>
+        <div class="display">
+            <div class="display-text" id="display">0</div>
+        </div>
+        
+        <div class="memory-buttons">
+            <button class="memory-btn" onclick="memoryOperation('MC')">MC</button>
+            <button class="memory-btn" onclick="memoryOperation('MR')">MR</button>
+            <button class="memory-btn" onclick="memoryOperation('M+')">M+</button>
+            <button class="memory-btn" onclick="memoryOperation('M-')">M-</button>
+        </div>
+        
+        <div class="scientific-panel">
+            <button class="sci-btn" onclick="scientificOp('sin')">sin</button>
+            <button class="sci-btn" onclick="scientificOp('cos')">cos</button>
+            <button class="sci-btn" onclick="scientificOp('tan')">tan</button>
+            <button class="sci-btn" onclick="scientificOp('ln')">ln</button>
+            <button class="sci-btn" onclick="scientificOp('log')">log</button>
+            <button class="sci-btn" onclick="scientificOp('sqrt')">√</button>
+            <button class="sci-btn" onclick="scientificOp('pow2')">x²</button>
+            <button class="sci-btn" onclick="scientificOp('pow3')">x³</button>
+            <button class="sci-btn" onclick="scientificOp('1/x')">1/x</button>
+            <button class="sci-btn" onclick="scientificOp('pi')">π</button>
+            <button class="sci-btn" onclick="scientificOp('e')">e</button>
+            <button class="sci-btn" onclick="scientificOp('fact')">n!</button>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn clear" onclick="clearDisplay()">AC</button>
+            <button class="btn operator" onclick="appendToDisplay('/')">/</button>
+            <button class="btn operator" onclick="appendToDisplay('*')">×</button>
+            <button class="btn operator" onclick="deleteLast()">⌫</button>
+            <button class="btn extra" onclick="appendToDisplay('(')">(</button>
+            
+            <button class="btn number" onclick="appendToDisplay('7')">7</button>
+            <button class="btn number" onclick="appendToDisplay('8')">8</button>
+            <button class="btn number" onclick="appendToDisplay('9')">9</button>
+            <button class="btn operator" onclick="appendToDisplay('-')">−</button>
+            <button class="btn extra" onclick="appendToDisplay(')')">)</button>
+            
+            <button class="btn number" onclick="appendToDisplay('4')">4</button>
+            <button class="btn number" onclick="appendToDisplay('5')">5</button>
+            <button class="btn number" onclick="appendToDisplay('6')">6</button>
+            <button class="btn operator" onclick="appendToDisplay('+')">+</button>
+            <button class="btn extra" onclick="scientificOp('percent')">%</button>
+            
+            <button class="btn number" onclick="appendToDisplay('1')">1</button>
+            <button class="btn number" onclick="appendToDisplay('2')">2</button>
+            <button class="btn number" onclick="appendToDisplay('3')">3</button>
+            <button class="btn operator" onclick="appendToDisplay('.')">.</button>
+            <button class="btn extra" onclick="scientificOp('mod')">mod</button>
+            
+            <button class="btn number zero" onclick="appendToDisplay('0')">0</button>
+            <button class="btn extra" onclick="appendToDisplay('00')">00</button>
+            <button class="btn extra" onclick="scientificOp('abs')">|x|</button>
+            <button class="btn equals" onclick="calculate()">=</button>
+            <button class="btn extra" onclick="scientificOp('exp')">EXP</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let currentInput = '0';
+        let shouldResetDisplay = false;
+        let memory = 0;
+        let modeIndicator = document.getElementById('modeIndicator');
+
+        function updateMode() {
+            if (window.innerWidth >= 768) {
+                modeIndicator.textContent = '• Scientific';
+                modeIndicator.style.color = '#8b5cf6';
+            } else {
+                modeIndicator.textContent = '';
+            }
+        }
+
+        window.addEventListener('resize', updateMode);
+        updateMode();
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        function factorial(n) {
+            if (n < 0) return NaN;
+            if (n === 0 || n === 1) return 1;
+            let result = 1;
+            for (let i = 2; i <= n; i++) {
+                result *= i;
+            }
+            return result;
+        }
+
+        function scientificOp(op) {
+            try {
+                let value = parseFloat(currentInput) || 0;
+                let result;
+                
+                switch(op) {
+                    case 'sin':
+                        result = Math.sin(value * Math.PI / 180);
+                        break;
+                    case 'cos':
+                        result = Math.cos(value * Math.PI / 180);
+                        break;
+                    case 'tan':
+                        result = Math.tan(value * Math.PI / 180);
+                        break;
+                    case 'ln':
+                        result = Math.log(value);
+                        break;
+                    case 'log':
+                        result = Math.log10(value);
+                        break;
+                    case 'sqrt':
+                        result = Math.sqrt(value);
+                        break;
+                    case 'pow2':
+                        result = Math.pow(value, 2);
+                        break;
+                    case 'pow3':
+                        result = Math.pow(value, 3);
+                        break;
+                    case '1/x':
+                        result = 1 / value;
+                        break;
+                    case 'pi':
+                        currentInput = Math.PI.toString();
+                        updateDisplay();
+                        return;
+                    case 'e':
+                        currentInput = Math.E.toString();
+                        updateDisplay();
+                        return;
+                    case 'fact':
+                        result = factorial(Math.floor(value));
+                        break;
+                    case 'percent':
+                        result = value / 100;
+                        break;
+                    case 'abs':
+                        result = Math.abs(value);
+                        break;
+                    case 'exp':
+                        result = Math.exp(value);
+                        break;
+                    case 'mod':
+                        currentInput += '%';
+                        updateDisplay();
+                        return;
+                    default:
+                        return;
+                }
+                
+                currentInput = result.toString();
+                if (currentInput.includes('.')) {
+                    let parts = currentInput.split('.');
+                    if (parts[1].length > 8) {
+                        currentInput = parseFloat(currentInput).toFixed(8).toString();
+                        currentInput = currentInput.replace(/\.?0+$/, '');
+                    }
+                }
+                shouldResetDisplay = true;
+                updateDisplay();
+            } catch (error) {
+                currentInput = 'Error';
+                shouldResetDisplay = true;
+                updateDisplay();
+                setTimeout(() => {
+                    currentInput = '0';
+                    updateDisplay();
+                }, 1500);
+            }
+        }
+
+        function clearDisplay() {
+            currentInput = '0';
+            shouldResetDisplay = false;
+            updateDisplay();
+        }
+
+        function appendToDisplay(value) {
+            if (shouldResetDisplay) {
+                currentInput = '0';
+                shouldResetDisplay = false;
+            }
+
+            if (currentInput === '0' && value !== '.') {
+                currentInput = value;
+            } else if (currentInput === '0' && value === '.') {
+                currentInput = '0.';
+            } else {
+                const lastChar = currentInput[currentInput.length - 1];
+                const operators = ['+', '-', '*', '/'];
+                
+                if (operators.includes(lastChar) && operators.includes(value)) {
+                    currentInput = currentInput.slice(0, -1) + value;
+                } else {
+                    currentInput += value;
+                }
+            }
+            
+            updateDisplay();
+        }
+
+        function deleteLast() {
+            if (currentInput.length > 1) {
+                currentInput = currentInput.slice(0, -1);
+            } else {
+                currentInput = '0';
+            }
+            updateDisplay();
+        }
+
+        function calculate() {
+            try {
+                let expression = currentInput.replace(/×/g, '*').replace(/−/g, '-');
+                
+                if (expression.match(/[^0-9+\-*/.()]/)) {
+                    throw new Error('Invalid expression');
+                }
+                
+                let result = eval(expression);
+                
+                if (!isFinite(result)) {
+                    throw new Error('Invalid operation');
+                }
+                
+                currentInput = result.toString();
+                
+                if (currentInput.includes('.')) {
+                    let parts = currentInput.split('.');
+                    if (parts[1].length > 8) {
+                        currentInput = parseFloat(currentInput).toFixed(8).toString();
+                        currentInput = currentInput.replace(/\.?0+$/, '');
+                    }
+                }
+                
+                shouldResetDisplay = true;
+                updateDisplay();
+            } catch (error) {
+                currentInput = 'Error';
+                shouldResetDisplay = true;
+                updateDisplay();
+                setTimeout(() => {
+                    currentInput = '0';
+                    updateDisplay();
+                }, 1500);
+            }
+        }
+
+        function memoryOperation(operation) {
+            switch(operation) {
+                case 'MC':
+                    memory = 0;
+                    break;
+                case 'MR':
+                    currentInput = memory.toString();
+                    updateDisplay();
+                    break;
+                case 'M+':
+                    memory += parseFloat(currentInput) || 0;
+                    break;
+                case 'M-':
+                    memory -= parseFloat(currentInput) || 0;
+                    break;
+            }
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key >= '0' && event.key <= '9') {
+                appendToDisplay(event.key);
+            } else if (event.key === '.') {
+                appendToDisplay('.');
+            } else if (event.key === '+') {
+                appendToDisplay('+');
+            } else if (event.key === '-') {
+                appendToDisplay('-');
+            } else if (event.key === '*') {
+                appendToDisplay('*');
+            } else if (event.key === '/') {
+                event.preventDefault();
+                appendToDisplay('/');
+            } else if (event.key === 'Enter' || event.key === '=') {
+                calculate();
+            } else if (event.key === 'Escape' || event.key === 'c' || event.key === 'C') {
+                clearDisplay();
+            } else if (event.key === 'Backspace') {
+                deleteLast();
+            }
+        });
+
+        updateDisplay();
+    </script>
+</body>
+</html>
