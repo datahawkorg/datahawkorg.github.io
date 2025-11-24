@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Data Hawk - Protecting Enterprise AI from Data Exposure</title>
+    <title>About Data Hawk - Making AI Safe for Enterprise</title>
+    <meta name="description" content="Data Hawk protects sensitive data from AI exposure. Self-hosted, real-time filtering for enterprises adopting AI tools.">
     <style>
         * {
             margin: 0;
@@ -12,7 +13,6 @@
         }
 
         :root {
-            /* Corporate Steel Grey Theme - Traditional & Trustworthy */
             --primary-color: #f8f9fa;
             --secondary-color: #e9ecef;
             --tertiary-color: #dee2e6;
@@ -21,15 +21,10 @@
             --text-dark: #212529;
             --text-medium: #495057;
             --text-light: #6c757d;
-            --text-white: #ffffff;
             --success-color: #10b981;
-            --warning-color: #f59e0b;
             --danger-color: #ef4444;
-
-            --gradient-1: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             --gradient-2: linear-gradient(135deg, #6c757d 0%, #495057 100%);
             --gradient-hero: radial-gradient(ellipse at top, rgba(108, 117, 125, 0.1) 0%, #f8f9fa 100%);
-
             --shadow-subtle: 0 1px 3px rgba(33, 37, 41, 0.08);
             --shadow-medium: 0 4px 12px rgba(33, 37, 41, 0.1);
             --shadow-strong: 0 8px 24px rgba(33, 37, 41, 0.14);
@@ -43,7 +38,7 @@
             line-height: 1.6;
         }
 
-        /* Navigation (matching main page) */
+        /* Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -52,7 +47,6 @@
             backdrop-filter: blur(10px);
             padding: 1rem 5%;
             z-index: 1000;
-            transition: all 0.3s ease;
             border-bottom: 2px solid var(--tertiary-color);
             box-shadow: var(--shadow-subtle);
         }
@@ -73,7 +67,6 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            letter-spacing: -0.3px;
         }
 
         .logo::before {
@@ -91,8 +84,8 @@
         .nav-links a {
             color: var(--text-medium);
             text-decoration: none;
-            transition: color 0.3s ease;
             font-weight: 500;
+            transition: color 0.3s ease;
         }
 
         .nav-links a:hover,
@@ -114,324 +107,333 @@
         .cta-button:hover {
             transform: translateY(-2px);
             box-shadow: var(--shadow-strong);
-            color: #ffffff !important;
         }
 
-        /* About Hero Section */
-        .about-hero {
-            min-height: 60vh;
+        /* Hero Section */
+        .hero {
+            min-height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 0 5%;
             margin-top: 80px;
-            position: relative;
             background: var(--gradient-hero);
         }
 
-        .about-hero-content {
-            max-width: 1000px;
+        .hero-content {
+            max-width: 900px;
             text-align: center;
-            z-index: 1;
         }
 
-        .about-hero h1 {
+        .hero h1 {
             font-size: clamp(2.5rem, 6vw, 4rem);
             font-weight: 700;
             color: var(--text-dark);
             margin-bottom: 1.5rem;
             line-height: 1.2;
-            letter-spacing: -0.5px;
         }
 
-        .about-hero h1 span {
+        .hero h1 .highlight {
             background: var(--gradient-2);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
-        .about-hero p {
-            font-size: 1.3rem;
+        .hero .subtitle {
+            font-size: 1.4rem;
             color: var(--text-medium);
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.8;
+            margin-bottom: 2rem;
+            line-height: 1.7;
         }
 
-        /* Mission Section */
-        .mission-section {
-            padding: 6rem 5%;
-            background: white;
-            border-top: 1px solid var(--tertiary-color);
-        }
-
-        .mission-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .mission-content h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.5px;
-        }
-
-        .mission-content p {
-            font-size: 1.2rem;
-            color: var(--text-medium);
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .mission-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
             margin-top: 2rem;
         }
 
-        .mission-stat {
+        .hero-stat {
             text-align: center;
-            padding: 1.5rem;
-            background: var(--secondary-color);
-            border-radius: 10px;
-            border: 2px solid var(--tertiary-color);
-            box-shadow: var(--shadow-subtle);
         }
 
-        .mission-stat-number {
+        .hero-stat-number {
             font-size: 2.5rem;
             font-weight: 700;
             color: var(--highlight-color);
-            margin-bottom: 0.5rem;
         }
 
-        .mission-stat-label {
+        .hero-stat-label {
             font-size: 1rem;
             color: var(--text-medium);
         }
 
-        /* Story Section */
-        .story-section {
-            padding: 6rem 5%;
+        /* Problem Section */
+        .problem-section {
+            padding: 5rem 5%;
+            background: white;
+        }
+
+        .problem-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-medium);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .problem-box {
+            background: #fff5f5;
+            border-left: 4px solid var(--danger-color);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .problem-box h3 {
+            font-size: 1.5rem;
+            color: var(--danger-color);
+            margin-bottom: 1rem;
+        }
+
+        .problem-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .problem-list li {
+            padding: 0.75rem 0;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .problem-list li::before {
+            content: '⚠️';
+            flex-shrink: 0;
+        }
+
+        .solution-box {
+            background: #f0fdf4;
+            border-left: 4px solid var(--success-color);
+            padding: 2rem;
+            border-radius: 8px;
+        }
+
+        .solution-box h3 {
+            font-size: 1.5rem;
+            color: var(--success-color);
+            margin-bottom: 1rem;
+        }
+
+        .solution-box p {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        /* Approach Section */
+        .approach-section {
+            padding: 5rem 5%;
             background: var(--primary-color);
         }
 
-        .story-container {
+        .approach-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .approach-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .approach-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid var(--tertiary-color);
+            box-shadow: var(--shadow-subtle);
+            transition: all 0.3s ease;
+        }
+
+        .approach-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .approach-number {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            background: var(--gradient-2);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 45px;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .approach-card h3 {
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .approach-card p {
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* Difference Section */
+        .difference-section {
+            padding: 5rem 5%;
+            background: white;
+        }
+
+        .difference-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .difference-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .difference-card {
+            padding: 2rem;
+            border-radius: 10px;
+            border: 2px solid var(--tertiary-color);
+        }
+
+        .difference-card.strong {
+            background: #f0fdf4;
+            border-color: var(--success-color);
+        }
+
+        .difference-card h3 {
+            font-size: 1.6rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .difference-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .difference-card li {
+            padding: 0.5rem 0;
+            color: var(--text-dark);
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .difference-card.strong li::before {
+            content: '✓';
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .difference-card:not(.strong) li::before {
+            content: '✗';
+            color: var(--danger-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 5rem 5%;
+            background: var(--primary-color);
+        }
+
+        .team-container {
             max-width: 900px;
             margin: 0 auto;
             text-align: center;
         }
 
-        .story-container h2 {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 3rem;
-            letter-spacing: -0.5px;
-        }
-
-        .story-timeline {
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        .story-item {
-            margin-bottom: 3rem;
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            text-align: left;
-            position: relative;
-            border-left: 4px solid var(--accent-color);
-            margin-left: 2rem;
-            box-shadow: var(--shadow-subtle);
-        }
-
-        .story-item::before {
-            content: '';
-            position: absolute;
-            left: -14px;
-            top: 50%;
-            width: 24px;
-            height: 24px;
-            background: var(--accent-color);
-            border-radius: 50%;
-            transform: translateY(-50%);
-            border: 3px solid var(--primary-color);
-        }
-
-        .story-year {
-            font-size: 1rem;
-            color: var(--accent-color);
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .story-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-        }
-
-        .story-description {
-            font-size: 1.1rem;
-            color: var(--text-medium);
-            line-height: 1.6;
-        }
-
-        /* Values Section */
-        .values-section {
-            padding: 6rem 5%;
-            background: white;
-            border-top: 1px solid var(--tertiary-color);
-        }
-
-        .values-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .values-container h2 {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            text-align: center;
-            margin-bottom: 3rem;
-            letter-spacing: -0.5px;
-        }
-
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .value-card {
-            padding: 2.5rem;
-            background: var(--secondary-color);
-            border-radius: 10px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid var(--tertiary-color);
-            box-shadow: var(--shadow-subtle);
-        }
-
-        .value-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-color);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .value-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .value-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 1rem;
-        }
-
-        .value-description {
-            font-size: 1.1rem;
-            color: var(--text-medium);
-            line-height: 1.6;
-        }
-
-        /* Leadership Section */
-        .leadership-section {
-            padding: 6rem 5%;
-            background: var(--primary-color);
-        }
-
-        .leadership-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .leadership-container h2 {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            text-align: center;
-            margin-bottom: 3rem;
-            letter-spacing: -0.5px;
-        }
-
-        .leadership-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-        }
-
-        .leader-card {
-            background: white;
-            border-radius: 10px;
-            padding: 2.5rem;
-            text-align: center;
-            transition: all 0.3s ease;
-            border: 2px solid var(--tertiary-color);
-            box-shadow: var(--shadow-subtle);
-        }
-
-        .leader-card:hover {
-            transform: scale(1.02);
-            box-shadow: var(--shadow-strong);
-        }
-
-        .leader-name {
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 0.5rem;
-        }
-
-        .leader-title {
+        .team-description {
             font-size: 1.2rem;
-            color: var(--accent-color);
-            margin-bottom: 1.5rem;
-            font-weight: 500;
+            color: var(--text-medium);
+            line-height: 1.8;
+            margin: 2rem 0;
         }
 
-        .leader-bio {
+        .team-values {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .team-value {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid var(--tertiary-color);
+        }
+
+        .team-value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-value-text {
             font-size: 1.1rem;
-            color: var(--text-medium);
-            line-height: 1.6;
+            font-weight: 600;
+            color: var(--text-dark);
         }
 
         /* CTA Section */
-        .about-cta {
-            padding: 6rem 5%;
+        .cta-section {
+            padding: 5rem 5%;
             background: var(--gradient-2);
             text-align: center;
+            color: white;
         }
 
-        .about-cta h2 {
-            font-size: 3rem;
+        .cta-section h2 {
+            font-size: 2.8rem;
             font-weight: 700;
-            color: white;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.5px;
+            margin-bottom: 1rem;
         }
 
-        .about-cta p {
+        .cta-section p {
             font-size: 1.3rem;
-            color: white;
             margin-bottom: 2rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
             opacity: 0.95;
         }
 
@@ -457,6 +459,23 @@
         .white-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .secondary-btn {
+            background: transparent;
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid white;
+            transition: all 0.3s ease;
+        }
+
+        .secondary-btn:hover {
+            background: white;
+            color: var(--text-dark);
         }
 
         /* Footer */
@@ -513,13 +532,20 @@
                 display: none;
             }
 
-            .mission-container {
-                grid-template-columns: 1fr;
-                text-align: center;
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
-            .values-grid,
-            .leadership-grid {
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .difference-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .approach-grid,
+            .team-values {
                 grid-template-columns: 1fr;
             }
         }
@@ -540,132 +566,213 @@
         </div>
     </nav>
 
-    <!-- About Hero Section -->
-    <section class="about-hero">
-        <div class="about-hero-content">
-            <h1>Protecting Enterprise AI from <span>Data Exposure</span></h1>
-            <p>Born from the realization that AI adoption requires comprehensive data protection, Data Hawk empowers organizations to use LLMs safely — preventing PII, credentials, and confidential data from exposure without compromising performance or control.</p>
-        </div>
-    </section>
-
-    <!-- Mission Section -->
-    <section class="mission-section">
-        <div class="mission-container">
-            <div class="mission-content">
-                <h2>Our Mission</h2>
-                <p>As organizations rapidly adopt AI tools like ChatGPT, Claude Code, and GitHub Copilot, sensitive data is being exposed at unprecedented scale. We believe every enterprise deserves real-time protection they fully control.</p>
-                <p>Data Hawk was founded on a simple principle: <strong>AI innovation shouldn't compromise data security.</strong> We're building the future of LLM data protection, where performance meets sovereignty.</p>
-                <p>Our reactive architecture filters sensitive data at sub-50ms latency, while our commitment to self-hosted deployment ensures your data never leaves your infrastructure.</p>
-            </div>
-            <div class="mission-stats">
-                <div class="mission-stat">
-                    <div class="mission-stat-number">95%</div>
-                    <div class="mission-stat-label">Detection Accuracy</div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>We Built the AI Security Tool <span class="highlight">We Wished Existed</span></h1>
+            <p class="subtitle">
+                When enterprises adopt AI tools like ChatGPT and Claude Code, sensitive data leaks.
+                We created Data Hawk to solve this — <strong>real-time protection you control completely</strong>.
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-number">&lt;50ms</div>
+                    <div class="hero-stat-label">Filtering Latency</div>
                 </div>
-                <div class="mission-stat">
-                    <div class="mission-stat-number">&lt;50ms</div>
-                    <div class="mission-stat-label">P95 Latency</div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">95%</div>
+                    <div class="hero-stat-label">Detection Accuracy</div>
                 </div>
-                <div class="mission-stat">
-                    <div class="mission-stat-number">1,713</div>
-                    <div class="mission-stat-label">Requests/Second</div>
-                </div>
-                <div class="mission-stat">
-                    <div class="mission-stat-number">100%</div>
-                    <div class="mission-stat-label">Self-Hosted</div>
+                <div class="hero-stat">
+                    <div class="hero-stat-number">100%</div>
+                    <div class="hero-stat-label">Self-Hosted</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Story Section -->
-    <section class="story-section">
-        <div class="story-container">
-            <h2>Our Journey</h2>
-            <div class="story-timeline">
-                <div class="story-item">
-                    <div class="story-year">2023</div>
-                    <div class="story-title">The Problem</div>
-                    <div class="story-description">Witnessing enterprises struggle with unprotected AI adoption, our founder recognized a critical gap: organizations needed real-time LLM data protection they could trust and control completely, without per-call fees or vendor lock-in.</div>
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="problem-container">
+            <div class="section-header">
+                <h2>The Problem We're Solving</h2>
+                <p>AI adoption is accelerating, but data protection hasn't kept pace</p>
+            </div>
+
+            <div class="problem-box">
+                <h3>What We Saw in the Enterprise</h3>
+                <ul class="problem-list">
+                    <li>Developers paste production credentials into Claude Code and GitHub Copilot</li>
+                    <li>Customer support copies PII and PHI into ChatGPT to draft responses</li>
+                    <li>Sales teams upload confidential contracts to AI summarization tools</li>
+                    <li>Security teams have zero visibility — Shadow AI is everywhere</li>
+                    <li>Existing DLP tools don't work with AI (too slow, cloud-only, expensive per-call fees)</li>
+                </ul>
+            </div>
+
+            <div class="solution-box">
+                <h3>The Solution: Real-Time, Self-Hosted AI Data Protection</h3>
+                <p>
+                    Data Hawk sits between your users and AI providers. It filters sensitive data
+                    in <strong>both directions</strong> — before it reaches OpenAI/Anthropic and
+                    before AI responses return to users. <strong>Sub-50ms latency</strong> means
+                    users don't notice it's there. <strong>100% self-hosted</strong> means you
+                    control everything.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Approach Section -->
+    <section class="approach-section">
+        <div class="approach-container">
+            <div class="section-header">
+                <h2>Our Approach to AI Security</h2>
+                <p>Performance, sovereignty, and transparency — without compromise</p>
+            </div>
+
+            <div class="approach-grid">
+                <div class="approach-card">
+                    <div class="approach-number">1</div>
+                    <h3>Speed is Non-Negotiable</h3>
+                    <p>
+                        We obsess over milliseconds. Sub-50ms P95 latency means AI tools
+                        feel instant. Users don't sacrifice speed for security.
+                    </p>
                 </div>
-                <div class="story-item">
-                    <div class="story-year">Early 2024</div>
-                    <div class="story-title">Building the Shield</div>
-                    <div class="story-description">We assembled a team of security and reactive systems engineers to build a proxy architecture capable of filtering sensitive data at unprecedented speed. The goal: protect AI interactions without impacting user experience.</div>
+
+                <div class="approach-card">
+                    <div class="approach-number">2</div>
+                    <h3>Your Data, Your Infrastructure</h3>
+                    <p>
+                        100% self-hosted deployment. Your sensitive data never touches
+                        our servers. Air-gapped deployments supported.
+                    </p>
                 </div>
-                <div class="story-item">
-                    <div class="story-year">Mid 2024</div>
-                    <div class="story-title">Performance Breakthrough</div>
-                    <div class="story-description">Our pattern detection engine achieved sub-50ms P95 latency with 95% accuracy. Combined with bidirectional filtering and reversible tokenization, Data Hawk became the fastest self-hosted LLM security solution available.</div>
+
+                <div class="approach-card">
+                    <div class="approach-number">3</div>
+                    <h3>Zero Integration Friction</h3>
+                    <p>
+                        Transparent proxy architecture means zero code changes.
+                        Deploy once, protect everything — from Slack bots to IDE tools.
+                    </p>
                 </div>
-                <div class="story-item">
-                    <div class="story-year">Today</div>
-                    <div class="story-title">Securing Enterprise AI</div>
-                    <div class="story-description">Data Hawk now protects LLM interactions for organizations worldwide, filtering sensitive data in real-time across user inputs, AI outputs, training data, and developer tools. Our commitment to self-hosted excellence continues to drive innovation.</div>
+
+                <div class="approach-card">
+                    <div class="approach-number">4</div>
+                    <h3>Predictable, Fair Pricing</h3>
+                    <p>
+                        No per-call fees. No surprise bills. Flat licensing model
+                        based on users, not API volume. Budget with confidence.
+                    </p>
+                </div>
+
+                <div class="approach-card">
+                    <div class="approach-number">5</div>
+                    <h3>Bidirectional Protection</h3>
+                    <p>
+                        Most tools only scan inputs. We filter AI outputs too —
+                        catching training data leaks and hallucinated PII.
+                    </p>
+                </div>
+
+                <div class="approach-card">
+                    <div class="approach-number">6</div>
+                    <h3>Radically Transparent</h3>
+                    <p>
+                        We're honest about what we can and can't do. Real accuracy numbers.
+                        Real latency metrics. No marketing fluff.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Values Section -->
-    <section class="values-section">
-        <div class="values-container">
-            <h2>Our Values</h2>
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="value-icon">🔒</div>
-                    <div class="value-title">Data Sovereignty First</div>
-                    <div class="value-description">Your data never leaves your infrastructure. 100% self-hosted deployment means absolute control and complete transparency.</div>
+    <!-- What Makes Us Different -->
+    <section class="difference-section">
+        <div class="difference-container">
+            <div class="section-header">
+                <h2>What Makes Us Different</h2>
+                <p>Why enterprises choose Data Hawk over cloud DLP and manual reviews</p>
+            </div>
+
+            <div class="difference-grid">
+                <div class="difference-card strong">
+                    <h3>✓ Data Hawk (Self-Hosted)</h3>
+                    <ul>
+                        <li>Deploys in your VPC/data center</li>
+                        <li>Data never leaves your network</li>
+                        <li>Sub-50ms P95 latency</li>
+                        <li>Works with any LLM provider</li>
+                        <li>Bidirectional filtering (input + output)</li>
+                        <li>Flat pricing, no per-call fees</li>
+                        <li>Air-gapped deployment supported</li>
+                        <li>Zero code changes required</li>
+                    </ul>
                 </div>
-                <div class="value-card">
-                    <div class="value-icon">⚡</div>
-                    <div class="value-title">Performance Without Compromise</div>
-                    <div class="value-description">Sub-50ms latency doesn't happen by accident. We obsess over milliseconds to ensure seamless AI experiences.</div>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">🛡️</div>
-                    <div class="value-title">Comprehensive Protection</div>
-                    <div class="value-description">Four-layer defense covering user inputs, LLM outputs, training data, and developer tools — no gaps in coverage.</div>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">💡</div>
-                    <div class="value-title">Radical Transparency</div>
-                    <div class="value-description">Open about our capabilities, honest about limitations, and committed to clear communication with customers.</div>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">🤝</div>
-                    <div class="value-title">Customer Success</div>
-                    <div class="value-description">Your success is our success. We measure ourselves by the data breaches prevented and compliance violations avoided.</div>
-                </div>
-                <div class="value-card">
-                    <div class="value-icon">🚀</div>
-                    <div class="value-title">Continuous Innovation</div>
-                    <div class="value-description">From reactive architectures to ML-based validation, we're constantly pushing the boundaries of LLM security.</div>
+
+                <div class="difference-card">
+                    <h3>✗ Cloud DLP Tools</h3>
+                    <ul>
+                        <li>Data routed through vendor cloud</li>
+                        <li>Adds 200-500ms latency</li>
+                        <li>Limited LLM provider support</li>
+                        <li>Input-only filtering</li>
+                        <li>Expensive per-API-call pricing</li>
+                        <li>Cannot work air-gapped</li>
+                        <li>Vendor lock-in</li>
+                        <li>Additional compliance burden</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Leadership Section -->
-    <section class="leadership-section">
-        <div class="leadership-container">
-            <h2>Leadership</h2>
-            <div class="leadership-grid">
-                <div class="leader-card">
-                    <div class="leader-name">Data Hawk Team</div>
-                    <div class="leader-title">Leadership</div>
-                    <div class="leader-bio">A passionate team of technologists with deep expertise in distributed systems and enterprise security. Founded to solve the critical challenge of LLM data protection, making enterprise-grade security accessible and affordable for organizations embracing AI. Our vision of self-hosted, high-performance data filtering drives the mission forward.</div>
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="team-container">
+            <div class="section-header">
+                <h2>Who We Are</h2>
+                <p>A team obsessed with making AI safe for enterprise</p>
+            </div>
+
+            <p class="team-description">
+                We're security engineers, distributed systems architects, and enterprise software
+                builders who've spent careers protecting data at scale. We founded Data Hawk because
+                we saw enterprises facing an impossible choice: <strong>block AI tools or accept
+                massive data exposure risk</strong>. We built the solution we wish existed — fast,
+                self-hosted, and honest about what it can do.
+            </p>
+
+            <div class="team-values">
+                <div class="team-value">
+                    <div class="team-value-icon">🎯</div>
+                    <div class="team-value-text">Mission-Driven</div>
+                </div>
+                <div class="team-value">
+                    <div class="team-value-icon">⚡</div>
+                    <div class="team-value-text">Performance Obsessed</div>
+                </div>
+                <div class="team-value">
+                    <div class="team-value-icon">🔒</div>
+                    <div class="team-value-text">Security First</div>
+                </div>
+                <div class="team-value">
+                    <div class="team-value-icon">💬</div>
+                    <div class="team-value-text">Radically Transparent</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="about-cta">
-        <h2>Join Us in Securing Enterprise AI</h2>
-        <p>Whether you're protecting your first AI deployment or securing thousands of developers, we're here to help you embrace AI innovation safely.</p>
+    <section class="cta-section">
+        <h2>Ready to Secure Your AI Adoption?</h2>
+        <p>Join enterprises protecting sensitive data without slowing down innovation</p>
         <div class="cta-buttons">
             <a href="https://calendly.com/contactdatahawk/30min" class="white-btn" target="_blank">Schedule a Demo</a>
+            <a href="mailto:contact@datahawk.io" class="secondary-btn">Contact Sales</a>
         </div>
     </section>
 
