@@ -134,9 +134,10 @@
             letter-spacing: -0.3px;
         }
 
-        .logo::before {
-            content: '🦅';
-            font-size: 2rem;
+        .logo-img {
+            width: 40px;
+            height: 40px;
+            filter: brightness(0.2);
         }
 
         .nav-links {
@@ -992,7 +993,10 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="#" class="logo">Data Hawk</a>
+            <a href="#" class="logo">
+                <img src="Icon_White.png" alt="Data Hawk Logo" class="logo-img">
+                Data Hawk
+            </a>
             <ul class="nav-links">
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#protection">Protection</a></li>
