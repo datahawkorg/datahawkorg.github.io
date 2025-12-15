@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAGE Platform - Security Analytics & Governance Engine</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/theme/white.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Professional font - Inter (larger, more readable) */
+        .reveal {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 32px; /* Increased from 28px for better readability */
+        }
+
+        .reveal h1 {
+            color: #1a365d;
+            font-size: 2.5em; /* Larger headings */
+            font-weight: 700;
+            margin-bottom: 0.3em;
+            line-height: 1.1;
+        }
+
+        .reveal h2 {
+            color: #2c5282;
+            font-size: 2em; /* Larger h2 */
+            font-weight: 600;
+            margin-bottom: 0.3em;
+            line-height: 1.1;
+        }
+
+        .reveal h3 {
+            color: #2d3748;
+            font-size: 1.4em; /* Larger h3 */
+            font-weight: 600;
+            margin-bottom: 0.25em;
+            line-height: 1.2;
+        }
+
+        .reveal h4 {
+            color: #2d3748;
+            font-size: 1.1em; /* Slightly larger h4 */
+            font-weight: 600;
+            margin-bottom: 0.2em;
+            line-height: 1.2;
+        }
+
+        .reveal p, .reveal li {
+            font-size: 0.9em; /* Larger body text */
+            line-height: 1.35;
+            margin: 0.25em 0;
+        }
+
+        .reveal ul, .reveal ol {
+            margin: 0.5em 0;
+        }
+
+        .reveal strong {
+            color: #1a365d;
+            font-weight: 600;
+        }
+
+        /* Slide number styling */
+        .reveal .slide-number {
+            font-size: 0.7em;
+            color: #718096;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+
+        /* Progress bar */
+        .reveal .progress {
+            height: 4px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .reveal .progress span {
+            background: #3182ce;
+        }
+
+        /* Two-column layout */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5em;
+            text-align: left;
+        }
+
+        /* Highlight boxes */
+        .highlight-box {
+            background: #edf2f7;
+            border-left: 4px solid #3182ce;
+            padding: 0.75em;
+            margin: 0.4em 0;
+            font-size: 0.95em; /* Larger text in boxes */
+        }
+
+        .warning-box {
+            background: #fff5f5;
+            border-left: 4px solid #e53e3e;
+            padding: 0.75em;
+            margin: 0.4em 0;
+            font-size: 0.95em; /* Larger text in boxes */
+        }
+
+        .success-box {
+            background: #f0fff4;
+            border-left: 4px solid #38a169;
+            padding: 0.75em;
+            margin: 0.4em 0;
+            font-size: 0.95em; /* Larger text in boxes */
+        }
+
+        /* Table styling */
+        .reveal table {
+            font-size: 0.75em; /* Increased from 0.7em */
+            border-collapse: collapse;
+            width: 100%;
+            margin: 0.4em 0;
+        }
+
+        .reveal table th {
+            background: #2c5282;
+            color: white;
+            padding: 0.6em 0.5em; /* Slightly more padding */
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .reveal table td {
+            padding: 0.5em 0.6em; /* Slightly more padding */
+            border-bottom: 1px solid #e2e8f0;
+            vertical-align: top;
+        }
+
+        .reveal table tr:hover {
+            background: #f7fafc;
+        }
+
+        /* Contact info */
+        .contact-info {
+            font-size: 0.8em;
+            color: #4a5568;
+            margin-top: 0.8em;
+        }
+
+        /* Large numbers */
+        .big-number {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #e53e3e;
+            margin: 0.2em 0;
+            line-height: 1;
+        }
+
+        /* Checkmarks and crosses */
+        .checkmark {
+            color: #38a169;
+            font-weight: bold;
+        }
+
+        .crossmark {
+            color: #e53e3e;
+            font-weight: bold;
+        }
+
+        /* Small text - more readable sizes */
+        .small-text {
+            font-size: 0.85em; /* Increased from 0.8em */
+        }
+
+        .smaller-text {
+            font-size: 0.75em; /* Increased from 0.7em */
+        }
+
+        /* Text alignment */
+        .text-left {
+            text-align: left;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Spacing */
+        .mt-1 { margin-top: 0.5em; }
+        .mt-2 { margin-top: 1em; }
+        .mb-1 { margin-bottom: 0.5em; }
+        .mb-2 { margin-bottom: 1em; }
+
+        /* Three column grid */
+        .three-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1em;
+            text-align: center;
+        }
+
+        /* Two column grid for performance */
+        .two-columns-perf {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1em;
+        }
+
+        /* Compact lists - better spacing */
+        .compact-list {
+            margin: 0.4em 0;
+            padding-left: 1.3em;
+        }
+
+        .compact-list li {
+            margin: 0.25em 0;
+            line-height: 1.4; /* More readable line height */
+        }
+
+        /* Section styling */
+        .section-header {
+            background: #f7fafc;
+            padding: 0.3em 0.6em;
+            margin: 0.3em 0;
+            border-left: 3px solid #3182ce;
+            font-weight: 600;
+        }
+
+        /* Table of Contents - Left sidebar navigation */
+        #toc {
+            position: fixed;
+            left: -280px;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            background: #f7fafc;
+            padding: 20px 15px;
+            overflow-y: auto;
+            border-right: 2px solid #e2e8f0;
+            z-index: 100;
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            transition: left 0.3s ease;
+            cursor: pointer;
+        }
+
+        /* Show a small edge tab when minimized */
+        #toc::after {
+            content: '▶';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #3182ce;
+            color: white;
+            padding: 20px 8px;
+            border-radius: 0 4px 4px 0;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        #toc h3 {
+            color: #1a365d;
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 15px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3182ce;
+        }
+
+        #toc ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #toc li {
+            margin: 0;
+            padding: 8px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.2s;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        #toc li:hover {
+            background: #e2e8f0;
+            color: #1a365d;
+        }
+
+        #toc li.active {
+            background: #3182ce;
+            color: white;
+            font-weight: 600;
+        }
+
+        #toc li .slide-number-toc {
+            display: inline-block;
+            width: 25px;
+            color: #718096;
+            font-weight: 600;
+            font-size: 12px;
+        }
+
+        #toc li.active .slide-number-toc {
+            color: #e2e8f0;
+        }
+
+        /* Adjust reveal container - no margin by default since TOC is hidden */
+        .reveal {
+            margin-left: 0;
+            transition: margin-left 0.3s ease;
+        }
+
+        /* When TOC is expanded */
+        .toc-expanded #toc {
+            left: 0;
+        }
+
+        .toc-expanded #toc::after {
+            content: '◀';
+        }
+
+        .toc-expanded .reveal {
+            margin-left: 280px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Table of Contents Sidebar -->
+    <div id="toc">
+        <h3>SAGE Platform Presentation</h3>
+        <ul id="toc-list">
+            <li data-slide="0"><span class="slide-number-toc">1.</span> SAGE Platform - Title</li>
+            <li data-slide="1"><span class="slide-number-toc">2.</span> Two Complementary Security Challenges</li>
+            <li data-slide="2"><span class="slide-number-toc">3.</span> LLM Shield: The Solution</li>
+            <li data-slide="3"><span class="slide-number-toc">4.</span> How It Works & What We Protect</li>
+            <li data-slide="4"><span class="slide-number-toc">5.</span> SAGE Core: Live Demo</li>
+            <li data-slide="5"><span class="slide-number-toc">6.</span> Real-Time Intelligence Dashboard</li>
+            <li data-slide="6"><span class="slide-number-toc">7.</span> Investment & ROI</li>
+            <li data-slide="7"><span class="slide-number-toc">8.</span> Why LLM Shield vs. Alternatives</li>
+            <li data-slide="8"><span class="slide-number-toc">9.</span> Next Steps</li>
+            <li data-slide="9"><span class="slide-number-toc">10.</span> Call to Action</li>
+            <li data-slide="10" style="margin-top: 0.5em; border-top: 1px dashed #cbd5e0; padding-top: 0.5em;"><span class="slide-number-toc">A.</span> Appendix: Security & Compliance</li>
+            <li data-slide="11"><span class="slide-number-toc">B.</span> Appendix: Enterprise Performance</li>
+        </ul>
+    </div>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title -->
+            <section data-background-color="#1a365d">
+                <h1 style="color: white; margin-top: 0.8em; font-size: 2.5em;">LLM Shield</h1>
+                <p style="color: #cbd5e0; font-size: 1em; margin-top: 0.2em;">by DataHawk</p>
+                <h3 style="color: #cbd5e0; margin-top: 0.6em; font-size: 1.3em;">VPC-Native AI Security for Enterprise Scale</h3>
+                <p style="color: #e2e8f0; font-size: 0.95em; margin-top: 0.8em;">Protecting Your Data in the AI Era</p>
+                <div class="contact-info" style="color: #a0aec0; margin-top: 1.2em; font-size: 0.9em;">
+                    <p>contact@datahawk.io | +1 (425) 728-0734 | datahawk.io</p>
+                </div>
+
+                <!-- SPEAKER NOTES -->
+                <aside class="notes">
+                    TIMING: [00:00-00:45] (45 seconds)
+
+                    OPENING HOOK:
+                    "Good morning! Traditional DSPM platforms were built for legacy infrastructure - before cloud-native AI workloads existed. They're slow, expensive, and can't protect real-time AI interactions. I'm here to show you LLM Shield: the next-generation DSPM platform that prevents leaks BEFORE they happen and discovers them 100x faster when they do."
+
+                    KEY DIFFERENTIATORS (LEAD WITH VALUE):
+                    "In the next 30 minutes, you'll see four game-changers: 5-minute detection instead of hours. 80% cost savings with transparent pricing. Real-time LLM filtering that blocks ChatGPT leaks in under 50 milliseconds. And 100% VPC-native deployment - your data never leaves your environment."
+
+                    CREDIBILITY STATEMENT:
+                    "We've tested this at petabyte scale with 1,713 requests per second throughput. You'll see live demos of both static file scanning and real-time AI traffic protection."
+
+                    TRANSITION:
+                    "Let me start by showing you the problem every CISO is asking right now..."
+                </aside>
+            </section>
+
+            <!-- Slide 2: The Enterprise Data and AI Crisis -->
+            <section>
+                <h2>The Enterprise Data and AI Crisis</h2>
+                <p style="text-align: center; font-size: 0.9em; color: #718096; margin-top: -0.5em;">Traditional DSPM Can't Protect Modern AI Workloads</p>
+
+                <!-- Hero Section: The Dual Threat -->
+                <div style="text-align: center; margin: 0.6em 0 0.8em 0; padding: 0.6em; background: #f7fafc; border-radius: 8px;">
+                    <p style="font-size: 1.1em; font-weight: 700; color: #1a365d; margin: 0.2em 0; line-height: 1.3;">
+                        Risk = AI Data Streams + Enterprise Data At Rest
+                    </p>
+                    <p style="font-size: 1.2em; font-weight: 700; color: #e53e3e; margin: 0.2em 0; line-height: 1.3;">
+                        Avg breach: $4.88M. 70% of breached orgs faced significant disruption.
+                    </p>
+                </div>
+
+                <!-- Visual Layout: Two-Column Comparison -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; margin: 0.8em 0; align-items: stretch;">
+
+                    <!-- LEFT: LLM Shield - AI Data Streams -->
+                    <div style="background: linear-gradient(135deg, #f0f7ff 0%, #e6f2ff 100%); border: 3px solid #3182ce; border-radius: 8px; padding: 0.8em; position: relative;">
+                        <!-- Header Badge -->
+                        <div style="position: absolute; top: -12px; left: 15px; background: #3182ce; color: white; padding: 4px 12px; border-radius: 3px; font-size: 0.75em;">
+                            <strong style="color: white;">LLM SHIELD</strong> - AI DATA STREAMS
+                        </div>
+
+                        <!-- Icon & Title -->
+                        <div style="text-align: center; margin: 0.5em 0 0.4em 0;">
+                            <h4 style="color: #2c5282; margin: 0; font-size: 1em;"><span style="font-size: 1.8em; margin-right: 0.2em;">🛡️</span>Real-Time AI Traffic Risk</h4>
+                        </div>
+
+                        <!-- What's Leaking -->
+                        <div style="background: #fffaf0; border-left: 4px solid #ed8936; padding: 0.5em; margin: 0.5em 0; border-radius: 4px;">
+                            <div style="font-weight: 700; font-size: 0.7em; color: #c05621; margin-bottom: 0.3em;">What You're Gambling With:</div>
+                            <ul style="margin: 0; padding-left: 1.2em; font-size: 0.65em; color: #2d3748; line-height: 1.5;">
+                                <li>Customer PII to AI prompts</li>
+                                <li>Proprietary code to AI coding assistants</li>
+                                <li>Financial data to API integrations</li>
+                                <li>Healthcare breach: $10.93M avg • HIPAA settlements: $3M-$10M</li>
+                                <li>FTC: Delete entire AI models + 10-20yr acquisition restrictions</li>
+                            </ul>
+                        </div>
+
+                        <!-- Business Impact -->
+                        <div style="background: #fff5f5; border-left: 4px solid #fc8181; padding: 0.5em; margin: 0.5em 0; border-radius: 4px;">
+                            <div style="font-weight: 700; font-size: 0.8em; color: #c53030; margin-bottom: 0.2em;">💰 THE STAKES:</div>
+                            <div style="font-size: 0.75em; color: #2d3748; line-height: 1.4;">
+                                Can't block AI (business needs it). Can't allow AI (compliance won't accept it). <strong>78% bring their own AI tools</strong>—zero visibility, zero control
+                            </div>
+                        </div>
+
+                        <!-- What Solution Protects -->
+                        <div style="background: rgba(49, 130, 206, 0.1); padding: 0.5em; margin: 0.5em 0 0 0; border-radius: 4px;">
+                            <div style="font-weight: 700; font-size: 0.7em; color: #2c5282; margin-bottom: 0.3em;">🛡️ PROTECTS:</div>
+                            <div style="font-size: 0.7em; color: #2d3748; line-height: 1.4;">
+                                ChatGPT, Claude, Copilot, OpenAI/Anthropic APIs, custom AI integrations—<strong>everything leaving your network in real-time</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: LLM Shield - Enterprise Data at Rest -->
+                    <div style="background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%); border: 3px solid #9f7aea; border-radius: 8px; padding: 0.8em; position: relative;">
+                        <!-- Header Badge -->
+                        <div style="position: absolute; top: -12px; left: 15px; background: #805ad5; color: white; padding: 4px 12px; border-radius: 3px; font-size: 0.75em;">
+                            <strong style="color: white;">LLM SHIELD</strong> - ENTERPRISE DATA AT REST
+                        </div>
+
+                        <!-- Icon & Title -->
+                        <div style="text-align: center; margin: 0.5em 0 0.4em 0;">
+                            <h4 style="color: #6b46c1; margin: 0; font-size: 1em;"><span style="font-size: 1.8em; margin-right: 0.2em;">🗄️</span>Hidden Storage Risk</h4>
+                        </div>
+
+                        <!-- What's at Stake -->
+                        <div style="background: #fffaf0; border-left: 4px solid #ed8936; padding: 0.5em; margin: 0.5em 0; border-radius: 4px;">
+                            <div style="font-weight: 700; font-size: 0.7em; color: #c05621; margin-bottom: 0.3em;">What You're Gambling With:</div>
+                            <ul style="margin: 0; padding-left: 1.2em; font-size: 0.65em; color: #2d3748; line-height: 1.5;">
+                                <li>€20M GDPR fines • $7.5K/violation CCPA • $50K/record HIPAA</li>
+                                <li>FTC consent orders: 10-20yr acquisition restrictions</li>
+                                <li>7% stock decline • Unknown PII/PHI locations across 10 years</li>
+                                <li>10 years of unclassified storage across all cloud environments</li>
+                            </ul>
+                        </div>
+
+                        <!-- Business Impact -->
+                        <div style="background: #fff5f5; border-left: 4px solid #fc8181; padding: 0.5em; margin: 0.5em 0; border-radius: 4px;">
+                            <div style="font-weight: 700; font-size: 0.8em; color: #c53030; margin-bottom: 0.2em;">💰 THE STAKES:</div>
+                            <div style="font-size: 0.75em; color: #2d3748; line-height: 1.4;">
+                                <strong>$1,500+</strong> per data subject request • <strong>$1.47M lost business</strong> per breach • <strong>46% reputational damage</strong> • Can't safely train AI on your own data
+                            </div>
+                        </div>
+
+                        <!-- What Solution Discovers -->
+                        <div style="background: rgba(159, 122, 234, 0.1); padding: 0.5em; margin: 0.5em 0 0 0; border-radius: 4px;">
+                            <div style="font-weight: 700; font-size: 0.7em; color: #6b46c1; margin-bottom: 0.3em;">🔍 DISCOVERS:</div>
+                            <div style="font-size: 0.7em; color: #2d3748; line-height: 1.4;">
+                                S3, Azure, GCS, text files, logs, configs—<strong>10 years of storage across all cloud environments</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SPEAKER NOTES -->
+                <aside class="notes">
+                    TIMING: [00:45-03:00] (2 minutes 15 seconds)
+
+                    OPENING - BUSINESS-FIRST HOOK (15 seconds):
+                    "Let me ask you a question every CISO dreads: Where is ALL your sensitive data? Not just the databases you know about—I mean the CSV files with customer SSNs from 2015, the config files with API keys, the chat logs with credit card numbers. When a GDPR data subject request comes in, can you answer in 30 seconds—or does it take 6 months and $150,000 in legal fees?"
+
+                    LEFT SIDE - SAGE: HIDDEN DATA BOMBS (45 seconds):
+                    "This is the SAGE problem: hidden data bombs in your storage. One GDPR request = $150K in legal fees and 6 months of manual searching across 10 years of text files, databases, and cloud storage. What's at stake? €20 million GDPR fines—that's 4% of revenue. You can't clean your data for AI training because you don't know where it is. Average breach discovery time? 287 days.
+
+                    SAGE scans text-based data—CSV files, JSON logs, XML configs, database tables—anywhere Unicode text lives. It finds SSNs in CSV exports, credit cards in log files, API keys in config files. Then it redacts, quarantines, and generates GDPR Article 30 compliance reports. Use case: Answer a GDPR data subject request in 30 seconds instead of 6 months."
+
+                    RIGHT SIDE - LLM SHIELD: SHADOW AI CRISIS (45 seconds):
+                    "Now the flip side: Shadow AI. You can't block AI because the business needs it. You can't allow AI because compliance won't accept it. But 85% of your employees are using ChatGPT anyway—with zero visibility. What's leaking RIGHT NOW? Customer PII in ChatGPT prompts. Proprietary code to GitHub Copilot. All unmonitored, unaudited, and irreversible once it leaves your network.
+
+                    LLM Shield intercepts AI traffic in real-time—ChatGPT web traffic, OpenAI API calls, Copilot code suggestions—before it leaves your VPC. Detects the SSN, redacts it, lets the safe query proceed, creates an audit trail. Use case: Protect employees using AI tools today without blocking productivity."
+
+                    CENTER - WHY COMPLEMENTARY (20 seconds):
+                    "Notice they use the same detection patterns—both know what an SSN looks like—but operate at different points in time. SAGE is backward-looking: clean up the 10-year mess in your storage. LLM Shield is forward-looking: prevent new leakage happening right now. Different problems, same detection engine, no blind spots."
+
+                    BOTTOM - VALUE PROPOSITION (10 seconds):
+                    "Together, complete coverage: SAGE answers 'Where is all our sensitive data?' LLM Shield answers 'What's leaking right now?' Both use the same detection patterns, different deployment points. Most enterprises need both."
+
+                    TRANSITION (5 seconds):
+                    "Today's presentation focuses 70% on LLM Shield because AI adoption is exploding and real-time protection is the urgent need. But we'll show how SAGE complements this strategy."
+
+                    TOTAL: ~140 seconds (2 minutes 20 seconds)
+
+                    KEY BUSINESS-FIRST TACTICS:
+                    1. Lead with cost ($150K GDPR legal fees, €20M fines, 85% shadow AI usage)
+                    2. Show implications BEFORE technical details (can't clean AI data, 287-day breach discovery)
+                    3. Use executive language (revenue %, compliance risk, productivity loss)
+                    4. Emotional hooks ("Hidden Data Bombs", "Shadow AI Crisis")
+                    5. Concrete use cases (30 seconds vs 6 months, protect without blocking)
+
+                    ANTICIPATED QUESTIONS:
+                    Q: "Which one do we need?"
+                    A: "Depends on your urgent pain point. Facing a GDPR audit? Start with SAGE. Employees using AI tools today? Start with LLM Shield. But the $150K question applies to both: you can't manage what you can't see."
+
+                    Q: "Why doesn't SAGE scan PDFs or Word documents?"
+                    A: "SAGE focuses on text-based data where 90% of sensitive information lives—CSV exports, JSON logs, database dumps, config files. This is where compliance violations hide because it's unstructured and forgotten. We can expand to binary formats in future roadmap."
+
+                    Q: "How do you handle false positives?"
+                    A: "Both platforms use the same tunable detection patterns. You can adjust sensitivity: strict mode for PCI compliance (zero tolerance) or balanced mode for general use (minimize false alarms). We provide audit dashboards so you can review and refine."
+
+                    Q: "Can they share configurations?"
+                    A: "Yes—same detection patterns can be reused across both platforms, reducing operational overhead. Train once, deploy twice."
+                </aside>
+            </section>
+
+            <!-- Slide 3: LLM Shield Deep Dive [03:00-05:00] -->
+            <section data-background-color="#2c5282">
+                <h2 style="color: white; margin-top: 0.3em; font-size: 1.8em;">LLM Shield: How It Works</h2>
+                <h3 style="color: #e2e8f0; margin-top: 0.2em; font-size: 1em;">VPC-Native Data Protection</h3>
+
+                <div style="background: white; padding: 0.8em; margin: 0.5em auto; border-radius: 8px; max-width: 96%; font-size: 0.8em;">
+
+                    <!-- Text Description -->
+                    <div style="background: #f0f7ff; padding: 0.5em; border-radius: 6px; margin-bottom: 0.6em;">
+                        <p style="margin: 0; color: #2d3748; font-size: 0.85em;"><strong style="color: #2c5282;">WHAT IT IS:</strong> VPC-native security layer intercepting AI traffic BEFORE it leaves your infrastructure.</p>
+                    </div>
+
+                    <div style="background: #edf2f7; padding: 0.5em; border-radius: 6px; margin-bottom: 0.6em;">
+                        <p style="margin: 0; color: #2d3748; font-size: 0.85em;"><strong style="color: #2c5282;">HOW IT WORKS:</strong> Intercept → Detect patterns → Redact → Audit → Protected AI interaction</p>
+                    </div>
+
+                    <!-- Flow Diagram -->
+                    <div style="display: flex; align-items: flex-start; justify-content: center; gap: 0.5em; margin: 0.8em auto;">
+
+                        <!-- VPC Container with Employees/Devices/Apps + API Gateway + LLM Shield -->
+                        <div style="border: 2px dashed #3182ce; border-radius: 8px; padding: 0.7em; background: #f0f7ff; position: relative; flex: 0 0 auto;">
+                            <div style="position: absolute; top: -10px; left: 15px; background: #3182ce; color: white; padding: 3px 10px; border-radius: 3px; font-weight: 700; font-size: 0.85em;">
+                                YOUR VPC
+                            </div>
+
+                            <div style="display: flex; align-items: flex-start; gap: 0.5em;">
+                                <!-- Left Side: Employees, Devices & Apps -->
+                                <div style="text-align: center; padding: 0.6em; background: white; border-radius: 6px; border: 2px solid #cbd5e0; min-width: 140px;">
+                                    <!-- Icons Row -->
+                                    <div style="display: flex; justify-content: space-around; font-size: 1.5em; margin-bottom: 0.3em;">
+                                        <div>👨‍💼</div>
+                                        <div>💻</div>
+                                        <div>🗄️</div>
+                                    </div>
+                                    <!-- Labels -->
+                                    <div style="font-weight: 600; color: #2d3748; font-size: 0.7em; margin-bottom: 0.1em;">Employees</div>
+                                    <div style="font-weight: 600; color: #2d3748; font-size: 0.7em; margin-bottom: 0.3em;">Devices & Apps</div>
+                                    <div style="font-size: 0.7em; color: #e53e3e; background: #fff5f5; padding: 0.3em; border-radius: 3px; margin-top: 0.3em;">
+                                        <div style="font-weight: 600;">Sends:</div>
+                                        <div style="font-family: monospace; margin-top: 0.1em; font-size: 0.85em;">SSN: 123-45-6789</div>
+                                    </div>
+                                </div>
+
+                                <!-- Arrow Right (Red) -->
+                                <div style="display: flex; align-items: center; margin-top: 2em;">
+                                    <div style="font-size: 1.8em; color: #e53e3e;">→</div>
+                                </div>
+
+                                <!-- Right Side: API Gateway + LLM Shield (vertical stack) -->
+                                <div style="display: flex; flex-direction: column; gap: 0.3em; align-items: center;">
+
+                                    <!-- API Gateway -->
+                                    <div style="text-align: center; padding: 0.5em; background: linear-gradient(135deg, #00AA4E 0%, #009244 100%); border-radius: 6px; border: 2px solid #00AA4E; min-width: 140px;">
+                                        <div style="font-weight: 700; color: white; font-size: 0.9em;">API GATEWAY</div>
+                                        <div style="font-weight: 600; color: rgba(255,255,255,0.9); font-size: 0.65em; font-family: monospace; letter-spacing: 0.5px; margin-top: 0.2em;">NGINX</div>
+                                    </div>
+
+                                    <!-- Arrow Down (bidirectional to LLM Shield) -->
+                                    <div style="display: flex; flex-direction: column; align-items: center; gap: 0.1em;">
+                                        <div style="font-size: 1.5em; color: #e53e3e;">↓</div>
+                                        <div style="font-size: 0.65em; color: #718096; font-weight: 600;">intercepts</div>
+                                        <div style="font-size: 1.5em; color: #38a169;">↑</div>
+                                    </div>
+
+                                    <!-- LLM Shield -->
+                                    <div style="padding: 0.5em; background: linear-gradient(135deg, #38a169 0%, #2f855a 100%); border-radius: 6px; min-width: 280px; border: 3px solid #2f855a;">
+                                        <!-- Header with shield icon on left -->
+                                        <div style="display: flex; align-items: center; gap: 0.4em; margin-bottom: 0.4em; justify-content: center;">
+                                            <div style="font-size: 1.5em;">🛡️</div>
+                                            <div style="font-weight: 700; color: white; font-size: 0.95em;">LLM SHIELD</div>
+                                        </div>
+
+                                        <!-- Content: Side-by-side -->
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4em;">
+                                            <!-- Left: Scan/Redact -->
+                                            <div style="text-align: center; background: rgba(255,255,255,0.15); padding: 0.4em; border-radius: 4px;">
+                                                <div style="font-size: 0.65em; color: white;">
+                                                    <div style="margin-bottom: 0.1em;">🔍 Scan</div>
+                                                    <div style="font-size: 0.85em; margin-bottom: 0.1em;">✓ SSN</div>
+                                                    <div style="color: #fed7d7;">🚫 REDACT</div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Right: PROTECTION COVERAGE -->
+                                            <div style="text-align: left; background: rgba(255,255,255,0.15); padding: 0.4em; border-radius: 4px;">
+                                                <div style="font-weight: 700; color: white; font-size: 0.7em; margin-bottom: 0.2em; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 0.1em;">PROTECTS:</div>
+                                                <div style="font-size: 0.55em; color: white; line-height: 1.6;">
+                                                    <div>✓ Training Data Prep</div>
+                                                    <div>✓ Developer Tools</div>
+                                                    <div>✓ Java/Python Apps</div>
+                                                    <div>✓ API Integrations</div>
+                                                    <div>✓ All AI Traffic</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Arrow Right (Green) from API Gateway to External -->
+                                <div style="display: flex; align-items: flex-start; margin-top: 0.7em;">
+                                    <div style="font-size: 1.8em; color: #38a169;">→</div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- External AI Services -->
+                        <div style="border: 2px dashed #a0aec0; border-radius: 8px; padding: 0.7em; background: #e2e8f0; position: relative; flex: 0 0 auto; min-width: 180px;">
+                            <div style="position: absolute; top: -10px; left: 15px; background: #718096; color: white; padding: 3px 10px; border-radius: 3px; font-weight: 700; font-size: 0.85em;">
+                                AI SERVICES
+                            </div>
+
+                            <div style="text-align: center; padding: 0.6em; margin-top: 0.4em;">
+                                <div style="font-size: 2.5em; margin-bottom: 0.2em;">☁️</div>
+                                <div style="font-weight: 700; color: #2d3748; font-size: 0.9em; margin-bottom: 0.4em;">ChatGPT | Claude | Gemini</div>
+                                <div style="font-size: 0.75em; color: #38a169; background: #f0fff4; padding: 0.3em; border-radius: 3px; margin-top: 0.3em;">
+                                    <div style="font-weight: 600;">Receives:</div>
+                                    <div style="font-family: monospace; margin-top: 0.1em; font-size: 0.9em;">SSN: [REDACTED]</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Three Core Differentiators -->
+                    <div style="margin-top: 0.4em;">
+                        <h4 style="text-align: center; color: #2c5282; margin-bottom: 0.3em; font-size: 0.8em;">WHY IT MATTERS: THREE CORE DIFFERENTIATORS</h4>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.3em; font-size: 0.65em;">
+                            <div style="background: #edf2f7; border-left: 3px solid #3182ce; padding: 0.3em; border-radius: 4px;">
+                                <h4 style="color: #2c5282; margin: 0 0 0.15em 0; font-size: 1em;">1. VPC-NATIVE</h4>
+                                <ul style="margin: 0; padding-left: 1.2em; list-style: none; color: #2d3748;">
+                                    <li style="margin: 0.1em 0;">✓ Data sovereignty</li>
+                                    <li style="margin: 0.1em 0;">✓ GDPR Article 44</li>
+                                    <li style="margin: 0.1em 0;">✓ Air-gap capable</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: #edf2f7; border-left: 3px solid #3182ce; padding: 0.3em; border-radius: 4px;">
+                                <h4 style="color: #2c5282; margin: 0 0 0.15em 0; font-size: 1em;">2. ZERO CODE CHANGES</h4>
+                                <ul style="margin: 0; padding-left: 1.2em; list-style: none; color: #2d3748;">
+                                    <li style="margin: 0.1em 0;">✓ Network-level protection</li>
+                                    <li style="margin: 0.1em 0;">✓ Automatic coverage</li>
+                                    <li style="margin: 0.1em 0;">✓ Deploy in weeks</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: #edf2f7; border-left: 3px solid #3182ce; padding: 0.3em; border-radius: 4px;">
+                                <h4 style="color: #2c5282; margin: 0 0 0.15em 0; font-size: 1em;">3. ENTERPRISE SCALE</h4>
+                                <ul style="margin: 0; padding-left: 1.2em; list-style: none; color: #2d3748;">
+                                    <li style="margin: 0.1em 0;">✓ 148M requests/day</li>
+                                    <li style="margin: 0.1em 0;">✓ 50K concurrent users</li>
+                                    <li style="margin: 0.1em 0;">✓ Sub-40ms latency</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Key Message -->
+                    <div style="margin-top: 0.4em; padding: 0.3em; background: #f0f7ff; border-left: 3px solid #3182ce; border-radius: 4px; text-align: center;">
+                        <p style="font-size: 0.8em; color: #2d3748; margin: 0;">
+                            <strong style="color: #38a169;">Employees use AI freely.</strong>
+                            <span style="color: #2d3748;">Data stays protected.</span>
+                            <strong style="color: #3182ce;">Full regulatory compliance.</strong>
+                        </p>
+                    </div>
+
+                </div>
+
+                <aside class="notes">
+                    TIMING: [03:00-05:00] (2 minutes)
+
+                    WHAT TO SAY:
+                    "Let me walk you through exactly how LLM Shield works at the technical level.
+
+                    LLM Shield is a VPC-native security layer that intercepts AI traffic BEFORE it leaves your infrastructure. Here's the flow:
+
+                    1. Your employees, devices, and applications send prompts containing sensitive data - like this SSN example.
+
+                    2. The traffic goes through your API Gateway - typically NGINX - which routes to external AI services.
+
+                    3. But LLM Shield intercepts that traffic. It scans the prompt, detects the SSN pattern, and redacts it before forwarding.
+
+                    4. The external AI service - ChatGPT, Claude, Gemini - receives the redacted version: 'SSN: [REDACTED]'
+
+                    Notice what we intercept: Training data preparation, developer tools like Copilot, Java and Python applications, API integrations - ALL AI traffic flows through LLM Shield.
+
+                    Now, why does this matter? Three core differentiators:
+
+                    First, VPC-NATIVE deployment. Your data never leaves your network for processing. This gives you complete data sovereignty and GDPR Article 44 compliance. You can even deploy in air-gapped environments.
+
+                    Second, ZERO CODE CHANGES. This is network-level protection. You don't need to modify your applications. Coverage is automatic. You can deploy in weeks, not months.
+
+                    Third, ENTERPRISE SCALE. We handle 148 million requests per day, support 50,000 concurrent users, with sub-40 millisecond latency. Your employees won't even notice the protection is there.
+
+                    The result: Employees use AI freely. Data stays protected. Full regulatory compliance."
+
+                    KEY POINTS:
+                    - Walk through the diagram step by step
+                    - Emphasize VPC-native = data sovereignty (regulatory compliance)
+                    - Zero code changes = fast deployment
+                    - Performance numbers = enterprise-ready
+
+                    TRANSITION:
+                    "Now let me show you what LLM Shield protects and how it works in practice..."
+                </aside>
+            </section>
+
+            <!-- Slide 4: How It Works & What We Protect -->
+            <section>
+                <h2>How It Works & What We Protect</h2>
+                <h3 class="mb-1" style="font-size: 0.9em;">Real-Time Detection at the Network Boundary</h3>
+
+                <!-- How It Works: 3 Examples -->
+                <table style="font-size: 0.85em; margin-bottom: 0.8em;">
+                    <thead>
+                        <tr>
+                            <th>Employee Action</th>
+                            <th>LLM Shield Detection</th>
+                            <th>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code style="font-size: 0.95em;">"AWS key: AKIA..."</code></td>
+                            <td>Detects: <strong>AWS_ACCESS_KEY</strong> → REDACT + AUDIT</td>
+                            <td><code style="font-size: 0.95em;">"AWS key: [REDACTED]"</code></td>
+                        </tr>
+                        <tr>
+                            <td><code style="font-size: 0.95em;">"SSN 123-45-6789"</code></td>
+                            <td>Detects: <strong>SSN_PATTERN</strong> → MASK + AUDIT</td>
+                            <td><code style="font-size: 0.95em;">"SSN [REDACTED]"</code></td>
+                        </tr>
+                        <tr>
+                            <td><code style="font-size: 0.95em;">"Confidential deal terms"</code></td>
+                            <td>Custom pattern detected → BLOCK + ALERT</td>
+                            <td><code style="font-size: 0.95em;">"Content filtered"</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- What We Protect: 6 Categories -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5em; margin: 0.6em 0; font-size: 0.75em;">
+                    <div style="background: linear-gradient(135deg, #f0f7ff 0%, #e6f2ff 100%); padding: 0.5em; border-radius: 6px; border-left: 4px solid #3182ce;">
+                        <h4 style="color: #2c5282; margin: 0 0 0.3em 0; font-size: 1em; text-align: center;">💳 FINANCIAL</h4>
+                        <ul style="margin: 0; padding-left: 0; list-style: none; color: #2d3748; font-size: 0.95em;">
+                            <li style="margin: 0.15em 0;">• Credit cards, Bank accounts, IBAN/SWIFT</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #f0fff4 0%, #e6f9e6 100%); padding: 0.5em; border-radius: 6px; border-left: 4px solid #38a169;">
+                        <h4 style="color: #2f855a; margin: 0 0 0.3em 0; font-size: 1em; text-align: center;">👤 PERSONAL (PII)</h4>
+                        <ul style="margin: 0; padding-left: 0; list-style: none; color: #2d3748; font-size: 0.95em;">
+                            <li style="margin: 0.15em 0;">• SSNs, Emails, Phones, Addresses, DOB</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #fffaf0 0%, #fef5e7 100%); padding: 0.5em; border-radius: 6px; border-left: 4px solid #dd6b20;">
+                        <h4 style="color: #c05621; margin: 0 0 0.3em 0; font-size: 1em; text-align: center;">🏥 HEALTHCARE (PHI)</h4>
+                        <ul style="margin: 0; padding-left: 0; list-style: none; color: #2d3748; font-size: 0.95em;">
+                            <li style="margin: 0.15em 0;">• Medical records, Prescription IDs, Patient #s</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%); padding: 0.5em; border-radius: 6px; border-left: 4px solid #718096;">
+                        <h4 style="color: #4a5568; margin: 0 0 0.3em 0; font-size: 1em; text-align: center;">🔐 INFRASTRUCTURE</h4>
+                        <ul style="margin: 0; padding-left: 0; list-style: none; color: #2d3748; font-size: 0.95em;">
+                            <li style="margin: 0.15em 0;">• AWS/Azure creds, API keys, Tokens, IPs</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #fffaf0 0%, #fff5eb 100%); padding: 0.5em; border-radius: 6px; border-left: 4px solid #ed8936;">
+                        <h4 style="color: #c05621; margin: 0 0 0.3em 0; font-size: 1em; text-align: center;">🏛️ GOVERNMENT</h4>
+                        <ul style="margin: 0; padding-left: 0; list-style: none; color: #2d3748; font-size: 0.95em;">
+                            <li style="margin: 0.15em 0;">• Passports, Driver's licenses, Tax IDs</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%); padding: 0.5em; border-radius: 6px; border-left: 4px solid #805ad5;">
+                        <h4 style="color: #6b46c1; margin: 0 0 0.3em 0; font-size: 1em; text-align: center;">⚖️ LEGAL</h4>
+                        <ul style="margin: 0; padding-left: 0; list-style: none; color: #2d3748; font-size: 0.95em;">
+                            <li style="margin: 0.15em 0;">• Matter IDs, Case numbers</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Detection Technology -->
+                <div style="background: linear-gradient(135deg, #f0fff4 0%, #e6f9e6 100%); padding: 0.5em; border-radius: 6px; border: 2px solid #38a169; margin-top: 0.6em; font-size: 0.8em;">
+                    <div style="display: flex; justify-content: space-around; color: #2d3748; text-align: center;">
+                        <div><strong>🎯 38+ Built-in Patterns</strong> + Custom patterns</div>
+                        <div><strong>Detection:</strong> Hybrid regex + ML scoring</div>
+                        <div><strong>Accuracy:</strong> Context-aware (20-char window)</div>
+                        <div><strong>ALL DETECTIONS → </strong>Real-time audit (WHO, WHAT, WHEN)</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5: Real-Time Intelligence Dashboard -->
+            <section>
+                <h2>Real-Time Intelligence Dashboard</h2>
+                <h3 class="mb-1">Live Visibility & Control</h3>
+
+                <div style="background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%); color: #ffffff; padding: 0.6em; border-radius: 6px; text-align: center; margin-bottom: 0.8em; font-size: 1em; text-shadow: 0 1px 3px rgba(0,0,0,0.3);">
+                    <strong style="color: #ffffff;">🎬 LIVE DEMO: We'll walk through the dashboard showing real-time detection, audit logs, and compliance reporting</strong>
+                </div>
+
+                <div class="two-columns text-left smaller-text">
+                    <div>
+                        <div class="highlight-box">
+                            <h4>REAL-TIME VIOLATION FEED:</h4>
+                            <ul class="compact-list">
+                                <li><strong>WHO</strong> triggered violation</li>
+                                <li><strong>WHAT</strong> was detected (SSN, CC, AWS key)</li>
+                                <li><strong>WHEN</strong> it occurred (millisecond precision)</li>
+                                <li><strong>WHERE</strong> (source system, AI provider)</li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box mt-1">
+                            <h4>PATTERN ANALYSIS:</h4>
+                            <ul class="compact-list">
+                                <li>Identify high-risk users/departments</li>
+                                <li>Detect emerging risks before breaches</li>
+                                <li>Focus intervention (not blanket bans)</li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box mt-1">
+                            <h4>CONFIGURABLE RESPONSES:</h4>
+                            <ol class="compact-list">
+                                <li><strong>MASK</strong> - Replace with asterisks</li>
+                                <li><strong>REDACT</strong> - Remove entirely</li>
+                                <li><strong>BLOCK</strong> - Reject entire request</li>
+                                <li><strong>LOG_ONLY</strong> - Monitor new patterns</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="success-box">
+                            <h4>COMPLIANCE AUDIT EXPORTS:</h4>
+                            <ul class="compact-list">
+                                <li><strong>CSV</strong> for spreadsheet analysis</li>
+                                <li><strong>PDF</strong> for board presentations</li>
+                                <li><strong>JSON</strong> for SIEM integration</li>
+                            </ul>
+                        </div>
+
+                        <div class="success-box mt-1">
+                            <h4>RETENTION POLICIES:</h4>
+                            <ul class="compact-list">
+                                <li>Configurable (30 days - 7 years)</li>
+                                <li>GDPR-compliant deletion</li>
+                                <li>Automated purging</li>
+                            </ul>
+                        </div>
+
+                        <div class="success-box mt-1">
+                            <h4>USER RISK SCORING:</h4>
+                            <ul class="compact-list">
+                                <li>Violation frequency tracking</li>
+                                <li>Automated remediation policies</li>
+                                <li>Targeted security training</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-center mt-1 small-text" style="font-style: italic;">
+                    <strong>"From detection to action in milliseconds. From logs to compliance reports in seconds."</strong>
+                </p>
+            </section>
+
+            <!-- Slide 6: Competitive Positioning [13:30-16:00] -->
+            <section>
+                <h2>Why LLM Shield vs. Not-Many Alternatives</h2>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>LLM Shield</th>
+                            <th>SaaS DLP Tools</th>
+                            <th>Developer Tools</th>
+                            <th>Build Yourself</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Data Sovereignty</strong></td>
+                            <td><span class="checkmark">✅ VPC-native</span><br/>Never leaves network</td>
+                            <td><span class="crossmark">❌ Requires</span><br/>sending to their cloud</td>
+                            <td>⚠️ Depends on deployment</td>
+                            <td><span class="checkmark">✅ If done right</span><br/>(6-12 months)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Coverage</strong></td>
+                            <td><span class="checkmark">✅ ALL channels</span><br/>Network + Dev + Apps</td>
+                            <td>⚠️ Documents/email<br/>Not real-time AI</td>
+                            <td><span class="crossmark">❌ API only</span><br/>Misses employees</td>
+                            <td>⚠️ Limited scope<br/>Initial version</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Code Changes</strong></td>
+                            <td><span class="checkmark">✅ ZERO</span><br/>Network-level</td>
+                            <td>⚠️ Integration needed</td>
+                            <td><span class="crossmark">❌ Code integration</span><br/>All apps</td>
+                            <td><span class="crossmark">❌ Extensive dev</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>AI Developer Tools</strong></td>
+                            <td><span class="checkmark">✅ Protected</span><br/>Claude Code, Copilot, Cursor</td>
+                            <td><span class="crossmark">❌ Not covered</span><br/>Focus on documents/email</td>
+                            <td>⚠️ Limited<br/>API-only protection</td>
+                            <td>⚠️ Custom build<br/>Requires development</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ongoing Cost</strong></td>
+                            <td><span class="checkmark">✅ Fixed annual license</span><br/>+ your compute costs</td>
+                            <td><span class="crossmark">❌ Variable</span><br/>Per-user fees</td>
+                            <td><span class="crossmark">❌ Per-API-call</span><br/>Unpredictable</td>
+                            <td><span class="crossmark">❌ Perpetual</span><br/>maintenance</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box mt-1 small-text">
+                    <p class="text-center"><strong>THE VERDICT:</strong> Only solution with VPC-native + comprehensive coverage + zero code changes + enterprise scale + fixed costs</p>
+                </div>
+            </section>
+
+            <!-- Slide 9: Next Steps [22:00-24:00] -->
+            <section>
+                <h2>Next Steps: Implementation Roadmap</h2>
+                <h3 class="mb-1">Path to Protection</h3>
+
+                <div class="smaller-text" style="margin-top: 1em;">
+                    <!-- Visual Journey Timeline -->
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5em; position: relative;">
+
+                        <!-- Connecting Line -->
+                        <div style="position: absolute; top: 35px; left: 10%; right: 10%; height: 4px; background: linear-gradient(90deg, #3182ce 0%, #38a169 100%); z-index: 0; border-radius: 2px;"></div>
+
+                        <!-- Milestone 1 -->
+                        <div style="flex: 1; text-align: center; position: relative; z-index: 1;">
+                            <div style="width: 70px; height: 70px; margin: 0 auto 0.5em auto; background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                                <div style="color: white; font-size: 1.8em; font-weight: bold;">1</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, #ebf8ff 0%, #bee3f8 100%); border-left: 4px solid #3182ce; padding: 0.6em; border-radius: 6px; text-align: left; min-height: 160px;">
+                                <h4 style="color: #2c5282; margin: 0 0 0.4em 0; font-size: 0.9em;">🔧 TECHNICAL DEEP-DIVE</h4>
+                                <p style="margin: 0.2em 0; font-size: 0.75em; line-height: 1.3;">✓ Architecture review</p>
+                                <p style="margin: 0.2em 0; font-size: 0.75em; line-height: 1.3;">✓ Integration planning</p>
+                                <p style="margin: 0.2em 0; font-size: 0.75em; line-height: 1.3;">✓ Compliance mapping</p>
+                                <div style="margin-top: 0.5em; padding-top: 0.4em; border-top: 1px solid #bee3f8; font-weight: bold; color: #2c5282; font-size: 0.75em;">MONTH 1</div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone 2 -->
+                        <div style="flex: 1; text-align: center; position: relative; z-index: 1;">
+                            <div style="width: 70px; height: 70px; margin: 0 auto 0.5em auto; background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                                <div style="color: white; font-size: 1.8em; font-weight: bold;">2</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%); border-left: 4px solid #319795; padding: 0.6em; border-radius: 6px; text-align: left; min-height: 160px;">
+                                <h4 style="color: #234e52; margin: 0 0 0.4em 0; font-size: 0.9em;">🧪 PROOF OF CONCEPT</h4>
+                                <p style="margin: 0.2em 0; font-size: 0.75em; line-height: 1.3;">✓ Non-prod deployment</p>
+                                <p style="margin: 0.2em 0; font-size: 0.75em; line-height: 1.3;">✓ Test with your data</p>
+                                <p style="margin: 0.2em 0; font-size: 0.75em; line-height: 1.3;">✓ Fine-tune detection</p>
+                                <div style="margin-top: 0.5em; padding-top: 0.4em; border-top: 1px solid #b2f5ea; font-weight: bold; color: #234e52; font-size: 0.75em;">MONTH 2</div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone 3 -->
+                        <div style="flex: 1; text-align: center; position: relative; z-index: 1;">
+                            <div style="width: 70px; height: 70px; margin: 0 auto 0.5em auto; background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                                <div style="color: white; font-size: 1.8em; font-weight: bold;">3</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, #f0fff4 0%, #c6f6d5 100%); border-left: 4px solid #48bb78; padding: 0.6em; border-radius: 6px; text-align: left; min-height: 160px;">
+                                <h4 style="color: #22543d; margin: 0 0 0.4em 0; font-size: 0.9em;">🚀 LIMITED RELEASE</h4>
+                                <p style="margin: 0.2em 0; font-size: 0.75em; line-height: 1.3;">✓ Pilot group (500-1K users)</p>
+                                <p style="margin: 0.2em 0; font-size: 0.75em; line-height: 1.3;">✓ Monitor performance</p>
+                                <p style="margin: 0.2em 0; font-size: 0.75em; line-height: 1.3;">✓ Train teams</p>
+                                <div style="margin-top: 0.5em; padding-top: 0.4em; border-top: 1px solid #c6f6d5; font-weight: bold; color: #22543d; font-size: 0.75em;">MONTHS 3-4</div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone 4 -->
+                        <div style="flex: 1; text-align: center; position: relative; z-index: 1;">
+                            <div style="width: 70px; height: 70px; margin: 0 auto 0.5em auto; background: linear-gradient(135deg, #38a169 0%, #2f855a 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+                                <div style="color: white; font-size: 1.8em; font-weight: bold;">✓</div>
+                            </div>
+                            <div style="background: linear-gradient(135deg, #f0fff4 0%, #9ae6b4 100%); border-left: 4px solid #38a169; padding: 0.6em; border-radius: 6px; text-align: left; min-height: 160px;">
+                                <h4 style="color: #22543d; margin: 0 0 0.4em 0; font-size: 0.9em;">✅ FULL DEPLOYMENT</h4>
+                                <p style="margin: 0.2em 0; font-size: 0.75em; line-height: 1.3;">✓ Enterprise-wide rollout</p>
+                                <p style="margin: 0.2em 0; font-size: 0.75em; line-height: 1.3;">✓ Complete coverage</p>
+                                <p style="margin: 0.2em 0; font-size: 0.75em; line-height: 1.3;">✓ 24/7 support & CSM</p>
+                                <div style="margin-top: 0.5em; padding-top: 0.4em; border-top: 1px solid #9ae6b4; font-weight: bold; color: #22543d; font-size: 0.75em;">MONTHS 5-6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: linear-gradient(135deg, #f7fafc 0%, #e2e8f0 100%); border-left: 4px solid #4299e1; padding: 0.8em; border-radius: 8px; margin-top: 1em; text-align: center;">
+                    <p style="margin: 0; font-size: 0.9em;"><strong style="color: #2c5282;">Progressive rollout from technical validation to enterprise protection</strong> — De-risked implementation with measurable milestones</p>
+                </div>
+
+                <aside class="notes">
+                    TIMING: [22:00-24:00] (2 minutes)
+
+                    WHAT TO SAY:
+                    "Let me walk you through our 6-month implementation roadmap - the path from partnership to full protection.
+
+                    Step 1 happens this week: Secure your partnership agreement and lock in pricing before we begin implementation. This ensures you get current pricing and we can allocate resources.
+
+                    Month 1 is our technical deep-dive: We'll do an architecture review with your team, plan infrastructure integration, map your compliance requirements - whether that's GDPR, HIPAA, SOX, or others - and kick off custom pattern development for your specific needs.
+
+                    Month 2 is proof of concept: We deploy in a non-production environment, test with your actual data patterns, validate performance at your scale, and fine-tune detection rules.
+
+                    Months 3-4 are limited release: Production deployment with a pilot group of 500-1,000 users, controlled rollout, monitoring real-world performance, gathering feedback, optimizing, and training your security and compliance teams.
+
+                    Months 5-6 are full release: Enterprise-wide rollout to all users, complete coverage across all AI channels, a dedicated Customer Success Manager assigned to you, 24/7 support and monitoring, and quarterly business reviews to ensure ongoing success.
+
+                    The key message: Commit today, start protecting tomorrow. Let's secure your partnership and begin the journey to compliant, protected AI adoption."
+
+                    KEY POINTS:
+                    - 6 months from commitment to full deployment
+                    - POC phase reduces risk (test before full rollout)
+                    - Limited release ensures smooth transition
+                    - Dedicated CSM = white-glove service
+
+                    TRANSITION:
+                    "Let me close with our call to action..."
+                </aside>
+            </section>
+
+            <!-- Slide 10: Call to Action [24:00-25:00] -->
+            <section data-background-color="#1a365d">
+                <h2 style="color: white; margin-top: 1em;">Protect Your Data.<br/>Enable AI Innovation.<br/>Sleep at Night.</h2>
+
+                <p style="color: #e2e8f0; font-size: 1.2em; margin: 1.5em 0;">
+                    Your next data breach is being typed into ChatGPT right now.
+                </p>
+
+                <p style="color: white; font-size: 1.5em; margin: 1.5em 0; font-weight: 700;">
+                    The SAGE Platform stops it before it happens.
+                </p>
+
+                <div style="border: 3px solid white; padding: 1.5em; margin: 1.5em 0;">
+                    <p style="color: #e2e8f0; font-size: 1.2em; margin: 0.4em 0;">
+                        📧 contact@datahawk.io
+                    </p>
+                    <p style="color: #e2e8f0; font-size: 1.2em; margin: 0.4em 0;">
+                        📞 +1 (425) 728-0734
+                    </p>
+                    <p style="color: #e2e8f0; font-size: 1.2em; margin: 0.4em 0;">
+                        🌐 datahawk.io
+                    </p>
+                </div>
+
+                <p style="color: #cbd5e0; font-size: 1.1em; font-style: italic; margin-top: 1.5em;">
+                    "Your data. Your network. Your control."
+                </p>
+
+                <p style="color: #a0aec0; margin-top: 1.5em;">
+                    SAGE Platform by DataHawk
+                </p>
+
+                <aside class="notes">
+                    TIMING: [24:00-25:00] (1 minute)
+
+                    WHAT TO SAY:
+                    "Let me close with this: Your next data breach is being typed into ChatGPT right now. The SAGE Platform - LLM Shield for prevention and SAGE Core for detection - stops it before it happens.
+
+                    We can protect your data, enable AI innovation, and let you sleep at night.
+
+                    Schedule your 30-minute demonstration today. Contact us at contact@datahawk.io, call +1-425-728-0734, or visit datahawk.io.
+
+                    Your data. Your network. Your control. That's the SAGE Platform by DataHawk.
+
+                    Thank you. I'll now take questions, or we can dive deeper into the technical appendix."
+
+                    KEY POINTS:
+                    - Emotional close with urgency (breach happening now)
+                    - Clear call to action (schedule demo)
+                    - Multiple contact methods (email/phone/web)
+                    - Reinforce brand promise (data/network/control)
+
+                    TRANSITION:
+                    "The next slides are technical appendices for deep-dive questions..."
+                </aside>
+            </section>
+
+            <!-- APPENDIX SECTION -->
+
+            <!-- Appendix A: Security & Compliance [25:00-27:00] -->
+            <section>
+                <div style="border-top: 2px dashed #cbd5e0; padding-top: 0.5em; margin-bottom: 0.8em;">
+                    <h2>Appendix A: Security & Compliance</h2>
+                    <p style="font-size: 0.85em; color: #718096; font-style: italic; margin-top: 0.3em;">
+                        Regulatory compliance and platform security specifications
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1em; text-align: left;" class="smaller-text">
+                    <div class="highlight-box">
+                        <h4>GDPR (EU Data Protection):</h4>
+                        <ul class="compact-list">
+                            <li><span class="checkmark">✓</span> Article 44: Data residency in EU</li>
+                            <li><span class="checkmark">✓</span> Complete audit trail</li>
+                            <li><span class="checkmark">✓</span> Right to delete (PII purging)</li>
+                            <li><span class="checkmark">✓</span> No cross-border transfers</li>
+                            <li><span class="checkmark">✓</span> VPC-native = no third-party processing</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>HIPAA (Healthcare):</h4>
+                        <ul class="compact-list">
+                            <li><span class="checkmark">✓</span> PHI protection (medical records, prescriptions)</li>
+                            <li><span class="checkmark">✓</span> Access controls (RBAC)</li>
+                            <li><span class="checkmark">✓</span> Audit logging (all access tracked)</li>
+                            <li><span class="checkmark">✓</span> Breach prevention at source</li>
+                            <li><span class="checkmark">✓</span> BAA (Business Associate Agreement) available</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>CCPA (California Privacy):</h4>
+                        <ul class="compact-list">
+                            <li><span class="checkmark">✓</span> Data residency in California</li>
+                            <li><span class="checkmark">✓</span> Consumer rights (exportable audit)</li>
+                            <li><span class="checkmark">✓</span> Personal info processing log</li>
+                            <li><span class="checkmark">✓</span> Right to opt-out of data sales</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <h4>SOC 2 / ISO 27001:</h4>
+                        <ul class="compact-list">
+                            <li><span class="checkmark">✓</span> JWT authentication (15-min access + 7-day refresh)</li>
+                            <li><span class="checkmark">✓</span> TLS 1.3 encryption (all traffic)</li>
+                            <li><span class="checkmark">✓</span> Complete access logging</li>
+                            <li><span class="checkmark">✓</span> Vulnerability management (regular patching)</li>
+                            <li><span class="checkmark">✓</span> SOC 2 Type II certification (in progress)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="success-box mt-1 smaller-text">
+                    <h4>PLATFORM SECURITY:</h4>
+                    <p>JWT tokens (15-min access + 7-day refresh) • RBAC with 32 granular permissions • BCrypt password hashing • Account lockout (5 failed attempts) • Penetration testing • Regular security patching • Vulnerability scanning • Encrypted at rest and in transit</p>
+                </div>
+
+                <div class="warning-box mt-1 small-text">
+                    <p><strong>VPC-NATIVE BENEFIT:</strong> NO third-party data processing risk. Your data stays in YOUR infrastructure → Simplifies compliance posture dramatically</p>
+                </div>
+
+                <aside class="notes">
+                    TIMING: [25:00-27:00] (2 minutes)
+
+                    WHAT TO SAY:
+                    "This appendix covers regulatory compliance and platform security details.
+
+                    For GDPR compliance: Article 44 data residency in EU is guaranteed. We provide a complete audit trail. Right to delete with PII purging. No cross-border transfers. And because we're VPC-native, there's no third-party processing - your data stays in your infrastructure.
+
+                    For HIPAA: We protect PHI including medical records and prescriptions. RBAC access controls. Audit logging tracks all access. Breach prevention at the source. And we provide a Business Associate Agreement.
+
+                    For CCPA: Data residency in California. Consumer rights with exportable audit logs. Personal info processing logs. Right to opt-out of data sales.
+
+                    For SOC 2 and ISO 27001: JWT authentication with 15-minute access tokens and 7-day refresh tokens. TLS 1.3 encryption on all traffic. Complete access logging. Vulnerability management with regular patching. And we're pursuing SOC 2 Type II certification.
+
+                    Platform security features: JWT tokens, RBAC with 32 granular permissions, BCrypt password hashing, account lockout after 5 failed attempts, penetration testing, regular security patching, vulnerability scanning, and encryption at rest and in transit.
+
+                    The VPC-native benefit is critical: There's NO third-party data processing risk. Your data stays in YOUR infrastructure. This simplifies your compliance posture dramatically - you're not sending data to another vendor's cloud for processing."
+
+                    KEY POINTS:
+                    - Comprehensive regulatory coverage (GDPR/HIPAA/CCPA/SOC2)
+                    - VPC-native eliminates third-party processing risk
+                    - Platform security follows industry best practices
+                    - BAA available for healthcare customers
+                </aside>
+            </section>
+
+            <!-- Appendix B: Enterprise Performance [27:00-30:00] -->
+            <section>
+                <div style="border-top: 2px dashed #cbd5e0; padding-top: 0.5em; margin-bottom: 0.8em;">
+                    <h2>Appendix B: Enterprise Performance</h2>
+                    <p style="font-size: 0.85em; color: #718096; font-style: italic; margin-top: 0.3em;">
+                        Advanced technical details for architecture and security teams
+                    </p>
+                </div>
+
+                <div class="two-columns text-left smaller-text">
+                    <div>
+                        <div class="highlight-box">
+                            <h4>DETECTION TECHNOLOGY:</h4>
+                            <ul class="compact-list">
+                                <li><strong>Hybrid approach:</strong> Regex patterns + ML confidence scoring</li>
+                                <li><strong>Context-aware:</strong> 20-character window around matches</li>
+                                <li><strong>38+ built-in patterns:</strong> SSN, CC, AWS keys, PHI, PII, custom</li>
+                                <li><strong>Low false positives:</strong> &lt;2% with context analysis</li>
+                                <li><strong>Configurable responses:</strong> MASK, REDACT, BLOCK, LOG_ONLY</li>
+                            </ul>
+                        </div>
+
+                        <div class="highlight-box mt-1">
+                            <h4>PERFORMANCE METRICS:</h4>
+                            <ul class="compact-list">
+                                <li><strong>Throughput:</strong> 148M requests/day (1,713 req/sec sustained)</li>
+                                <li><strong>Latency:</strong> P50: 15ms | P95: 38ms | P99: 52ms</li>
+                                <li><strong>Concurrency:</strong> 50,000 concurrent users</li>
+                                <li><strong>Availability:</strong> 99.9% uptime SLA</li>
+                            </ul>
+                        </div>
+
+                        <div class="success-box mt-1">
+                            <h4>ENTERPRISE PERFORMANCE:</h4>
+                            <p><strong>Example:</strong> 10,000 employees × 100 AI interactions/day = 1M requests/day</p>
+                            <p><strong>Capacity:</strong> 148X headroom for growth</p>
+                            <p><strong>Impact:</strong> 2-8% of total AI response time = transparent protection</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="highlight-box">
+                            <h4>INTERCEPTION COVERAGE:</h4>
+                            <table style="font-size: 0.9em;">
+                                <tr>
+                                    <td><strong>Network-level:</strong></td>
+                                    <td>ChatGPT, Claude, Gemini browser access</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Developer tools:</strong></td>
+                                    <td>GitHub Copilot, Cursor, coding assistants</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Application APIs:</strong></td>
+                                    <td>Custom integrations, automated workflows</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Training data:</strong></td>
+                                    <td>Batch sanitization before ingestion</td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div class="highlight-box mt-1">
+                            <h4>AUDIT & COMPLIANCE:</h4>
+                            <ul class="compact-list">
+                                <li><strong>Real-time logging:</strong> WHO, WHAT, WHEN, WHERE</li>
+                                <li><strong>Retention:</strong> 30 days - 7 years (configurable)</li>
+                                <li><strong>Export formats:</strong> CSV, PDF, JSON</li>
+                                <li><strong>SIEM integration:</strong> Splunk, Datadog, custom</li>
+                                <li><strong>GDPR-compliant:</strong> Right to delete, data residency</li>
+                            </ul>
+                        </div>
+
+                        <div class="success-box mt-1">
+                            <h4>DEPLOYMENT OPTIONS:</h4>
+                            <ul class="compact-list">
+                                <li><strong>AWS Cloud:</strong> VPC-native, auto-scaling</li>
+                                <li><strong>On-premise:</strong> Your data center, full control</li>
+                                <li><strong>Air-gapped:</strong> No internet connectivity required</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="notes">
+                    TIMING: [27:00-30:00] (3 minutes + Q&A)
+
+                    WHAT TO SAY:
+                    "This appendix provides technical deep-dive details for your architecture and security teams.
+
+                    Our detection technology uses a hybrid approach: regex patterns combined with ML confidence scoring. It's context-aware with a 20-character window around matches. We have 38+ built-in patterns covering SSN, credit cards, AWS keys, PHI, PII, and custom patterns. False positives are below 2% thanks to context analysis. You can configure responses: MASK, REDACT, BLOCK, or LOG_ONLY.
+
+                    Performance metrics: We handle 148 million requests per day - that's 1,713 requests per second sustained. Latency is P50: 15ms, P95: 38ms, P99: 52ms. We support 50,000 concurrent users with a 99.9% uptime SLA.
+
+                    For an enterprise example: 10,000 employees making 100 AI interactions per day equals 1 million requests per day. We have 148X headroom for growth. Our latency represents only 2-8% of total AI response time - transparent protection.
+
+                    Interception coverage includes: Network-level traffic to ChatGPT, Claude, Gemini. Developer tools like GitHub Copilot and Cursor. Application APIs for custom integrations. And batch sanitization for training data.
+
+                    Audit and compliance features: Real-time logging of WHO, WHAT, WHEN, WHERE. Configurable retention from 30 days to 7 years. Export in CSV, PDF, or JSON. SIEM integration with Splunk, Datadog, or custom. GDPR-compliant with right to delete and data residency guarantees.
+
+                    Deployment options: AWS Cloud with VPC-native auto-scaling. On-premise in your data center for full control. Or air-gapped with no internet connectivity required."
+
+                    KEY POINTS:
+                    - Technical depth for architecture/security teams
+                    - Performance numbers demonstrate enterprise-readiness
+                    - Comprehensive coverage across all AI channels
+                    - Flexible deployment for any environment
+
+                    Q&A TIME:
+                    "I'll now open the floor for any questions you may have about the SAGE Platform, LLM Shield, SAGE Core, deployment, pricing, or technical architecture."
+                </aside>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.0.4/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t', // Show current slide / total slides
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            width: 1920,
+            height: 1080,
+            margin: 0.04,
+            minScale: 0.2,
+            maxScale: 2.0,
+            controls: true,
+            progress: true, // Shows progress bar at bottom
+            center: true,
+            touch: true,
+            loop: false,
+            rtl: false,
+            navigationMode: 'default',
+            shuffle: false,
+            fragments: true,
+            fragmentInURL: true,
+            embedded: false,
+            help: true,
+            pause: true,
+            showNotes: false,
+            autoPlayMedia: null,
+            preloadIframes: null,
+            autoAnimate: true,
+            autoAnimateMatcher: null,
+            autoAnimateEasing: 'ease',
+            autoAnimateDuration: 1.0,
+            autoAnimateUnmatched: true,
+            keyboard: true,
+            overview: true, // Press ESC to see all slides
+            disableLayout: false,
+            touch: true
+        });
+
+        // TOC Navigation functionality
+        Reveal.on('ready', event => {
+            // Initialize active state on first slide
+            updateActiveTocItem(0);
+        });
+
+        Reveal.on('slidechanged', event => {
+            // Update active slide in TOC when slide changes
+            const activeSlide = event.indexh;
+            updateActiveTocItem(activeSlide);
+        });
+
+        function updateActiveTocItem(slideIndex) {
+            // Remove active class from all TOC items
+            document.querySelectorAll('#toc-list li').forEach(li => {
+                li.classList.remove('active');
+            });
+
+            // Add active class to current slide's TOC item
+            const activeTocItem = document.querySelector(`#toc-list li[data-slide="${slideIndex}"]`);
+            if (activeTocItem) {
+                activeTocItem.classList.add('active');
+                // Scroll TOC to keep active item visible
+                activeTocItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Toggle TOC visibility when clicking on the sidebar
+        const toc = document.getElementById('toc');
+        toc.addEventListener('click', (e) => {
+            // Toggle expanded state
+            document.body.classList.toggle('toc-expanded');
+
+            // If clicking on a list item, navigate to that slide
+            const listItem = e.target.closest('li[data-slide]');
+            if (listItem) {
+                const slideIndex = parseInt(listItem.getAttribute('data-slide'));
+                Reveal.slide(slideIndex);
+            }
+        });
+    </script>
+</body>
+</html>
